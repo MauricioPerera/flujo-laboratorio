@@ -39,3 +39,7 @@ El comando de vista local arranca el visor y devuelve la URL y el PID del proces
 `leer` devuelve el historial en `project.changeHistory`. Para revertir o rehacer, prepara un JSON con la revisión actual, el `entryId`, el índice `changeIndex` desde cero y `author`. Ejecuta `revertir` con la entrada que contiene el cambio. Ejecuta `rehacer` con la entrada de reversión. La CLI valida que el campo conserve el valor esperado.
 
 Para comprobar todo el recorrido del ejemplo integrado, consulta [Sistema de solicitudes](../../../EXAMPLE_REQUESTS.md).
+
+## Preparar la implementación
+
+Cuando el encargo incluya entregar la definición a una IA implementadora, usa la [entrega orientada a una IA implementadora](../../../SPECIFICATION.md#entrega-orientada-a-una-ia-implementadora). Adjunta al HTML un Markdown que relacione requisitos, tareas, contratos y pruebas, indique el alcance autorizado y registre las decisiones pendientes con las tareas afectadas. Identifica qué datos aporta la exportación y qué acuerdos agregaste a ese documento. Una decisión pendiente sobre comportamiento, contratos o alcance debe resolverse antes de ejecutar su tarea dependiente. Las tareas independientes pueden avanzar.

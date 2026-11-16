@@ -1,6 +1,6 @@
 # Flujo — Laboratorio visual
 
-Plataforma para diseñar y simular flujos de distintos dominios en proyectos HTML editables. El editor original incluye exportación de pruebas de modelo y contratos ejecutables para el ejemplo inmobiliario.
+Plataforma para evaluar sistemas antes de implementarlos mediante flujos y simulaciones de bajo costo. Su objetivo es producir especificaciones, contratos y pruebas que orienten a una IA para generar y validar código con un alcance preciso. El editor original incluye exportación de pruebas de modelo y contratos ejecutables para el ejemplo inmobiliario.
 
 La [especificación de la plataforma](SPECIFICATION.md) describe el ciclo completo. La [matriz de trazabilidad](SPEC_TRACEABILITY.md) documenta la evidencia disponible. Los proyectos incluidos ilustran su uso, entre ellos el [ejemplo autónomo «Sistema de solicitudes»](EXAMPLE_REQUESTS.md).
 

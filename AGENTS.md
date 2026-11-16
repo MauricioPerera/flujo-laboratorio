@@ -1,6 +1,6 @@
 # Trabajar con Flujo
 
-Flujo es una herramienta para diseñar y simular sistemas mediante flujos. Los datos, operaciones y resultados de los ejemplos son simulados. La [especificación](SPECIFICATION.md) define el alcance y la [matriz](SPEC_TRACEABILITY.md) indica qué se pudo verificar.
+Flujo busca evaluar sistemas de forma rápida y económica antes de implementarlos y entregar especificaciones, contratos y pruebas que guíen a una IA para generar y validar código dentro de un alcance acordado. Los datos, operaciones y resultados de los ejemplos son simulados. La [especificación](SPECIFICATION.md) define el alcance y la [matriz](SPEC_TRACEABILITY.md) indica qué se pudo verificar.
 
 ## Identifica la tarea
 
@@ -27,3 +27,4 @@ Flujo es una herramienta para diseñar y simular sistemas mediante flujos. Los d
 - Usa `leer` y `guardar` para modificar el HTML de trabajo, manteniendo su `revision` y declarando la autoría del agente. Si otro editor guardó primero, vuelve a leer y aplica la edición sobre el archivo reciente.
 - El trazado se comparte desde `dist/routing.js`. Después de cambiarlo, ejecuta `node scripts/sync-routing.cjs` para actualizar el HTML autónomo y corre las pruebas.
 - Cuando cambies una interacción, verifícala en el navegador además de ejecutar la suite. Registra qué superficie y casos quedaron comprobados.
+- Si preparas una entrega para implementar un sistema, sigue la [entrega orientada a una IA implementadora](SPECIFICATION.md#entrega-orientada-a-una-ia-implementadora). Relaciona las tareas con los requisitos y casos, y explicita las decisiones abiertas que afectan a cada tarea.

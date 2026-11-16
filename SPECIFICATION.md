@@ -2,11 +2,11 @@
 
 ## Propósito
 
-Flujo es una herramienta para **crear, gestionar, simular y verificar flujos de cualquier proyecto**. El usuario puede modelar un sistema junto con una IA y revisar visualmente qué pasa con distintas entradas, qué reglas están acordadas y qué decisiones siguen abiertas.
+Flujo permite **evaluar un sistema de forma rápida y económica antes de implementarlo**. El usuario y una IA definen su comportamiento mediante flujos, simulan situaciones y revisan resultados para detectar errores, ambigüedades y decisiones pendientes mientras el costo de cambiarlos todavía es bajo.
 
 La unidad de trabajo es el **proyecto de flujos**. Cada proyecto reúne sus propios flujos, subflujos, biblioteca de bloques, notas, contratos y casos. Se diseña para que cada equipo pueda llevar ese proyecto dentro del sistema que está definiendo, como un HTML con editor, visor y opciones de exportación.
 
-Una vez acordado el modelo, los flujos, casos y contratos sirven de referencia para desarrollar y verificar las implementaciones correspondientes. La simulación del editor usa datos de prueba. Las operaciones reales pertenecen a las implementaciones del proyecto.
+La segunda finalidad es entregar artefactos con los que una IA pueda generar el código y comprobarlo con un alcance preciso. Los flujos, contratos, decisiones y pruebas deben explicar qué construir, qué restricciones cumplir y cómo demostrar que el trabajo satisface lo acordado. La simulación del editor usa datos de prueba. Las operaciones reales pertenecen a las implementaciones del proyecto.
 
 ## Ciclo de trabajo
 
@@ -34,6 +34,31 @@ El dominio de cada proyecto aporta sus bloques, datos, reglas, resultados y caso
 ## Relación entre flujo e implementación
 
 El flujo define el comportamiento que se quiere comprobar. Su contrato indica los datos intercambiados y los resultados esperados. Los casos del modelo sirven para discutir y probar el comportamiento. Los casos confirmados sirven además para verificar una implementación.
+
+## Entrega orientada a una IA implementadora
+
+La entrega debe reducir las decisiones que el agente tiene que deducir y limitar sus acciones al trabajo acordado. Cada cambio debe poder relacionarse con un requisito, un flujo y una comprobación.
+
+| Artefacto requerido | Información que debe recibir el agente |
+|---|---|
+| Modelo de referencia | Revisión del proyecto, flujos, subflujos, bloques y comportamiento acordado. |
+| Contratos | Entradas, tipos, campos obligatorios, estado interno, salidas, errores y efectos permitidos sobre otros sistemas. |
+| Decisiones e incertidumbres | Qué está confirmado, qué queda abierto, restricciones existentes y tareas o casos afectados por cada punto pendiente. |
+| Casos y evidencia | Entradas, resultados esperados y obtenidos, rutas ejercitadas y comprobaciones pendientes. Los casos deben incluir resultados distintos y límites relevantes. |
+| Encargo de implementación | Tareas necesarias, entregables, alcance autorizado, exclusiones y restricciones técnicas acordadas. Cuando exista un repositorio destino, identificar las áreas o archivos afectados. |
+| Criterios de aceptación | Relación entre requisito, flujo y prueba, comandos de verificación conocidos, adaptador necesario y evidencia que debe producir la implementación. |
+
+Una incertidumbre conserva su contexto. Por ejemplo, se puede acordar qué debe devolver «Consultar solicitud» y cuáles son sus errores mientras se decide la fuente de datos. La elección de esa fuente afecta a las tareas de integración y a sus pruebas. Las tareas independientes pueden avanzar con los acuerdos disponibles.
+
+Si falta una decisión que cambia el comportamiento, los contratos o el alcance autorizado, el agente debe identificar esa dependencia y obtener su definición antes de ejecutar la tarea afectada. Los detalles locales reversibles pueden resolverse dentro del alcance acordado, dejando constancia cuando sean relevantes para verificar o mantener el sistema.
+
+Las pruebas deben detectar incumplimientos y los casos deben representar lo que el sistema realmente necesita. La correspondencia entre expectativas y resultados se verifica junto con la cobertura de las rutas pertinentes. El costo y el tiempo ahorrados deberán medirse en proyectos reales.
+
+### Estado de esta entrega
+
+Esta sección define el objetivo de la plataforma. La generación uniforme de todos estos artefactos, la trazabilidad entre requisitos y tareas, y la comprobación del alcance de una IA implementadora siguen pendientes. El prompt y las skills orientan al agente para documentar manualmente los acuerdos y las carencias de la exportación actual.
+
+## Exportación disponible
 
 La aplicación principal exporta pruebas de contrato y una plantilla de adaptador. El desarrollador implementa en esa plantilla la llamada al sistema y devuelve salida, error y estado de finalización. El proyecto autónomo ejecuta los casos del modelo en el panel **Casos**. La exportación de pruebas de implementación para este editor y el vínculo entre una implementación, la revisión que cumple y su verificación siguen pendientes.
 
