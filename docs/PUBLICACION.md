@@ -14,7 +14,7 @@ El [workflow](../.github/workflows/ci.yml) ejecuta la suite en Windows y Ubuntu 
 ## Preparar la publicación
 
 1. Revisa el árbol del commit candidato con `git ls-tree -r --name-only <commit>`. Incluye `dist/`, los scripts, pruebas, documentación y skills. La configuración personal de publicación, los archivos de sesión, las exportaciones de trabajo y los secretos pertenecen al entorno local. Los patrones correspondientes están en [`.gitignore`](../.gitignore). Extrae el commit candidato con `git archive --format=zip --output=flujo.zip <commit>` y repite la verificación desde esa copia.
-2. Define el repositorio de destino, su visibilidad y la licencia si corresponde. El repositorio actual todavía carece de un remoto y de una licencia asignada.
+2. La primera release está en [MauricioPerera/flujo-laboratorio](https://github.com/MauricioPerera/flujo-laboratorio/releases/tag/v0.1.0), que se creó desde una copia limpia. El repositorio carece de una licencia asignada.
 3. Revisa si el destino debe conservar el historial local. Una revisión anterior contiene el identificador de un sitio de demostración en `.openai/hosting.json`. Esa configuración quedó fuera del conjunto de archivos de la versión actual. Para publicar solo el estado actual, crea un repositorio inicial desde una exportación limpia del commit elegido.
 4. Sube el commit a la rama `main` de GitHub y espera que termine el workflow. Cuando la revisión elegida esté verificada en el destino, crea la etiqueta `v0.1.0` y una release.
 
@@ -23,3 +23,7 @@ El [workflow](../.github/workflows/ci.yml) ejecuta la suite en Windows y Ubuntu 
 - **Proyecto HTML autónomo.** Creación de proyectos, bloques personalizados, subflujos, contratos de entrada, ejecución de casos del modelo en el panel **Casos** y exportación del proyecto portable.
 - **Vista en vivo y trabajo con agentes.** Edición sobre el mismo HTML, guardado con control de revisión, historial de cambios, reversión y cambios rehechos.
 - **Editor original.** Ejemplo inmobiliario con consultas, disponibilidad y agendas simuladas, casos verificables y exportación de pruebas y adaptador de contrato.
+
+## GitHub Pages
+
+La [landing](https://mauricioperera.github.io/flujo-laboratorio/) se construye desde `site/` y `dist/`. El [workflow de Pages](../.github/workflows/pages.yml) se ejecuta al cambiar cualquiera de esas carpetas en `main`. Publica el editor autónomo como `prototipo-proyecto.html` y el ejemplo inmobiliario como `editor-inmobiliario.html`.

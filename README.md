@@ -4,6 +4,8 @@ Plataforma para diseñar y simular flujos de distintos dominios en proyectos HTM
 
 La [especificación de la plataforma](SPECIFICATION.md) describe el ciclo completo. La [matriz de trazabilidad](SPEC_TRACEABILITY.md) documenta la evidencia disponible. Los proyectos incluidos ilustran su uso, entre ellos el [ejemplo autónomo «Sistema de solicitudes»](EXAMPLE_REQUESTS.md).
 
+[Conoce Flujo y prueba la demo en GitHub Pages](https://mauricioperera.github.io/flujo-laboratorio/).
+
 ## Iniciar
 
 Usa **Node.js 24**. Desde la raíz, crea una copia del ejemplo y abre su vista en vivo. El primer comando crea una carpeta local para proyectos de trabajo.

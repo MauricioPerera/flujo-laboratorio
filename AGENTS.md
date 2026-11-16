@@ -12,6 +12,7 @@ Flujo es una herramienta para diseñar y simular sistemas mediante flujos. Los d
 
 | Ruta | Función |
 |---|---|
+| `site/` | Landing de GitHub Pages con una demo interactiva. El [workflow](.github/workflows/pages.yml) publica la landing junto a los editores de `dist/`. |
 | `dist/prototipo-proyecto.html` | Editor autónomo, modelo de ejemplo y simulador embebido. Sirve de plantilla para exportar y abrir proyectos genéricos. |
 | `dist/index.html` y módulos de `dist/` | Editor original del ejemplo inmobiliario. Incluye notas de agrupación, historial de ejecuciones y exportación de pruebas de contrato. |
 | `scripts/proyecto-html.cjs` | CLI para leer, guardar, previsualizar, simular, revertir y rehacer cambios en un proyecto HTML. |
