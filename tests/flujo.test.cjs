@@ -31,7 +31,9 @@ function boot(values = {}) {
       elements.set(selector, {
         dataset: {}, style: {}, value: '', innerHTML: '', clientWidth: 900,
         classList: { toggle() {}, add() {}, remove() {} },
-        addEventListener(type, listener) { if (type === 'click') this.onclick = listener; }, scrollTo() {},
+        addEventListener(type, listener) {
+          if (type === 'click') (this.clickListeners ??= []).push(listener);
+        }, scrollTo() {},
         insertAdjacentHTML() {},
         querySelector: name => element(selector + ' ' + name),
         querySelectorAll: () => []
@@ -268,6 +270,20 @@ test('export controls create runnable specification, model tests, and implementa
     const wrongShape = spawnSync(process.execPath, ['--test', '--test-reporter=tap', implementationTests], { encoding: 'utf8', env: contractEnv });
     assert.equal(wrongShape.status, 1, wrongShape.stdout + wrongShape.stderr);
     assert.match(wrongShape.stdout, /salida debe ser un objeto JSON o null/);
+    for (const extra of [
+      'Object.defineProperty(salida,"perdido",{value:42})',
+      'salida[Symbol("perdido")]=42',
+      'Object.defineProperty(salida,"oculto",{enumerable:true,get:()=>42})'
+    ]) {
+      writeFileSync(adapter, `exports.ejecutarCaso=async({entrada})=>{
+        const salida={intencion:entrada.mensaje.includes('información')?'informacion':'otro'};
+        ${extra};
+        return {salida,error:null,completado:true};
+      };`);
+      const lossyOutput = spawnSync(process.execPath, ['--test', '--test-reporter=tap', implementationTests], { encoding: 'utf8', env: contractEnv });
+      assert.equal(lossyOutput.status, 1, lossyOutput.stdout + lossyOutput.stderr);
+      assert.match(lossyOutput.stdout, /propiedades de texto enumerables/);
+    }
   } finally {
     for (const file of files) rmSync(file, { force: true });
     rmdirSync(temp);
@@ -280,7 +296,10 @@ test('test export refuses expectations that disappear or change when serialized'
     '{path:"intencion",value:undefined}',
     '{path:"$",value:{campo:undefined}}',
     'Object.defineProperty({path:"intencion"},"value",{value:42})',
-    '{path:"$",value:{toJSON:()=>({otro:1})}}'
+    '{path:"$",value:{toJSON:()=>({otro:1})}}',
+    '{path:"$",value:Object.defineProperty({},"perdido",{value:42})}',
+    '{path:"$",value:{[Symbol("perdido")]:42}}',
+    '{path:"$",value:{get dato(){return 42}}}'
   ]) {
     page.run(`createContract=()=>({flow:rootState,cases:[{...exampleCases()[0],proposed:false,expected:${expected}}]})`);
     page.element('#downloadTests').onclick();
@@ -288,6 +307,30 @@ test('test export refuses expectations that disappear or change when serialized'
     assert.equal(page.downloads.length, 0);
     assert.match(page.element('#specTransferStatus').textContent, /JSON|valor esperado/);
   }
+});
+
+test('an imported JSON expectation with own conversion keys remains editable', async () => {
+  const page = boot();
+  const value = { toString: {}, valueOf: [] };
+  const spec = {
+    formatVersion: 'flujo-spec/1.0',
+    flow: link(input, output),
+    cases: [{ ...scenario, input: { toString: 'texto', valueOf: 7 }, expected: { path: '$', value } }]
+  };
+  const json = JSON.stringify(spec);
+  await page.element('#importFile').onchange({ target: { files: [{ size: Buffer.byteLength(json), text: async () => json }] } });
+  assert.equal(page.element('#confirmImport').disabled, false);
+  page.element('#confirmImport').onclick();
+  page.element('#openExport').onclick();
+  page.element('#exportCaseList').onclick({
+    target: { closest: selector => selector === '[data-edit]' ? { dataset: { edit: scenario.id } } : null }
+  });
+  assert.equal(page.element('#exportExpectedType').value, 'json');
+  assert.deepEqual(JSON.parse(page.element('#exportCaseExpected').value), value);
+  assert.match(page.element('#guidedInputs').innerHTML, /data-key="toString"/);
+  assert.doesNotMatch(page.element('#guidedInputs').innerHTML, /\[native code\]/);
+  page.element('#addExportCase').onclick();
+  assert.deepEqual(data(page.run('exportCases()[0].expected.value')), value);
 });
 
 test('change comparison detects a different branch between the same two blocks', () => {
@@ -304,6 +347,19 @@ test('change comparison detects a different branch between the same two blocks',
   assert.equal(page.run('lastImpact.results[0].outputChanged'), false);
   assert.equal(page.run('lastImpact.results[0].routeChanged'), true);
   assert.match(page.element('#impactResults').innerHTML, /Cambi[oó] la ruta recorrida/);
+});
+
+test('original editor equality handles JSON objects that shadow conversion methods', () => {
+  const page = boot();
+  const graph = link(input, { type: 'condition', id: 'check', field: 'dato', comparison: 'eq', value: 'texto' }, output);
+  graph.edges[1].branch = 'no';
+  const argument = { dato: { toString: null, valueOf: 0 } };
+  const check = { ...scenario, input: argument, expected: { path: '$', value: argument } };
+  const result = page.run('compareScenario(' + JSON.stringify(check) + ',' + JSON.stringify(graph) + ')');
+  assert.equal(result.error, null);
+  assert.equal(result.completed, true);
+  assert.equal(result.pass, true);
+  assert.equal(result.visitedEdges.at(-1).branch, 'no');
 });
 
 test('simulated executions are labeled and make no outbound calls in the model', () => {

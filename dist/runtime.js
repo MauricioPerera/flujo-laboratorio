@@ -10,6 +10,10 @@ function numeric(value){
  const number=typeof value==='string'&&value.trim()!==''?Number(value):value;
  return Number.isFinite(number)?number:NaN;
 }
+function comparisonText(value){
+ try{return String(value)}
+ catch{return JSON.stringify(value)}
+}
 function classify(data){
  const text=normalize(data.mensaje), action=data.accion;
  let catalog=[];
@@ -49,7 +53,7 @@ function visit(n,data,path,flow,scope,rootInput){if(scope.length>12)throw Error(
  else if(n.type==='condition'){
   if(!Object.hasOwn(out,n.field))throw Error('No existe el campo «'+n.field+'».');
   const a=out[n.field], b=valueOf(n.value,out);
-  let yes=String(a)===String(b);
+  let yes=comparisonText(a)===comparisonText(b);
   if(n.comparison!=='eq'){
    const left=numeric(a),right=numeric(b);
    if(!Number.isFinite(left)||!Number.isFinite(right))throw Error('La comparación requiere valores numéricos.');

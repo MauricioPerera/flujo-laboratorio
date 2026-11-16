@@ -136,3 +136,5 @@ El conjunto de pruebas pasa los datos simulados al adaptador, pero la implementa
 ## Pruebas de regresión
 
 Ejecuta `node --test` desde la raíz. La suite usa datos aislados y cubre recuperación, ejecución, historial, conversación, importación y pruebas generadas. El JSON de una especificación admite hasta 500 casos y 5 MB. El editor comprueba los límites y el formato antes de descargar ese archivo.
+
+La [verificación EGM de contratos y simulación](docs/VERIFICACION-CONTRATOS-EGM.md) documenta las revisiones independientes y los controles con implementaciones válidas e incumplidoras.

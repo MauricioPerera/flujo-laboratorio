@@ -27,6 +27,22 @@ function jsonEqual(left,right){
 }
 
 function assertJsonValue(value){
+ const ancestors=new Set();
+ function inspect(item){
+  if(item===null||typeof item!=='object')return;
+  if(ancestors.has(item))throw Error('El dato JSON contiene una referencia circular.');
+  ancestors.add(item);
+  for(const key of Reflect.ownKeys(item)){
+   if(Array.isArray(item)&&key==='length')continue;
+   const descriptor=Object.getOwnPropertyDescriptor(item,key);
+   if(typeof key!=='string'||!descriptor.enumerable||!Object.hasOwn(descriptor,'value')){
+    throw Error('El dato JSON debe contener propiedades de texto enumerables con valores definidos.');
+   }
+   inspect(descriptor.value);
+  }
+  ancestors.delete(item);
+ }
+ inspect(value);
  let decoded;
  try{decoded=JSON.parse(JSON.stringify(value))}
  catch{throw Error('El dato debe poder guardarse como JSON.')}
