@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
-  <link rel="stylesheet" href="landing.css">
+  <link rel="stylesheet" href="landing.css?v=2">
 </head>
 <body>
   <header class="site-header">
@@ -30,7 +30,7 @@
         <h1 id="titulo">Diseña sistemas que puedes <em>probar.</em></h1>
         <p class="lead">Conecta bloques para describir cómo debe funcionar un sistema. Simula casos, inspecciona el recorrido y comparte tu proyecto en un archivo HTML.</p>
         <div class="hero-actions">
-          <a class="button" href="prototipo-proyecto.html">Abrir el editor <span aria-hidden="true">↗</span></a>
+          <button class="button" type="button" data-open-editor aria-haspopup="dialog">Abrir el editor <span aria-hidden="true">↗</span></button>
           <a class="text-link" href="#como-funciona">Cómo funciona <span aria-hidden="true">↓</span></a>
         </div>
       </div>
@@ -113,7 +113,7 @@
         </div>
         <div class="handoff-example">
           <h3>Explora el alcance de Flujo</h3>
-          <a href="prototipo-proyecto.html">Editor autónomo <span aria-hidden="true">↗</span></a>
+          <button type="button" data-open-editor aria-haspopup="dialog">Editor autónomo <span aria-hidden="true">↗</span></button>
           <a href="editor-inmobiliario.html">Demo inmobiliaria con exportación de pruebas <span aria-hidden="true">↗</span></a>
           <a href="https://github.com/MauricioPerera/flujo-laboratorio/blob/main/SPECIFICATION.md">Especificación de la plataforma <span aria-hidden="true">↗</span></a>
         </div>
@@ -124,9 +124,30 @@
   <footer class="site-footer">
     <div class="wrap footer-content">
       <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Flujo</a>
-      <a class="repo-link" href="https://github.com/MauricioPerera/flujo-laboratorio">Repositorio en GitHub <span aria-hidden="true">↗</span></a>
+      <div class="footer-links">
+        <a class="repo-link" href="LICENSE.txt">Licencia MIT</a>
+        <a class="repo-link" href="https://github.com/MauricioPerera/flujo-laboratorio">Repositorio en GitHub <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </footer>
-  <script src="landing.js" defer></script>
+  <dialog class="editor-start" id="editor-start" aria-labelledby="editor-start-title">
+    <div class="editor-start-head">
+      <h2 id="editor-start-title">¿Cómo quieres empezar?</h2>
+      <form method="dialog"><button class="dismiss" aria-label="Cerrar">×</button></form>
+    </div>
+    <div class="start-options">
+      <a class="start-option" href="prototipo-proyecto.html?inicio=ejemplo">
+        <span class="step-icon" aria-hidden="true">▷</span>
+        <span><strong>Cargar datos de prueba</strong><small>Abre Sistema de solicitudes con bloques conectados y casos listos para simular.</small></span>
+        <span class="start-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="start-option" href="prototipo-proyecto.html?inicio=en-blanco">
+        <span class="step-icon" aria-hidden="true">＋</span>
+        <span><strong>Abrir un lienzo en blanco</strong><small>Crea un proyecto con un flujo vacío y agrega tus propios bloques.</small></span>
+        <span class="start-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </dialog>
+  <script src="landing.js?v=2" defer></script>
 </body>
 </html>

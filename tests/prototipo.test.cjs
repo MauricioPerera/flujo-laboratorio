@@ -239,9 +239,9 @@ function boot(sourceHtml = html, savedProject, session = new Map(), storage = ne
     createElement() { return { click() {} }; },
     addEventListener() {}
   };
-  const window = { addEventListener() {} };
+  const window = { addEventListener() {}, location: browser.location, history: browser.history };
   const context = vm.createContext({
-    document, window, structuredClone, TextEncoder, Math, JSON, Date, EventSource: browser.EventSource,
+    document, window, structuredClone, TextEncoder, URLSearchParams, Math, JSON, Date, EventSource: browser.EventSource,
     localStorage: {
       get length() { return storage.size; },
       key: index => [...storage.keys()][index] ?? null,
@@ -403,6 +403,9 @@ test('a blank project stores independent flows and exports only its own editable
   assert.equal(reloaded.run(`${api}.activeGraph().nodes.length`), 1);
   reloaded.element('#exportHtmlButton').onclick();
   const exported = await reloaded.downloads.at(-1).text();
+  const license = readFileSync(join(__dirname, '..', 'LICENSE'), 'utf8').trim();
+  const normalized = text => text.replaceAll('\r\n', '\n');
+  assert.ok(normalized(exported).includes(normalized(license)));
   const reopened = boot(exported, undefined, new Map(), page.storage);
   assert.equal(reopened.run(`${api}.project.id`), projectId);
   assert.doesNotMatch(reopened.element('#projectPicker').innerHTML, /Sistema de solicitudes/);
@@ -412,6 +415,30 @@ test('a blank project stores independent flows and exports only its own editable
   assert.equal(reopened.run(`${api}.activeGraph().nodes.length`), 1);
   reopened.run(`${api}.addNode('output')`);
   assert.equal(reloaded.run(`${api}.activeGraph().nodes.length`), 1);
+});
+
+test('landing links open a blank project or select the sample and preserve other projects', () => {
+  const location = new URL('https://example.test/flujo/prototipo-proyecto.html?inicio=en-blanco&idioma=es#lienzo');
+  const visits = [];
+  const history = { replaceState: (_, __, next) => visits.push(next) };
+  const browser = { location, history };
+  const api = 'window.__prototypeTestApi';
+  const blank = boot(html, undefined, new Map(), new Map(), browser);
+  const blankId = blank.run(`${api}.project.id`);
+  assert.match(blankId, /^project-/);
+  assert.equal(blank.run(`${api}.project.nodes.length`), 0);
+  assert.equal(blank.run(`${api}.project.blockDefinitions.length`), 0);
+  assert.deepEqual(visits, ['/flujo/prototipo-proyecto.html?idioma=es#lienzo']);
+  const reloaded = boot(html, undefined, blank.session, blank.storage);
+  assert.equal(reloaded.run(`${api}.project.id`), blankId);
+
+  location.search = '?inicio=ejemplo';
+  const example = boot(html, undefined, blank.session, blank.storage, browser);
+  assert.equal(example.run(`${api}.project.id`), 'solicitudes-demo');
+  assert.equal(example.run(`${api}.simulate({idSolicitud:'REQ-104',clienteId:'CLI-88'}).output.flowData.estado`), 'En revisión');
+  example.element('#projectPicker').onchange({ target: { value: blankId } });
+  assert.equal(example.run(`${api}.project.id`), blankId);
+  assert.equal(example.run(`${api}.project.nodes.length`), 0);
 });
 
 test('project blocks enforce required inputs and declared outputs during simulation', () => {

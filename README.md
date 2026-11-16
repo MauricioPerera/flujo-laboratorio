@@ -4,7 +4,11 @@ Plataforma para diseñar y simular flujos de distintos dominios en proyectos HTM
 
 La [especificación de la plataforma](SPECIFICATION.md) describe el ciclo completo. La [matriz de trazabilidad](SPEC_TRACEABILITY.md) documenta la evidencia disponible. Los proyectos incluidos ilustran su uso, entre ellos el [ejemplo autónomo «Sistema de solicitudes»](EXAMPLE_REQUESTS.md).
 
-[Conoce Flujo y prueba la demo en GitHub Pages](https://mauricioperera.github.io/flujo-laboratorio/).
+En [GitHub Pages](https://mauricioperera.github.io/flujo-laboratorio/), el botón **Abrir el editor** te permite cargar el ejemplo «Sistema de solicitudes» o abrir un lienzo en blanco.
+
+## Licencia
+
+Flujo se distribuye bajo la [licencia MIT](LICENSE). Los nuevos HTML exportados incluyen el aviso de licencia del editor y el simulador.
 
 ## Iniciar
 

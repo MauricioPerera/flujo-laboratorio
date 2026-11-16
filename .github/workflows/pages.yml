@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/pages.yml
+      - LICENSE
       - site/**
       - dist/**
   workflow_dispatch:
@@ -30,6 +31,7 @@ jobs:
           cp dist/* _site/
           mv _site/index.html _site/editor-inmobiliario.html
           cp site/* _site/
+          cp LICENSE _site/LICENSE.txt
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

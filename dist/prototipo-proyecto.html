@@ -1,6 +1,29 @@
 <!doctype html>
 <html lang="es">
 <head>
+<!-- Flujo editor and simulator
+MIT License
+
+Copyright (c) 2026 Mauricio Perera
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5f6fb"><title>Proyecto de flujos · Prototipo</title>
 <!-- PROJECT PREVIEW CONFIG -->
@@ -191,6 +214,27 @@ function openProject(choice){
  try{localStorage.setItem(defaultKey+':active-project',choice)}catch{}
  return true;
 }
+function workspaceId(prefix){
+ return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+}
+function createWorkspaceProject(name,flowName,description=''){
+ const id=workspaceId('project');
+ workspaceProjects.set(id,{id,version:1,name,description,flowName,nodes:[],edges:[],notes:[],cases:[],
+  flows:[],blockDefinitions:[],subflows:[],internalStateSchema:[],openQuestions:[]});
+ openProject(id);
+}
+function entryMode(){
+ const location=window.location;
+ if(previewConfig||defaults.id!=='solicitudes-demo'||defaults.storageRevision||!location?.search||
+  (location.protocol!=='https:'&&location.protocol!=='http:'))return '';
+ const params=new URLSearchParams(location.search);
+ const mode=params.get('inicio');
+ if(mode!=='en-blanco'&&mode!=='ejemplo')return '';
+ params.delete('inicio');
+ const query=params.toString();
+ window.history.replaceState(window.history.state,'',location.pathname+(query?'?'+query:'')+location.hash);
+ return mode;
+}
 function openWorkspaceForm(createProject){
  $('#projectFields').hidden=!createProject;
  $('#newProjectName').required=createProject;
@@ -220,15 +264,10 @@ $('#workspaceForm').onsubmit=event=>{
   error.hidden=false;
   return;
  }
- const suffix=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
- const graph={nodes:[],edges:[],notes:[],cases:[]};
  if(createProject){
-  const id='project-'+suffix;
-  workspaceProjects.set(id,{id,version:1,name,description:$('#newProjectDescription').value.trim(),
-   flowName,...graph,flows:[],blockDefinitions:[],subflows:[],internalStateSchema:[],openQuestions:[]});
-  openProject(id);
+  createWorkspaceProject(name,flowName,$('#newProjectDescription').value.trim());
  }else{
-  const flow={id:'flow-'+suffix,name:flowName,...graph};
+  const flow={id:workspaceId('flow'),name:flowName,nodes:[],edges:[],notes:[],cases:[]};
   (project.flows??=[]).push(flow);
   openRootFlow(flow.id);
  }
@@ -1532,7 +1571,9 @@ $('#addNote').onclick=()=>{if(!activeGraph().notes)activeGraph().notes=[];const 
 $('#noteLayer').addEventListener('input',event=>{const id=event.target.dataset.note,note=(activeGraph().notes||[]).find(item=>item.id===id);if(note){note.text=event.target.value;persist()}});
 $('#exportHtmlButton').onclick=()=>{const snapshot={...project,storageRevision:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)};const dataTag='<script id="projectData" type="application/json">'+JSON.stringify(snapshot).replace(/</g,'\\u003c')+'<'+'/script>';const html=projectMarkup.replace(/<script id="projectData" type="application\/json">[\s\S]*?<\/script>/,()=>dataTag);download(project.id+'.html','<!doctype html>\n'+html,'text/html;charset=utf-8');notify('Proyecto HTML exportado con sus flujos, bloques, casos y notas.')};
 $('#clearSelection').onclick=()=>{selected=null;renderInspector()};
- if(!openProject(previewConfig?'':readStorage(defaultKey+':active-project')||''))openProject('');
+ const mode=entryMode();
+ if(mode==='en-blanco')createWorkspaceProject('Proyecto sin título','Flujo principal');
+ else if(!openProject(previewConfig||mode==='ejemplo'?'':readStorage(defaultKey+':active-project')||''))openProject('');
  if(previewConfig)startProjectPreview();
 })();
 </script></body></html>
