@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Flujo es un laboratorio visual para diseñar sistemas, simular decisiones y compartir proyectos como HTML autónomo.">
+  <meta name="description" content="Evalúa tu sistema antes de programarlo. Simula flujos, resuelve ambigüedades y prepara contratos, casos y un alcance preciso para tu agente de IA.">
   <meta name="theme-color" content="#f6f4ed">
-  <title>Flujo — Diseña sistemas que puedes probar</title>
+  <title>Flujo — Evalúa tu sistema antes de programarlo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
-  <link rel="stylesheet" href="landing.css?v=3">
+  <link rel="stylesheet" href="landing.css?v=4">
 </head>
 <body>
   <header class="site-header">
@@ -26,9 +26,9 @@
   <main id="inicio">
     <section class="wrap hero" aria-labelledby="titulo">
       <div class="hero-copy">
-        <p class="eyebrow">Laboratorio visual de sistemas</p>
-        <h1 id="titulo">Diseña sistemas que puedes <em>probar.</em></h1>
-        <p class="lead">Conecta bloques para describir cómo debe funcionar un sistema. Simula casos, inspecciona el recorrido y comparte tu proyecto en un archivo HTML.</p>
+        <p class="eyebrow">Simulación y especificación para IA</p>
+        <h1 id="titulo">Evalúa tu sistema antes de <em>programarlo.</em></h1>
+        <p class="lead">Simula decisiones y detecta ambigüedades cuando todavía cuesta poco cambiarlas. Prepara contratos, casos y límites de trabajo para que una IA implemente lo acordado.</p>
         <div class="hero-actions">
           <button class="button" type="button" data-open-editor aria-haspopup="dialog">Abrir el editor <span aria-hidden="true">↗</span></button>
           <a class="text-link" href="#como-funciona">Cómo funciona <span aria-hidden="true">↓</span></a>
@@ -82,44 +82,49 @@
 
     <section class="wrap method" id="como-funciona" aria-labelledby="metodo-titulo">
       <div class="section-head">
-        <h2 id="metodo-titulo">Del lienzo a la especificación.</h2>
-        <p>Reúne en un proyecto lo que sabes del sistema y los casos que necesitas validar antes de implementarlo.</p>
+        <h2 id="metodo-titulo">Del comportamiento a una especificación verificable.</h2>
+        <p>Define y evalúa el sistema junto con tu agente. Resuelve las decisiones que afectan al código antes de invertir en implementarlo.</p>
       </div>
       <div class="steps">
         <article>
           <span class="step-icon" aria-hidden="true">◇</span>
-          <h3>Dibuja el flujo</h3>
-          <p>Conecta entradas, condiciones y resultados. Abre subflujos para detallar un proceso y define bloques propios del proyecto.</p>
+          <h3>Define el comportamiento</h3>
+          <p>Conecta entradas, decisiones y resultados. Detalla procesos en subflujos y registra qué está acordado y qué sigue pendiente.</p>
         </article>
         <article>
           <span class="step-icon" aria-hidden="true">▷</span>
-          <h3>Simula los casos</h3>
-          <p>Declara qué datos esperas, ejecuta escenarios y revisa qué camino tomó el flujo y qué resultado produjo.</p>
+          <h3>Evalúa con casos concretos</h3>
+          <p>Prueba rutas, límites y errores con datos simulados. Compara el resultado esperado con el obtenido y comprueba el efecto de tus cambios.</p>
         </article>
         <article>
           <span class="step-icon" aria-hidden="true">↧</span>
-          <h3>Comparte el proyecto</h3>
-          <p>Exporta el HTML con los flujos, contratos y casos del modelo. Quien lo reciba puede abrirlo, editarlo y ejecutar el simulador.</p>
+          <h3>Prepara la implementación</h3>
+          <p>Exporta el modelo y documenta el encargo para tu IA. Relaciona las tareas necesarias con los contratos, las restricciones y las pruebas que deben cumplir.</p>
         </article>
       </div>
     </section>
 
-    <section class="wrap handoff" aria-labelledby="archivo-titulo">
+    <section class="wrap handoff" aria-labelledby="entrega-titulo">
       <div class="handoff-panel">
         <div>
-          <h2 id="archivo-titulo">Tu proyecto viaja en un HTML.</h2>
-          <p>El archivo exportado incluye el editor y el simulador. Ábrelo directamente en el navegador o usa el visor local para que un agente y tú puedan trabajar sobre el mismo archivo.</p>
+          <h2 id="entrega-titulo">Un encargo claro para tu IA.</h2>
+          <p>Entrega el HTML editable y los acuerdos que guían la implementación. Cada tarea debe responder a un requisito y tener una forma de comprobarse.</p>
           <div class="handoff-links">
             <a class="text-link" href="https://github.com/MauricioPerera/flujo-laboratorio#iniciar">Guía de uso <span aria-hidden="true">↗</span></a>
             <button class="text-link prompt-link" type="button" id="open-agent-prompt" aria-haspopup="dialog">Prompt para tu agente <span aria-hidden="true">↗</span></button>
           </div>
         </div>
-        <div class="handoff-example">
-          <h3>Explora el alcance de Flujo</h3>
-          <button type="button" data-open-editor aria-haspopup="dialog">Editor autónomo <span aria-hidden="true">↗</span></button>
-          <a href="editor-inmobiliario.html">Demo inmobiliaria con exportación de pruebas <span aria-hidden="true">↗</span></a>
-          <a href="https://github.com/MauricioPerera/flujo-laboratorio/blob/main/SPECIFICATION.md">Especificación de la plataforma <span aria-hidden="true">↗</span></a>
-        </div>
+        <dl class="handoff-contents">
+          <div><dt>Qué construir</dt><dd>Flujos de referencia, entradas, salidas, errores y efectos permitidos.</dd></div>
+          <div><dt>Cómo validarlo</dt><dd>Casos confirmados, resultados esperados y criterios de aceptación.</dd></div>
+          <div><dt>Hasta dónde actuar</dt><dd>Tareas y límites acordados, decisiones pendientes y trabajo que depende de ellas.</dd></div>
+        </dl>
+      </div>
+      <div class="availability">
+        <h3>Qué puedes usar hoy</h3>
+        <p>El editor autónomo exporta HTML y JSON con el modelo y sus casos. El HTML incluye el editor y el simulador para reabrir el proyecto. El prompt guía al agente para completar la entrega con los acuerdos y las tareas que deban documentarse aparte.</p>
+        <p>La <a href="editor-inmobiliario.html">demo inmobiliaria</a> también exporta pruebas ejecutables del modelo y de contrato. La generación de toda la entrega para cualquier proyecto y el control automático del alcance del agente siguen pendientes.</p>
+        <a class="text-link" href="https://github.com/MauricioPerera/flujo-laboratorio/blob/main/SPECIFICATION.md#entrega-orientada-a-una-ia-implementadora">Ver el alcance y los artefactos requeridos <span aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
@@ -156,7 +161,7 @@
       <h2 id="agent-prompt-title">Trabaja con tu agente.</h2>
       <form method="dialog"><button class="dismiss" aria-label="Cerrar">×</button></form>
     </div>
-    <p>Completa tu objetivo y pega el prompt en tu agente de IA. Adjunta tu HTML si ya tienes un proyecto.</p>
+    <p>Completa tu objetivo y las restricciones, y pega el prompt en tu agente. Te guiará para evaluar el sistema y preparar su encargo de implementación.</p>
     <textarea id="prompt-text" aria-label="Prompt para tu agente" readonly></textarea>
     <div class="prompt-actions">
       <button class="button" type="button" id="copy-prompt" disabled>Copiar prompt</button>

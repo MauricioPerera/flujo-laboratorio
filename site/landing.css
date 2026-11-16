@@ -191,12 +191,14 @@ h3 { font-size: 18px; font-weight: 700; line-height: 1.3; }
 .handoff-panel p { color: #d7e5da; max-width: 49ch; margin-block: 15px 21px; }
 .handoff-links { display: flex; gap: 10px 23px; flex-wrap: wrap; }
 .prompt-link { padding: 0; border: 0; background: none; }
-.handoff-example { padding: 18px 20px; background: #24413a; border-radius: 8px; }
-.handoff-example h3 { margin-bottom: 7px; font-size: 14px; color: #d7e5da; }
-.handoff-example :is(a, button) { padding: 9px 0; display: flex; justify-content: space-between; gap: 10px; font-size: 14px; text-decoration: none; }
-.handoff-example button { width: 100%; border: 0; background: none; text-align: left; }
-.handoff-example :is(a, button) + a { border-top: 1px solid #587065; }
-.handoff-example :is(a, button):hover { text-decoration: underline; }
+.handoff-contents { margin: 0; padding: 7px 20px; background: #24413a; border-radius: 8px; }
+.handoff-contents > div { padding-block: 13px; }
+.handoff-contents > div + div { border-top: 1px solid #587065; }
+.handoff-contents dt { font-weight: 700; font-size: 15px; }
+.handoff-contents dd { margin: 4px 0 0; font-size: 14px; color: #d7e5da; }
+.availability { margin-top: 25px; max-width: 80ch; }
+.availability p { margin-block: 10px; font-size: 15px; color: var(--muted); }
+.availability p a { text-underline-offset: 3px; }
 .handoff-panel :is(a, button):focus-visible { outline-color: #e1f0ca; }
 .site-footer { border-top: 1px solid var(--line); }
 .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
