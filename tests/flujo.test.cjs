@@ -223,14 +223,14 @@ test('specification import and export share validation and enforce the round-tri
 
 test('export controls create runnable specification, model tests, and implementation contract', async () => {
   const page = boot();
-  page.run("storeExportCases(exampleCases());const cases=exportCases();cases[0].proposed=false;storeExportCases(cases);$('#verifyCases').onclick()");
+  page.run("const cases=exampleCases();cases[0].proposed=cases[2].proposed=false;storeExportCases(cases);$('#verifyCases').onclick()");
   for (const id of ['downloadMarkdown', 'downloadJson', 'downloadTests', 'downloadContractTests', 'downloadAdapter']) page.element('#' + id).onclick();
   assert.deepEqual(page.downloads.map(file => file.name), ['especificacion-flujo.md', 'flujo-especificacion.json', 'flujo.test.cjs', 'contrato.test.cjs', 'adaptador.flujo.cjs']);
   const artifacts = new Map(await Promise.all(page.downloads.map(async file => [file.name, await file.blob.text()])));
   assert.match(artifacts.get('especificacion-flujo.md'), /## Casos de prueba[\s\S]*## Contrato para la implementación/);
   const contract = JSON.parse(artifacts.get('flujo-especificacion.json'));
   assert.equal(contract.cases.length, 6);
-  assert.equal(contract.cases.filter(item => !item.proposed).length, 1);
+  assert.equal(contract.cases.filter(item => !item.proposed).length, 2);
   assert.match(artifacts.get('flujo.test.cjs'), /node:test/);
   assert.match(artifacts.get('contrato.test.cjs'), /FLUJO_ADAPTER/);
   assert.match(artifacts.get('adaptador.flujo.cjs'), /async function ejecutarCaso/);
@@ -248,18 +248,62 @@ test('export controls create runnable specification, model tests, and implementa
     assert.match(modelResult.stdout, /^# tests 6/m);
     const adapter = join(temp, 'adapter.cjs');
     files.push(adapter);
-    writeFileSync(adapter, 'exports.ejecutarCaso=async()=>({salida:{intencion:"informacion"},error:null,completado:true});');
+    writeFileSync(adapter, `exports.ejecutarCaso=async({entrada,contexto})=>{
+      if(contexto.aislado!==true || contexto.fechaActual!=='2030-01-01') throw Error('Contexto incorrecto');
+      const intencion=entrada.mensaje.includes('información')?'informacion':'otro';
+      return {salida:{intencion},error:null,completado:true};
+    };`);
     const implementationTests = join(temp, 'contrato.test.cjs');
     files.push(implementationTests);
     writeFileSync(implementationTests, artifacts.get('contrato.test.cjs'));
     const contractEnv = { ...env, FLUJO_ADAPTER: adapter };
     const contractResult = spawnSync(process.execPath, ['--test', '--test-reporter=tap', implementationTests], { encoding: 'utf8', env: contractEnv });
     assert.equal(contractResult.status, 0, contractResult.stdout + contractResult.stderr);
-    assert.match(contractResult.stdout, /^# tests 2/m);
+    assert.match(contractResult.stdout, /^# tests 3/m);
+    writeFileSync(adapter, 'exports.ejecutarCaso=async()=>({salida:{intencion:"informacion"},error:null,completado:true});');
+    const constant = spawnSync(process.execPath, ['--test', '--test-reporter=tap', implementationTests], { encoding: 'utf8', env: contractEnv });
+    assert.equal(constant.status, 1, constant.stdout + constant.stderr);
+    assert.match(constant.stdout, /not ok \d+ - Mensaje fuera de alcance/);
+    writeFileSync(adapter, 'exports.ejecutarCaso=async()=>({salida:"otra forma",error:null,completado:true});');
+    const wrongShape = spawnSync(process.execPath, ['--test', '--test-reporter=tap', implementationTests], { encoding: 'utf8', env: contractEnv });
+    assert.equal(wrongShape.status, 1, wrongShape.stdout + wrongShape.stderr);
+    assert.match(wrongShape.stdout, /salida debe ser un objeto JSON o null/);
   } finally {
     for (const file of files) rmSync(file, { force: true });
     rmdirSync(temp);
   }
+});
+
+test('test export refuses expectations that disappear or change when serialized', () => {
+  const page = boot();
+  for (const expected of [
+    '{path:"intencion",value:undefined}',
+    '{path:"$",value:{campo:undefined}}',
+    'Object.defineProperty({path:"intencion"},"value",{value:42})',
+    '{path:"$",value:{toJSON:()=>({otro:1})}}'
+  ]) {
+    page.run(`createContract=()=>({flow:rootState,cases:[{...exampleCases()[0],proposed:false,expected:${expected}}]})`);
+    page.element('#downloadTests').onclick();
+    page.element('#downloadContractTests').onclick();
+    assert.equal(page.downloads.length, 0);
+    assert.match(page.element('#specTransferStatus').textContent, /JSON|valor esperado/);
+  }
+});
+
+test('change comparison detects a different branch between the same two blocks', () => {
+  const page = boot();
+  const graph = link(input, { type: 'condition', id: 'cond', field: 'dato', comparison: 'eq', value: '1' }, output);
+  graph.edges[1].branch = 'yes';
+  graph.edges.push({ from: 'cond', to: output.id, branch: 'no' });
+  const matching = { ...scenario, input: { dato: 1 }, expected: { path: 'dato', value: 1 } };
+  page.run('rootState=' + JSON.stringify(graph) + ';storeExportCases([' + JSON.stringify(matching) + '])');
+  page.element('#saveBaseline').onclick();
+  page.run("rootState.nodes.find(n=>n.id==='cond').value='2'");
+  page.element('#compareBaseline').onclick();
+  assert.equal(page.run('lastImpact.results[0].before.pass&&lastImpact.results[0].after.pass'), true);
+  assert.equal(page.run('lastImpact.results[0].outputChanged'), false);
+  assert.equal(page.run('lastImpact.results[0].routeChanged'), true);
+  assert.match(page.element('#impactResults').innerHTML, /Cambi[oó] la ruta recorrida/);
 });
 
 test('simulated executions are labeled and make no outbound calls in the model', () => {

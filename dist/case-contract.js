@@ -26,9 +26,11 @@ function jsonEqual(left,right){
   &&keys.every(key=>Object.hasOwn(right,key)&&jsonEqual(left[key],right[key]));
 }
 
-function assertFiniteJson(value){
- if(typeof value==='number'&&!Number.isFinite(value))throw Error('Los datos de prueba deben contener números finitos.');
- if(value&&typeof value==='object')for(const child of Object.values(value))assertFiniteJson(child);
+function assertJsonValue(value){
+ let decoded;
+ try{decoded=JSON.parse(JSON.stringify(value))}
+ catch{throw Error('El dato debe poder guardarse como JSON.')}
+ if(!jsonEqual(value,decoded))throw Error('El dato debe conservar sus valores y tipos al guardarse como JSON.');
 }
 
 function validateCase(test){
@@ -37,7 +39,7 @@ function validateCase(test){
   throw Error('El caso necesita un identificador y un nombre.');
  }
  if(!isObject(test.input))throw Error('La entrada debe ser un objeto JSON.');
- if(!isObject(test.expected)||!validCasePath(test.expected.path)||!Object.hasOwn(test.expected,'value')){
+ if(!isObject(test.expected)||!validCasePath(test.expected.path)||!Object.prototype.propertyIsEnumerable.call(test.expected,'value')){
   throw Error('Usa un campo como cita.cliente, $ o $error y define el valor esperado.');
  }
  const {today,appointments}=test.fixture||{};
@@ -49,7 +51,14 @@ function validateCase(test){
  if(!Array.isArray(appointments)||!appointments.every(isObject)){
   throw Error('Las citas simuladas deben ser una lista de objetos.');
  }
- assertFiniteJson([test.input,test.expected.value,appointments]);
+ assertJsonValue(test);
+}
+
+function encodeTestContract(contract){
+ contract.cases.forEach(validateCase);
+ const serialized=JSON.stringify(contract);
+ JSON.parse(serialized).cases.forEach(validateCase);
+ return JSON.stringify(serialized);
 }
 
 const MAX_SPEC_CASES=500;

@@ -124,7 +124,7 @@ En **Cambios**, guarda una referencia y después compara ambos flujos con los mi
 
 El botón **Abrir un artefacto** valida un JSON exportado y lo abre en la opción separada «Flujo importado», conservando los dos flujos existentes. Un nuevo importado reemplaza el importado anterior después de confirmarlo. Se recuperan los casos, la definición y la referencia cuando estén presentes; los resultados históricos no se importan.
 
-Para verificar una implementación externa, descarga `contrato.test.cjs` y `adaptador.flujo.cjs` en una carpeta de trabajo, como `.local/`. El adaptador debe implementar `ejecutarCaso({entrada, contexto})`, preparar un entorno aislado con la fecha y citas entregadas y devolver `{salida, error, completado}`. La plantilla falla intencionalmente hasta que se conecte al sistema real. Desde la carpeta de los archivos, en PowerShell:
+Para verificar una implementación externa, descarga `contrato.test.cjs` y `adaptador.flujo.cjs` en una carpeta de trabajo, como `.local/`. El adaptador debe implementar `ejecutarCaso({entrada, contexto})`, preparar un entorno aislado con la fecha y citas entregadas y devolver `{salida, error, completado}`. Usa un objeto JSON o `null` para `salida`, texto o `null` para `error` y un booleano para `completado`. La plantilla falla intencionalmente hasta que se conecte al sistema real. Desde la carpeta de los archivos, en PowerShell:
 
 ```powershell
 $env:FLUJO_ADAPTER = './adaptador.flujo.cjs'

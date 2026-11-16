@@ -945,6 +945,10 @@ function numericValue(value){
  const number=typeof value==='number'||typeof value==='string'&&value.trim()?Number(value):NaN;
  return Number.isFinite(number)?number:NaN;
 }
+function jsonText(value){
+ try{return String(value)}
+ catch{return JSON.stringify(value)}
+}
 
 function getPath(obj,path){if(path==='$')return obj;return typeof path==='string'?path.split('.').reduce((value,key)=>value!=null&&Object.hasOwn(value,key)?value[key]:undefined,obj):undefined}
 
@@ -1059,12 +1063,12 @@ function* runGraph(graph,input,context,stack=[],inheritedState){
   const data=values();
   if(current.kind==='condition'){
    const value=getPath(data,current.field);
-   const yes=current.operator==='present'?value!==undefined&&value!==null&&String(value).trim()!=='':
-    current.operator==='contains'?String(value??'').includes(current.value):
-    current.operator==='gte'?numericValue(value)>=numericValue(current.value):String(value)===String(current.value);
+   const yes=current.operator==='present'?value!==undefined&&value!==null&&jsonText(value).trim()!=='':
+    current.operator==='contains'?jsonText(value??'').includes(jsonText(current.value)):
+    current.operator==='gte'?numericValue(value)>=numericValue(current.value):jsonText(value)===jsonText(current.value);
    branch=yes?'yes':'no';
   }else if(current.kind==='switch'){
-   const value=String(getPath(data,current.field)??'');
+   const value=jsonText(getPath(data,current.field)??'');
    branch=(current.options||[]).includes(value)?'case:'+value:'default';
   }else if(current.kind==='subflow'||current.kind==='custom'){
    error=yield* applySubflow(current,data);
@@ -1517,7 +1521,7 @@ function expectedCase(testCase){
  const pendingMatches=testCase.pending===undefined||testCase.pending===result.pending;
  const errorMatches=testCase.expectError?!!result.error:!result.error;
  return {...testCase,actual,pending:result.pending,expectedPending:testCase.pending,
-  passed:errorMatches&&pendingMatches&&jsonEqual(actual,testCase.expected),
+  passed:actual!==undefined&&errorMatches&&pendingMatches&&jsonEqual(actual,testCase.expected),
   acceptedFollowups:Math.max(0,(result.output.internalState?.turnosUsuario??1)-1),
   visited:result.visited,visitedEdges:result.visitedEdges,subflows:result.subflows,error:result.error};
 }
@@ -1538,19 +1542,24 @@ function renderCases(){
  $('#caseList').innerHTML=rows.join('')||'<p class="hint">Este flujo aún no tiene casos de ejemplo.</p>';
  const scope=currentSubflow(),graph=scope?.graph||rootGraph();
  $('#coverageTitle').textContent='Cobertura de '+(scope?.name||rootName());
- const counts=new Map();
+ const counts=new Map(),failedVisits=new Set();
  for(const result of results){
   const visits=scope?result.subflows.filter(trace=>trace.id===scope.id).flatMap(trace=>trace.visitedEdges):result.visitedEdges;
-  for(const visited of new Set(visits))counts.set(visited,(counts.get(visited)||0)+1);
+  for(const visited of new Set(visits)){
+   if(result.passed)counts.set(visited,(counts.get(visited)||0)+1);
+   else failedVisits.add(visited);
+  }
  }
  $('#pathCoverage').innerHTML=graph.edges.map(edge=>{
   const key=edge.from+'→'+edge.to+':'+edge.when,count=counts.get(key)||0;
   const from=esc(byId(edge.from,graph)?.title||edge.from),to=esc(byId(edge.to,graph)?.title||edge.to);
-  const badge=count?'<span class="ok">Cubierto por '+count+' caso'+(count===1?'':'s')+'</span>':'<span class="fail">Sin caso de ejemplo</span>';
+  const badge=count?'<span class="ok">Cubierto por '+count+' caso'+(count===1?'':'s')+'</span>':
+   failedVisits.has(key)?'<span class="fail">Recorrida solo en casos que no coinciden</span>':'<span class="fail">Sin caso de ejemplo</span>';
   return '<article class="case"><b>'+from+' → '+to+' '+badge+'</b><span>Ruta: '+esc(edge.when)+'</span></article>';
  }).join('')||'<p class="hint">No hay conexiones para verificar.</p>';
+ return results;
 }
-$('#casesButton').onclick=()=>{renderCases();modal('casesModal')};$('#runCases').onclick=()=>{renderCases();const results=(rootGraph().cases||[]).map(expectedCase);notify(`${results.filter(r=>r.passed).length} de ${results.length} casos coinciden.`)};
+$('#casesButton').onclick=()=>{renderCases();modal('casesModal')};$('#runCases').onclick=()=>{const results=renderCases();notify(`${results.filter(r=>r.passed).length} de ${results.length} casos coinciden.`)};
 function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 $('#exportJsonButton').onclick=()=>download(project.id+'.json',JSON.stringify(project,null,2),'application/json');
 function setZoom(value,refresh=true) {

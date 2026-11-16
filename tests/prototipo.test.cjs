@@ -1111,6 +1111,48 @@ test('cases compare JSON objects by content and preserve array order', () => {
   assert.equal(page.run(`${api}.expectedCase(${JSON.stringify(check)}).passed`), false);
 });
 
+test('conditions and switches handle JSON objects that shadow conversion methods', () => {
+  const page = boot();
+  const api = 'window.__prototypeTestApi';
+  const graph = {
+    nodes: [
+      { id: 'in', kind: 'input', title: 'Entrada' },
+      { id: 'check', kind: 'condition', title: '¿Hay datos?', field: 'dato', operator: 'present' },
+      { id: 'choose', kind: 'switch', title: 'Elegir', field: 'dato', options: ['texto'] },
+      { id: 'out', kind: 'output', title: 'Salida', message: 'Objeto recibido' }
+    ],
+    edges: [
+      { from: 'in', to: 'check', when: 'next' },
+      { from: 'check', to: 'choose', when: 'yes' },
+      { from: 'choose', to: 'out', when: 'default' }
+    ],
+    cases: [{
+      id: 'objeto', name: 'Objeto con claves propias', input: { dato: { toString: null, valueOf: 0 } },
+      path: 'output.flowData.respuesta', expected: 'Objeto recibido'
+    }]
+  };
+  page.run(`Object.assign(${api}.project,${JSON.stringify(graph)})`);
+  const result = page.run(`${api}.simulate(${JSON.stringify(graph.cases[0].input)})`);
+  assert.equal(result.completed, true);
+  assert.equal(result.output.flowData.respuesta, 'Objeto recibido');
+  page.element('#casesButton').onclick();
+  assert.match(page.element('#caseList').innerHTML, /Objeto con claves propias.*Coincide/s);
+});
+
+test('coverage does not count an edge traversed only by a failing case', () => {
+  const page = boot();
+  const api = 'window.__prototypeTestApi';
+  page.run(`${api}.project.cases=[{...${api}.project.cases[0],expected:'Estado incorrecto'}]`);
+  page.element('#casesButton').onclick();
+  assert.match(page.element('#caseList').innerHTML, /No coincide/);
+  assert.doesNotMatch(page.element('#pathCoverage').innerHTML, /Cubierto por/);
+  assert.match(page.element('#pathCoverage').innerHTML, /Recorrida solo en casos que no coinciden/);
+  page.run(`${api}.project.cases.push({...${api}.project.cases[0],id:'correcto',expected:'En revisión'})`);
+  page.element('#casesButton').onclick();
+  assert.match(page.element('#pathCoverage').innerHTML, /Cubierto por 1 caso</);
+  assert.doesNotMatch(page.element('#pathCoverage').innerHTML, /Cubierto por 2 casos/);
+});
+
 test('the standalone connection panel leaves an occupied route unchanged', () => {
   const page = boot();
   const api = 'window.__prototypeTestApi';

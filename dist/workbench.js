@@ -18,7 +18,7 @@ function getBaseline(){const b=readLocal(baselineKeyPrefix+activeTemplate,null);
 function impactFingerprint(){return JSON.stringify({baseline:getBaseline(),flow:rootState,cases:exportCases()})}
 function displayImpact(){const baseline=getBaseline();$('#baselineStatus').textContent=baseline?'Referencia guardada: '+new Date(baseline.savedAt).toLocaleString('es-MX'):'Aún no hay una referencia guardada.';const target=$('#impactResults');if(!lastImpact||lastImpact.fingerprint!==impactFingerprint()){target.innerHTML='<p class="muted">Guarda una referencia y ejecuta la comparación para ver el efecto por caso.</p>';return}const changed=lastImpact.results.filter(r=>r.changed).length;target.innerHTML=`<p class="impact-summary">${changed} de ${lastImpact.results.length} casos muestran cambios.</p>`+lastImpact.results.map(row=>`<div class="impact-row"><b>${esc(row.name)}</b><span class="verdict ${row.changed?'mismatch':'match'}">${row.changed?'Cambió':'Sin cambios'}</span><p>Antes: ${esc(row.before.pass?'coincide':'no coincide')} · ${esc(row.before.found?JSON.stringify(row.before.actual):'sin valor')}<br>Ahora: ${esc(row.after.pass?'coincide':'no coincide')} · ${esc(row.after.found?JSON.stringify(row.after.actual):'sin valor')}</p>${row.routeChanged?'<small>Cambió la ruta recorrida.</small>':row.outputChanged?'<small>Cambiaron datos de la salida.</small>':''}</div>`).join('')}
 $('#saveBaseline').onclick=()=>{const previous=getBaseline();if(previous&&!confirm('¿Reemplazar la referencia guardada para este flujo?'))return;try{localStorage.setItem(baselineKeyPrefix+activeTemplate,JSON.stringify({savedAt:new Date().toISOString(),graph:structuredClone(rootState)}));lastImpact=null;displayImpact()}catch{$('#baselineStatus').textContent='No se pudo guardar la referencia.'}};
-$('#compareBaseline').onclick=()=>{const baseline=getBaseline(),cases=exportCases();if(!baseline){$('#impactResults').innerHTML='<p class="muted">Primero guarda una referencia del flujo.</p>';return}if(!cases.length){$('#impactResults').innerHTML='<p class="muted">Agrega casos para comparar las dos versiones.</p>';return}const results=cases.map(t=>{const before=compareScenario(t,baseline.graph),after=compareScenario(t,rootState);const routeChanged=JSON.stringify(Object.keys(before.steps))!==JSON.stringify(Object.keys(after.steps));const outputChanged=!jsonEqual(before.output,after.output);const changed=before.pass!==after.pass||before.error!==after.error||before.found!==after.found||!jsonEqual(before.actual,after.actual)||routeChanged||outputChanged;return {id:t.id,name:t.name,changed,routeChanged,outputChanged,before,after}});lastImpact={fingerprint:impactFingerprint(),baselineSavedAt:baseline.savedAt,time:new Date().toISOString(),results};displayImpact()};
+$('#compareBaseline').onclick=()=>{const baseline=getBaseline(),cases=exportCases();if(!baseline){$('#impactResults').innerHTML='<p class="muted">Primero guarda una referencia del flujo.</p>';return}if(!cases.length){$('#impactResults').innerHTML='<p class="muted">Agrega casos para comparar las dos versiones.</p>';return}const results=cases.map(t=>{const before=compareScenario(t,baseline.graph),after=compareScenario(t,rootState);const routeChanged=!jsonEqual(Object.keys(before.steps),Object.keys(after.steps))||!jsonEqual(before.visitedEdges,after.visitedEdges);const outputChanged=!jsonEqual(before.output,after.output);const changed=before.pass!==after.pass||before.error!==after.error||before.found!==after.found||!jsonEqual(before.actual,after.actual)||routeChanged||outputChanged;return {id:t.id,name:t.name,changed,routeChanged,outputChanged,before,after}});lastImpact={fingerprint:impactFingerprint(),baselineSavedAt:baseline.savedAt,time:new Date().toISOString(),results};displayImpact()};
 const baseOpenExport=$('#openExport').onclick;
 $('#openExport').onclick=()=>{baseOpenExport();const spec=readDefinition();$('#specName').value=spec.name;$('#specPurpose').value=spec.purpose;$('#specRules').value=spec.rules;$('#specQuestions').value=spec.questions;$('#specStatus').textContent='Estas decisiones se incluyen al exportar.';displayImpact()};
 $('#openImpact').onclick=()=>{$('#openExport').click();$('#impactPanel').scrollIntoView({block:'start',behavior:'smooth'})};
@@ -26,7 +26,51 @@ const baseCreateContract=createContract;
 createContract=function(){const contract=baseCreateContract(),definition=readDefinition(),lines=s=>s.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);contract.name=definition.name;contract.system={purpose:definition.purpose,rules:lines(definition.rules),openQuestions:lines(definition.questions)};const baseline=getBaseline();contract.baseline=baseline?{savedAt:baseline.savedAt,flow:structuredClone(baseline.graph)}:null;contract.impact=lastImpact&&lastImpact.fingerprint===impactFingerprint()?{baselineSavedAt:lastImpact.baselineSavedAt,time:lastImpact.time,results:lastImpact.results}:null;return contract};
 const baseMarkdownSpec=markdownSpec;
 markdownSpec=function(contract){let text=baseMarkdownSpec(contract);const list=items=>items.length?items.map(x=>'- '+x).join('\n'):'- Pendiente de definir.';text+='\n## Definición y decisiones\n\n### Propósito\n\n'+(contract.system.purpose||'Pendiente de definir.')+'\n\n### Reglas acordadas\n\n'+list(contract.system.rules)+'\n\n### Preguntas pendientes\n\n'+list(contract.system.openQuestions)+'\n\nLas reglas en texto son decisiones documentadas; los casos confirmados son las comprobaciones del contrato. Los casos propuestos requieren validación.\n';if(contract.baseline){text+='\n## Impacto de los cambios\n\nReferencia guardada: '+contract.baseline.savedAt+'. Se comparan los mismos casos con el motor actual.\n';if(contract.impact){for(const row of contract.impact.results)text+='\n- '+row.name+': '+(row.changed?'cambió':'sin cambios')+'; antes '+(row.before.pass?'coincide':'no coincide')+', ahora '+(row.after.pass?'coincide':'no coincide')+'.';text+='\n'}else text+='\nLa referencia está guardada; no hay una comparación vigente en esta sesión.\n'}text+='\n## Contrato para la implementación\n\nDescarga los tests del sistema y la plantilla de adaptador. Implementa `ejecutarCaso({entrada, contexto})` en el adaptador; para cada caso debe preparar datos aislados y devolver `{salida, error, completado}`. Las pruebas ejecutan solo los casos confirmados contra el adaptador indicado por `FLUJO_ADAPTER`. El adaptador es una plantilla que debe conectarse al sistema desarrollado.\n';return text};
-function systemTestFile(contract){const encoded=JSON.stringify(JSON.stringify(contract));return `'use strict';\n// Ejecutar con FLUJO_ADAPTER=./adaptador.flujo.cjs node --test contrato.test.cjs\nconst {test}=require('node:test');\nconst assert=require('node:assert/strict');\nconst path=require('node:path');\nconst contract=JSON.parse(${encoded});\nlet adapter=null,loadError=null;\ntry{if(!process.env.FLUJO_ADAPTER)throw Error('Define FLUJO_ADAPTER con la ruta del adaptador del sistema.');adapter=require(path.resolve(process.env.FLUJO_ADAPTER));if(typeof adapter.ejecutarCaso!=='function')throw Error('El adaptador debe exportar ejecutarCaso.')}catch(e){loadError=e}\ntest('Adaptador del sistema configurado',()=>{if(loadError)assert.fail(loadError.message)});\nconst confirmed=contract.cases.filter(c=>!c.proposed);\nif(!confirmed.length)test('El contrato debe contener casos confirmados',()=>assert.fail('No hay casos confirmados. Confirma o agrega al menos uno en Flujo.'));\n${caseValue.toString()}\n${jsonEqual.toString()}\nfor(const scenario of confirmed)test(scenario.name,async()=>{if(loadError)assert.fail(loadError.message);const response=await adapter.ejecutarCaso({entrada:structuredClone(scenario.input),contexto:{fechaActual:scenario.fixture.today,citas:structuredClone(scenario.fixture.appointments),aislado:true}});assert.ok(response&&typeof response==='object','El adaptador debe devolver un objeto');for(const key of ['salida','error','completado'])assert.ok(Object.prototype.hasOwnProperty.call(response,key),'Falta el campo '+key);assert.equal(typeof response.completado,'boolean','completado debe ser booleano');assert.ok(response.error===null||typeof response.error==='string','error debe ser null o texto');if(response.error&&scenario.expected.path!=='$error')assert.fail('Error de ejecución: '+response.error);if(!response.completado&&!response.error)assert.fail('El sistema no completó el caso.');const actual=caseValue(response.salida,response.error,scenario.expected.path);assert.ok(actual.found,'No se encontró el campo '+scenario.expected.path);assert.ok(jsonEqual(actual.value,scenario.expected.value),'Esperado: '+JSON.stringify(scenario.expected.value)+'; obtenido: '+JSON.stringify(actual.value))});\n`}
+function validateAdapterResponse(response){
+ if(!response||typeof response!=='object'||Array.isArray(response))throw Error('El adaptador debe devolver un objeto.');
+ for(const key of ['salida','error','completado']){
+  if(!Object.hasOwn(response,key))throw Error('Falta el campo '+key);
+ }
+ if(response.salida!==null&&(!response.salida||typeof response.salida!=='object'||Array.isArray(response.salida))){
+  throw Error('salida debe ser un objeto JSON o null.');
+ }
+ assertJsonValue(response.salida);
+ if(typeof response.completado!=='boolean')throw Error('completado debe ser booleano.');
+ if(response.error!==null&&typeof response.error!=='string')throw Error('error debe ser null o texto.');
+}
+function systemTestFile(contract){
+ const encoded=encodeTestContract({cases:contract.cases.filter(scenario=>!scenario.proposed)});
+ return `'use strict';
+// Ejecutar con FLUJO_ADAPTER=./adaptador.flujo.cjs node --test contrato.test.cjs
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const path=require('node:path');
+const contract=JSON.parse(${encoded});
+let adapter=null,loadError=null;
+try{
+ if(!process.env.FLUJO_ADAPTER)throw Error('Define FLUJO_ADAPTER con la ruta del adaptador del sistema.');
+ adapter=require(path.resolve(process.env.FLUJO_ADAPTER));
+ if(typeof adapter.ejecutarCaso!=='function')throw Error('El adaptador debe exportar ejecutarCaso.');
+}catch(error){loadError=error}
+test('Adaptador del sistema configurado',()=>{if(loadError)assert.fail(loadError.message)});
+if(!contract.cases.length)test('El contrato debe contener casos confirmados',()=>assert.fail('No hay casos confirmados. Confirma o agrega al menos uno en Flujo.'));
+${caseValue.toString()}
+${jsonEqual.toString()}
+${assertJsonValue.toString()}
+${validateAdapterResponse.toString()}
+for(const scenario of contract.cases)test(scenario.name,async()=>{
+ if(loadError)assert.fail(loadError.message);
+ const response=await adapter.ejecutarCaso({entrada:structuredClone(scenario.input),
+  contexto:{fechaActual:scenario.fixture.today,citas:structuredClone(scenario.fixture.appointments),aislado:true}});
+ validateAdapterResponse(response);
+ if(response.error&&scenario.expected.path!=='$error')assert.fail('Error de ejecución: '+response.error);
+ if(!response.completado&&!response.error)assert.fail('El sistema no completó el caso.');
+ const actual=caseValue(response.salida,response.error,scenario.expected.path);
+ assert.ok(actual.found,'No se encontró el campo '+scenario.expected.path);
+ assert.ok(jsonEqual(actual.value,scenario.expected.value),'Esperado: '+JSON.stringify(scenario.expected.value)+'; obtenido: '+JSON.stringify(actual.value));
+});
+`;
+}
 const adapterTemplate=`'use strict';\n// Sustituye este ejemplo por una llamada al sistema bajo prueba.\n// Cada caso debe empezar en un entorno aislado con contexto.fechaActual y contexto.citas.\n// Devuelve { salida: objeto_o_null, error: texto_o_null, completado: booleano }.\nasync function ejecutarCaso({entrada,contexto}) {\n  throw new Error('Implementa el adaptador y conecta un entorno de pruebas aislado.');\n}\nmodule.exports = { ejecutarCaso };\n`;
-$('#downloadContractTests').onclick=()=>downloadTestArtifact('contrato.test.cjs',systemTestFile,test=>!test.proposed);
+$('#downloadContractTests').onclick=()=>downloadTestArtifact('contrato.test.cjs',systemTestFile);
 $('#downloadAdapter').onclick=()=>downloadText('adaptador.flujo.cjs',adapterTemplate,'text/javascript;charset=utf-8');
