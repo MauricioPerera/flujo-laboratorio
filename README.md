@@ -23,7 +23,7 @@ Usa otro nombre si ya existe la copia. La CLI abre el navegador con el proyecto 
 | `dist/prototipo-proyecto.html` | Proyectos de cualquier dominio en HTML autónomo. La vista en vivo añade colaboración sobre el mismo archivo e historial de cambios. |
 | `dist/index.html` | Editor original con el ejemplo inmobiliario, historial de ejecuciones y exportación de pruebas de modelo y contrato. |
 
-Los agentes pueden comenzar por [AGENTS.md](AGENTS.md). Para preparar la primera versión en GitHub, consulta la [guía de publicación](docs/PUBLICACION.md).
+Los agentes pueden comenzar por [AGENTS.md](AGENTS.md). La [guía de reapertura del HTML](.agents/skills/flujo-operar-proyecto/SKILL.md#exportar-y-volver-a-abrir) explica cómo comprobar una descarga, abrirla sin servidor y volver a encender la vista en vivo. Para preparar una versión en GitHub, consulta la [guía de publicación](docs/PUBLICACION.md).
 
 ### Crear un proyecto autónomo
 

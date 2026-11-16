@@ -22,6 +22,7 @@ Flujo es una herramienta para diseñar y simular sistemas mediante flujos. Los d
 
 - Ejecuta `node --test` desde la raíz con Node.js 24. El repositorio funciona sin instalar dependencias de npm.
 - Usa una copia del ejemplo para experimentar. Por defecto, `previsualizar` edita el mismo archivo que le entregas.
+- Para entregar un HTML, identifica la descarga nueva y verifica esa copia. La [skill de operación](.agents/skills/flujo-operar-proyecto/SKILL.md#exportar-y-volver-a-abrir) describe la apertura directa, la vista local y cómo retomar una pestaña si el control del navegador se detiene.
 - Usa `leer` y `guardar` para modificar el HTML de trabajo, manteniendo su `revision` y declarando la autoría del agente. Si otro editor guardó primero, vuelve a leer y aplica la edición sobre el archivo reciente.
 - El trazado se comparte desde `dist/routing.js`. Después de cambiarlo, ejecuta `node scripts/sync-routing.cjs` para actualizar el HTML autónomo y corre las pruebas.
 - Cuando cambies una interacción, verifícala en el navegador además de ejecutar la suite. Registra qué superficie y casos quedaron comprobados.
