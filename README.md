@@ -31,6 +31,8 @@ Usa otro nombre si ya existe la copia. La CLI abre el navegador con el proyecto 
 
 Los agentes pueden comenzar por [AGENTS.md](AGENTS.md). La [guía de reapertura del HTML](.agents/skills/flujo-operar-proyecto/SKILL.md#exportar-y-volver-a-abrir) explica cómo comprobar una descarga, abrirla sin servidor y volver a encender la vista en vivo. Para preparar una versión en GitHub, consulta la [guía de publicación](docs/PUBLICACION.md).
 
+Para empezar una conversación con tu agente, copia [PROMPT.md](PROMPT.md) y completa el objetivo y los casos que quieres comprobar. Adjunta el HTML si ya tienes un proyecto.
+
 ### Crear un proyecto autónomo
 
 Abre el editor autónomo. Pulsa **Nuevo proyecto** y nombra el proyecto y su primer flujo. El lienzo y la biblioteca propia empiezan vacíos. Usa **Nuevo flujo** para añadir otros lienzos, **Bloque comodín** para definir un bloque reutilizable y **Subflujo → Abrir lienzo** para editar un proceso hijo. El inspector permite guardar el contrato de cada bloque y conectar sus salidas.

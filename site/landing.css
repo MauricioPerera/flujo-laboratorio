@@ -189,6 +189,8 @@ h3 { font-size: 18px; font-weight: 700; line-height: 1.3; }
 }
 .handoff-panel h2 { font-size: clamp(43px, 5vw, 65px); max-width: 13ch; }
 .handoff-panel p { color: #d7e5da; max-width: 49ch; margin-block: 15px 21px; }
+.handoff-links { display: flex; gap: 10px 23px; flex-wrap: wrap; }
+.prompt-link { padding: 0; border: 0; background: none; }
 .handoff-example { padding: 18px 20px; background: #24413a; border-radius: 8px; }
 .handoff-example h3 { margin-bottom: 7px; font-size: 14px; color: #d7e5da; }
 .handoff-example :is(a, button) { padding: 9px 0; display: flex; justify-content: space-between; gap: 10px; font-size: 14px; text-decoration: none; }
@@ -218,6 +220,25 @@ h3 { font-size: 18px; font-weight: 700; line-height: 1.3; }
 .start-option strong, .start-option small { display: block; }
 .start-option small { color: var(--muted); font-size: 13px; }
 .start-arrow { margin-left: auto; }
+.prompt-dialog { width: min(700px, calc(100% - 28px)); }
+.prompt-dialog > p { color: var(--muted); font-size: 14px; }
+.prompt-dialog textarea {
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  height: min(38vh, 330px);
+  margin-block: 14px 10px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 13px/1.5 ui-monospace, monospace;
+  resize: vertical;
+}
+.prompt-actions { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; }
+.prompt-actions button:disabled { opacity: .55; cursor: default; }
+.prompt-dialog .prompt-status { min-height: 1.5em; margin-top: 7px; }
 
 @media (max-width: 900px) {
   .wrap { width: min(100% - 48px, 680px); }

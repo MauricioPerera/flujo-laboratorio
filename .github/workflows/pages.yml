@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/pages.yml
       - LICENSE
+      - PROMPT.md
       - site/**
       - dist/**
   workflow_dispatch:
@@ -32,6 +33,7 @@ jobs:
           mv _site/index.html _site/editor-inmobiliario.html
           cp site/* _site/
           cp LICENSE _site/LICENSE.txt
+          cp PROMPT.md _site/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
