@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verificar cambios de Flujo"
+  short_description: "Comprobar cambios y preparar versiones de Flujo"
+  default_prompt: "Usa $flujo-verificar-cambios para verificar esta modificación de Flujo."

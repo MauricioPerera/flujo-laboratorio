@@ -1,0 +1,11 @@
+/node_modules/
+/.local/
+/.webmcp/
+/examples/
+/reporte-revision-egm.md
+/.openai/hosting.json
+.env
+.env.*
+*.log
+*.html.lock
+*.html.*.tmp

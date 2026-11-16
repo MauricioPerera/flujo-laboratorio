@@ -1,0 +1,4 @@
+interface:
+  display_name: "Operar proyecto de Flujo"
+  short_description: "Editar, simular y abrir proyectos HTML de Flujo"
+  default_prompt: "Usa $flujo-operar-proyecto para trabajar con el HTML de este proyecto."

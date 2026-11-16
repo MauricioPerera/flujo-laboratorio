@@ -1,0 +1,1539 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f6fb"><title>Proyecto de flujos · Prototipo</title>
+<!-- PROJECT PREVIEW CONFIG -->
+<style>
+:root{font-family:Inter,"Segoe UI",sans-serif;color:#232538;background:#f5f6fb;font-synthesis:none;text-rendering:optimizeLegibility}*{box-sizing:border-box}body{margin:0;min-width:360px}button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{display:grid;grid-template-columns:238px minmax(560px,1fr) 300px;min-height:100vh}.sidebar{background:#20213a;color:#f6f5ff;padding:22px 15px;display:flex;flex-direction:column;gap:16px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}.brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:#7770e9;color:white}.brand small{display:block;font-size:9px;letter-spacing:1.4px;color:#aaa9c6;font-weight:600}.project-mini{border:1px solid #454660;border-radius:11px;padding:12px;background:#292a46}.project-mini label,.section-title{font-size:9px;letter-spacing:1.2px;color:#aaa9c6;font-weight:800}.project-mini b{display:block;margin:7px 0 3px;font-size:13px}.project-mini span{font-size:10px;line-height:1.5;color:#c0bfd3}.side-group{display:grid;gap:7px}.block-btn{width:100%;display:flex;align-items:center;gap:9px;text-align:left;border:1px solid #42435e;border-radius:9px;color:#f6f5ff;background:#2a2b47;padding:9px;font-size:11px}.block-btn:hover{background:#353654;border-color:#716de0}.block-icon{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:#414262;color:#d9d6ff;font-weight:800}.block-btn small{display:block;color:#b2b1c8;font-size:9px;margin-top:3px}.project-block .block-icon{background:#574a3b;color:#ffdda9}.wildcard{border:1px dashed #8a84ef;background:#303050}.sidebar-footer{margin-top:auto;border-top:1px solid #44455e;padding-top:14px;font-size:10px;line-height:1.5;color:#b3b2c8}.main{min-width:0;padding:20px 22px 24px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.crumb{font-size:10px;color:#8e90a1}.crumb b{color:#515267}.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.btn{border:1px solid #e2e3ed;border-radius:8px;background:white;color:#55586a;padding:9px 11px;font-weight:700;font-size:10px}.btn:hover{border-color:#aaa5e8;color:#5f57c6}.btn.primary{background:#6e65df;border-color:#6e65df;color:white;box-shadow:0 5px 12px #6e65df2e}.btn.soft{background:#f0efff;color:#6058c8;border-color:#e2dfff}.hero{display:flex;align-items:flex-end;justify-content:space-between;margin:8px 0 16px;gap:10px}.eyebrow{font-size:9px;font-weight:800;letter-spacing:1.5px;color:#7b73d8}.hero h1{font-size:22px;margin:7px 0 4px;letter-spacing:-.4px}.hero p{font-size:11px;color:#85889a;margin:0}.badge{background:#eeedf9;color:#6b62cd;border-radius:99px;padding:6px 9px;font-size:9px;font-weight:800;white-space:nowrap}.work{border:1px solid #e6e7ef;border-radius:14px;background:white;overflow:hidden;box-shadow:0 8px 30px #2423450c}.canvas-head{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;border-bottom:1px solid #eff0f4}.canvas-head b{font-size:10px;letter-spacing:1px;color:#74768a}.canvas-head span{font-size:9px;color:#a0a2ae}.viewport{overflow:auto;min-height:560px;background-color:#fff;background-image:radial-gradient(#dfe0ec 1px,transparent 1px);background-size:19px 19px}.canvas{position:relative;width:1260px;height:620px;transform-origin:top left}.edge-layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.edge{fill:none;stroke:#8a86b7;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.node{position:absolute;width:210px;min-height:112px;border:1px solid #e4e5ed;background:white;border-radius:12px;box-shadow:0 7px 18px #28274510;cursor:pointer}.node.selected{border:2px solid #7770e5;box-shadow:0 0 0 4px #7770e51a}.node-head{display:flex;align-items:center;gap:9px;padding:11px 12px 7px;cursor:grab}.node-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#f0efff;color:#665ed0;font-size:13px;font-weight:800;flex:none}.node-type{font-size:8px;letter-spacing:1px;font-weight:800;color:#8b8c9d;text-transform:uppercase}.node-title{font-size:11px;font-weight:800;margin-top:3px}.node-body{padding:2px 12px 12px;color:#818495;font-size:9px;line-height:1.45;min-height:27px;overflow-wrap:anywhere}.node-footer{border-top:1px solid #f0f0f4;padding:7px 11px;color:#8a8c9b;font-size:8px;display:flex;justify-content:space-between}.node-port{position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid #8b83df;top:50%;transform:translateY(-50%)}.node-port.in{left:-6px}.node-port.out{right:-6px}.node-port.in.back{left:auto;top:auto;bottom:-6px;transform:translateX(-50%)}.node-port.unconnected{border-color:#d9a24e;background:#fff7e5}.node-output{position:absolute;right:-8px;top:18px;font-size:7px;color:#817ba8;background:white;padding:1px 2px}.node.condition .node-icon{background:#fff5e9;color:#ba8b49}.node.switch .node-icon{background:#e9f6f4;color:#408c7d}.node.custom .node-icon{background:#fff3df;color:#ae7a37}.node.output .node-icon{background:#e9f5ed;color:#4c9765}.canvas-empty{position:absolute;left:40px;bottom:20px;font-size:10px;color:#a2a3af}.inspector{background:white;border-left:1px solid #e6e7ef;padding:20px 16px}.inspector-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.inspector-head b{font-size:9px;letter-spacing:1.3px;color:#85879a}.inspector-head button{border:0;background:transparent;color:#9294a2}.field{display:grid;gap:6px;margin-bottom:12px}.field label{font-size:9px;font-weight:800;color:#65687a}.field input,.field textarea,.field select,.modal input,.modal textarea,.modal select{width:100%;border:1px solid #e5e6ed;border-radius:7px;background:#fff;padding:9px;color:#45485a;font-size:10px;outline:none}.field textarea,.modal textarea{resize:vertical;min-height:62px;line-height:1.5}.field input:focus,.field textarea:focus,.modal textarea:focus,.modal input:focus{border-color:#8d86e8;box-shadow:0 0 0 3px #8d86e51a}.hint{font-size:9px;color:#9698a6;line-height:1.5}.divider{height:1px;background:#eeeef3;margin:15px 0}.connection-row{display:grid;grid-template-columns:1fr 90px auto;gap:5px;margin-bottom:7px}.connection-row select{min-width:0;font-size:9px}.connection-row button{border:0;color:#b46767;background:#fbefef;border-radius:6px}.run-panel{border:1px solid #ebeaf6;background:#faf9ff;border-radius:10px;padding:12px;margin-top:10px}.run-panel h3{font-size:11px;margin:0 0 7px}.run-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #ebeaf0;border-radius:7px;padding:9px;font:9px/1.5 ui-monospace,Consolas,monospace;color:#55596a}.route{font-size:9px;color:#77788b;line-height:1.5}.route b{color:#52546a}.modal-backdrop{position:fixed;inset:0;background:#17172d70;display:grid;place-items:center;padding:18px;z-index:5}.modal-backdrop[hidden]{display:none}.modal{width:min(620px,96vw);max-height:92vh;overflow:auto;border-radius:15px;background:white;box-shadow:0 20px 80px #11112d55;padding:20px}.modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px}.modal h2{font-size:16px;margin:0 0 5px}.modal p{font-size:10px;color:#878999;line-height:1.5;margin:0}.modal-close{border:0;background:#f4f4f8;border-radius:7px;width:28px;height:28px;color:#6e7080}.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#27283f;color:white;border-radius:9px;padding:10px 14px;font-size:10px;box-shadow:0 8px 24px #0002;z-index:8}.toast[hidden]{display:none}.case-list{display:grid;gap:8px}.case{border:1px solid #e9e9f0;border-radius:9px;padding:10px;font-size:10px}.case b{display:block;margin-bottom:4px}.case span{color:#8c8e9d}.ok{color:#438359!important}.fail{color:#b35f62!important}.export-note{padding:10px;background:#f5f4ff;color:#74708f;border-radius:8px;font-size:9px;line-height:1.5;margin:12px 0}@media(max-width:1100px){.shell{grid-template-columns:210px minmax(480px,1fr)}.inspector{grid-column:2;border-left:0;border-top:1px solid #e6e7ef}.main{grid-column:2;grid-row:1}.sidebar{grid-row:1/3}.viewport{min-height:500px}}@media(max-width:720px){.shell{display:flex;flex-direction:column}.sidebar{order:2}.main{padding:15px 10px}.hero{align-items:flex-start;flex-direction:column}.hero h1{font-size:19px}.inspector{order:3}.actions{justify-content:flex-end}.viewport{min-height:430px}.modal-grid{grid-template-columns:1fr}.topbar{align-items:flex-start}.actions .btn{padding:8px;font-size:9px}}
+</style><style>
+.canvas-tools{display:flex;align-items:center;gap:10px}.flow-status{font-size:9px;font-weight:800;color:#4a8b62}.flow-status.warning{color:#b16d39}.flow-status.error{color:#b5505b}.node.detached{border-style:dashed;border-color:#d8b77e;background:#fffdf8}.node.detached .node-footer{color:#b17d39}.canvas-head #organizeFlow{padding:7px 9px;font-size:9px}.canvas-head .flow-status{max-width:230px;text-align:right}.edge{stroke:#8a86b7;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}@media(max-width:760px){.canvas-tools{gap:6px;flex-wrap:wrap;justify-content:flex-end}.canvas-head .flow-status{max-width:160px}.canvas-head>span{display:none}}
+</style><style>
+.canvas-tools{display:flex;align-items:center;gap:6px}.canvas-tools button{border:1px solid #e2e3ed;border-radius:6px;background:#fff;color:#5b5d70;padding:6px 8px;font-size:10px}.canvas-tools button:hover{border-color:#aaa5e8;color:#5f57c6}.canvas-tools #zoomLevel{min-width:35px;text-align:center}.work:fullscreen{position:fixed;inset:0;z-index:20;border:0;border-radius:0;display:flex;flex-direction:column;background:#fff}.work:fullscreen .viewport{flex:1;min-height:0}.work:fullscreen .canvas-head{min-height:50px}.note-layer{position:absolute;inset:0;pointer-events:none;z-index:0}.project-note{position:absolute;pointer-events:auto;background:#fff5c5d9;border:1px solid #e9d891;border-radius:9px;padding:9px;box-shadow:0 3px 12px #806c2210}.project-note b{display:block;font-size:9px;color:#79642d;margin-bottom:4px}.project-note textarea{width:100%;height:calc(100% - 18px);resize:both;border:0;background:transparent;font:9px/1.4 Inter,sans-serif;color:#8a794b;outline:none}.canvas-tools #zoomLevel{font-size:9px;color:#85879a}
+
+.graph-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.graph-nav [hidden],.field[hidden]{display:none}.subflow-canvas-action{font:inherit;font-weight:700;color:#5d55c7;padding:0;border:0;background:none}.subflow-canvas-action:hover{text-decoration:underline}.canvas-head{flex-wrap:wrap;gap:8px}
+.canvas-tools{flex-wrap:wrap;min-width:0}
+.zoom-controls{display:flex;align-items:center;gap:6px;flex:none}
+.node.has-branch-labels{display:grid;grid-template-columns:minmax(0,1fr) 97px;grid-template-rows:auto minmax(0,1fr) auto}
+.has-branch-labels .node-head{grid-area:1 / 1 / 2 / 3;overflow-wrap:anywhere}
+.has-branch-labels .node-head>div{min-width:0}
+.has-branch-labels .node-body{grid-area:2 / 1 / 3 / 2;padding-right:3px}
+.has-branch-labels .node-footer{grid-area:3 / 1 / 4 / 2;padding-right:3px;gap:5px}
+.branch-rail{position:relative;grid-area:2 / 2 / 4 / 3;display:grid;grid-auto-rows:minmax(20px,1fr);padding-bottom:5px;pointer-events:none}
+.branch-row{position:relative;display:flex;align-items:center;justify-content:flex-end;padding:2px 10px 2px 3px;min-width:0}
+.node-port-label{color:var(--branch-color,#5c5874);background:#f6f5fa;border-radius:4px;padding:2px 4px;font-size:9px;font-weight:700;line-height:1.3;overflow-wrap:anywhere;text-align:right;min-width:0}
+.node-port.out.connected[data-tone]{border-color:var(--branch-color)}
+[data-tone="0"]{--branch-color:#4a56a2}
+[data-tone="1"]{--branch-color:#246f61}
+[data-tone="2"]{--branch-color:#805419}
+[data-tone="3"]{--branch-color:#765281}
+[data-tone="yes"]{--branch-color:#297043}
+[data-tone="no"]{--branch-color:#95502e}
+.edge[data-tone]{stroke:var(--branch-color)}
+.edge.edge-conflict{stroke-dasharray:5 3}
+.subflow-trace{margin-top:6px}.subflow-trace summary{cursor:pointer;color:#5d55c7}.subflow-trace pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}.branch-row .node-port-label{max-width:100%}
+.run-panel .route{margin:9px 0}.run-panel textarea{min-height:55px;font-family:Consolas,monospace}.run-panel #followupPanel{margin:8px 0;padding:9px;border:1px solid #e1dff0;border-radius:8px;background:#fff}.run-panel #runInputError{margin:8px 0;font-size:11px}
+.workspace-controls{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin:0 0 12px}.workspace-group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.workspace-group label{font-size:11px;font-weight:700;color:#5b5d70}.workspace-group select{min-width:140px;max-width:240px;padding:6px;border:1px solid #e2e3ed;border-radius:6px;color:#232538;background:#fff}.workspace-error{margin:8px 0;font-size:12px}.canvas-empty[hidden]{display:none}
+.live-preview{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px}.live-preview[hidden]{display:none}.live-preview [role=status]{font-size:11px;color:#555970;overflow-wrap:anywhere}
+.change-revision summary{cursor:pointer}.change-revision summary time{color:#60637a;margin-left:6px;font-size:11px}.change-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:6px 0 12px}.change-values pre{margin:3px 0;white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto}.change-item{margin-top:8px}
+</style></head>
+<body>
+<script id="projectData" type="application/json">{"id":"solicitudes-demo","version":8,"name":"Sistema de solicitudes","description":"Especificación visual del ciclo de solicitudes, sus contratos, ejemplos por camino e incertidumbres acotadas.","blockDefinitions":[{"id":"lookup-request","name":"Consultar solicitud","icon":"⌕","purpose":"Consulta el estado de una solicitud con el identificador recibido.","inputs":["idSolicitud"],"outputs":["estado","detalle"],"rules":["Si existe, devolver estado y detalle.","Si no existe, informar que no se encontró."],"simulation":{"estado":"En revisión","detalle":"La documentación está completa."}},{"id":"validar-identidad","name":"Validar identidad","icon":"✓","purpose":"Comprueba que los datos de identificación cumplan las reglas acordadas.","inputs":["clienteId","documento"],"outputs":["identidadValida"],"rules":["Si los datos coinciden, identidadValida=true.","Si no coinciden, solicitar revisión manual."],"simulation":{"identidadValida":true}}],"nodes":[{"id":"n-in","kind":"input","title":"Recibir mensaje inicial","x":55,"y":190,"example":{"idSolicitud":"REQ-104","clienteId":"CLI-88"},"requiredFields":["idSolicitud"],"optionalFields":["clienteId"],"inputSchema":{"idSolicitud":{"type":"string","description":"Identificador requerido para localizar la solicitud"},"clienteId":{"type":"string","description":"Identificador del cliente si viene en el mensaje"}},"allowAdditional":true},{"id":"n-check","kind":"condition","title":"¿El mensaje incluye clienteId?","x":395,"y":190,"field":"clienteId","operator":"present","value":""},{"id":"n-identity","kind":"subflow","title":"Validar identidad del cliente","subflowId":"validate-customer","purpose":"Comprobar la identidad del cliente antes de consultar datos de la solicitud.","x":735,"y":40},{"id":"n-id-result","kind":"switch","title":"Resultado de identidad","field":"resultadoIdentidad","options":["validada","no_encontrada","error_tecnico","default"],"x":1075,"y":40},{"id":"n-reset","kind":"operation","action":"resetCounter","field":"intentosSinIdentificacion","title":"Reiniciar fallos consecutivos","purpose":"Al validar al cliente, reinicia el contador consecutivo de fallos.","simulationText":"Estado interno, no proviene del mensaje del usuario.","x":1415,"y":40},{"id":"n-lookup","kind":"custom","blockId":"lookup-request","subflowId":"lookup-request","title":"Consultar solicitud","x":1755,"y":40},{"id":"n-lookup-result","kind":"switch","title":"Resultado de consulta","field":"resultadoConsulta","options":["encontrada","no_encontrada","error_tecnico","default"],"x":2095,"y":40},{"id":"n-result","kind":"output","title":"Entregar estado","x":2435,"y":36,"message":"Consulta completada.","outputStatus":"completada"},{"id":"n-not-found","kind":"output","title":"Solicitud no encontrada","x":2435,"y":180,"message":"No se encontró la solicitud con los datos recibidos.","outputStatus":"solicitud_no_encontrada"},{"id":"n-lookup-error","kind":"output","title":"Consulta pendiente de definición","x":2435,"y":327,"message":"La consulta devolvió un error técnico; la recuperación está pendiente de definir.","outputStatus":"pendiente_definicion"},{"id":"n-count","kind":"operation","action":"incrementCounter","field":"intentosSinIdentificacion","title":"Contar fallo consecutivo","purpose":"Cuenta los mensajes sin identidad validada, incluido cliente no encontrado.","simulationText":"Contador interno, no se incluye en el JSON del usuario.","x":1415,"y":362},{"id":"n-limit","kind":"condition","title":"¿Alcanzó el límite?","purpose":"Tres es sólo el valor inicial de ejemplo; debe confirmarse.","x":1755,"y":330,"field":"intentosSinIdentificacion","operator":"gte","value":"3"},{"id":"n-limit-out","kind":"output","title":"Límite alcanzado","purpose":"La repetición se detiene. La salida definitiva queda por resolver.","x":2095,"y":230,"message":"Se alcanzó el límite consecutivo. Definir si se cierra o se deriva a una persona.","outputStatus":"limite_intentos"},{"id":"n-ask","kind":"output","title":"Pedir identificación","x":2095,"y":430,"message":"Indica tu número de cliente para continuar."},{"id":"n-wait","kind":"wait","title":"Esperar siguiente mensaje","purpose":"Pausa hasta el próximo mensaje del usuario y vuelve a evaluar clienteId.","x":2435,"y":488,"requiredFields":["texto"],"optionalFields":["clienteId"],"inputSchema":{"texto":{"type":"string","description":"Contenido del mensaje de seguimiento"},"clienteId":{"type":"string","description":"Identificador si el cliente lo proporciona"}},"allowAdditional":true},{"id":"n-id-error","kind":"output","title":"Validación técnica pendiente","purpose":"La respuesta técnica no se interpreta como identidad válida.","x":1415,"y":188,"message":"No se pudo validar la identidad por un error técnico. La recuperación está pendiente de definir.","outputStatus":"pendiente_definicion"}],"edges":[{"from":"n-in","to":"n-check","when":"next"},{"from":"n-check","to":"n-identity","when":"yes"},{"from":"n-check","to":"n-count","when":"no"},{"from":"n-identity","to":"n-id-result","when":"next"},{"from":"n-id-result","to":"n-reset","when":"case:validada"},{"from":"n-id-result","to":"n-count","when":"case:no_encontrada"},{"from":"n-id-result","to":"n-id-error","when":"case:error_tecnico"},{"from":"n-reset","to":"n-lookup","when":"next"},{"from":"n-lookup","to":"n-lookup-result","when":"next"},{"from":"n-lookup-result","to":"n-result","when":"case:encontrada"},{"from":"n-lookup-result","to":"n-not-found","when":"case:no_encontrada"},{"from":"n-lookup-result","to":"n-lookup-error","when":"case:error_tecnico"},{"from":"n-count","to":"n-limit","when":"next"},{"from":"n-limit","to":"n-limit-out","when":"yes"},{"from":"n-limit","to":"n-ask","when":"no"},{"from":"n-ask","to":"n-wait","when":"next"},{"from":"n-wait","to":"n-check","when":"next"},{"from":"n-id-result","to":"n-id-error","when":"default"},{"from":"n-lookup-result","to":"n-lookup-error","when":"default"}],"cases":[{"id":"c1","name":"Cliente validado y solicitud encontrada","input":{"idSolicitud":"REQ-104","clienteId":"CLI-88"},"path":"output.flowData.estado","expected":"En revisión"},{"id":"c2","name":"Sin clienteId; espera otro mensaje","input":{"idSolicitud":"REQ-104"},"followupMessages":[],"path":"output.internalState.estadoConversacion","expected":"esperando_respuesta","pending":true},{"id":"c3","name":"El siguiente mensaje trae clienteId","input":{"idSolicitud":"REQ-104"},"followupMessages":[{"texto":"Mi número es CLI-88","clienteId":"CLI-88"}],"path":"output.flowData.estado","expected":"En revisión"},{"id":"c4","name":"Tres fallos consecutivos detienen el loop","input":{"idSolicitud":"REQ-104"},"followupMessages":[{"texto":"No lo recuerdo"},{"texto":"Sigo sin encontrarlo"}],"path":"output.internalState.estadoConversacion","expected":"limite_intentos"},{"id":"c5","name":"Falta el campo obligatorio idSolicitud","input":{"clienteId":"CLI-88"},"path":"validation.valid","expected":false,"expectError":true},{"id":"c6","name":"Cliente no encontrado vuelve a pedir identificación","input":{"idSolicitud":"REQ-104","clienteId":"CLI-99"},"followupMessages":[],"path":"output.internalState.estadoConversacion","expected":"esperando_respuesta","pending":true},{"id":"c7","name":"Error técnico de identidad queda como pendiente","input":{"idSolicitud":"REQ-104","clienteId":"CLI-503"},"path":"output.internalState.estadoConversacion","expected":"pendiente_definicion"},{"id":"c8","name":"Solicitud no encontrada","input":{"idSolicitud":"REQ-404","clienteId":"CLI-88"},"path":"output.internalState.estadoConversacion","expected":"solicitud_no_encontrada"},{"id":"c9","name":"Error técnico al consultar queda como pendiente","input":{"idSolicitud":"REQ-503","clienteId":"CLI-88"},"path":"output.internalState.estadoConversacion","expected":"pendiente_definicion"},{"id":"c10","name":"Resultado de identidad no reconocido queda pendiente","input":{"idSolicitud":"REQ-104","clienteId":"CLI-88"},"subflowResults":{"validate-customer":{"resultadoIdentidad":"inesperado","clienteIdNormalizado":null}},"path":"output.internalState.estadoConversacion","expected":"pendiente_definicion"},{"id":"c11","name":"Resultado de consulta no reconocido queda pendiente","input":{"idSolicitud":"REQ-104","clienteId":"CLI-88"},"subflowResults":{"lookup-request":{"resultadoConsulta":"inesperado","estado":null,"detalle":null}},"path":"output.internalState.estadoConversacion","expected":"pendiente_definicion"},{"id":"c12","name":"La identidad válida reinicia el contador interno","input":{"idSolicitud":"REQ-104"},"followupMessages":[{"texto":"Mi número es CLI-88","clienteId":"CLI-88"}],"path":"output.internalState.intentosSinIdentificacion","expected":0},{"id":"c13","name":"ClienteId con tipo incorrecto se rechaza","input":{"idSolicitud":"REQ-104","clienteId":88},"path":"validation.valid","expected":false,"expectError":true},{"id":"c14","name":"Mensaje posterior con tipo incorrecto se rechaza","input":{"idSolicitud":"REQ-104"},"followupMessages":[{"texto":23}],"path":"output.internalState.estadoConversacion","expected":"activa","expectError":true},{"id":"retry-recovers","name":"Identidad no encontrada: el siguiente mensaje corrige el ID","input":{"idSolicitud":"REQ-104","clienteId":"CLI-99"},"followupMessages":[{"texto":"El número correcto es CLI-88","clienteId":"CLI-88"}],"path":"output.internalState","expected":{"intentosSinIdentificacion":0,"idSolicitudEnCurso":"REQ-104","estadoConversacion":"completada","turnosUsuario":2},"pending":false},{"id":"retry-limit","name":"Tres identidades no encontradas: se detiene aunque quede otro mensaje","input":{"idSolicitud":"REQ-104","clienteId":"CLI-99"},"followupMessages":[{"texto":"Prueba con CLI-404","clienteId":"CLI-404"},{"texto":"Intenta con CLI-777","clienteId":"CLI-777"},{"texto":"El número correcto es CLI-88","clienteId":"CLI-88"}],"path":"output.internalState","expected":{"intentosSinIdentificacion":3,"idSolicitudEnCurso":"REQ-104","estadoConversacion":"limite_intentos","turnosUsuario":3},"pending":false}],"internalStateSchema":[{"name":"intentosSinIdentificacion","type":"integer","initial":0,"rules":["Incrementa cuando falta o no se valida el cliente.","Se reinicia al validar correctamente.","El límite de ejemplo es 3 y debe confirmarse."]},{"name":"idSolicitudEnCurso","type":"string","initial":"idSolicitud del primer mensaje","rules":["Se conserva al recibir mensajes de seguimiento."]},{"name":"estadoConversacion","type":"enum","values":["activa","esperando_respuesta","limite_intentos","pendiente_definicion"],"rules":["No forma parte del JSON enviado por el usuario."]}],"openQuestions":[{"id":"q-identity-source","title":"¿Cómo se verifica la identidad?","subflowId":"validate-customer","known":["Se recibe clienteId cuando el usuario lo conoce.","Sólo una identidad validada puede consultar la solicitud."],"constraints":["No exponer datos de la solicitud antes de validar identidad.","Un resultado no encontrado aumenta el contador consecutivo."],"unknowns":["Fuente de datos y criterios de coincidencia.","Tratamiento definitivo de un error técnico."],"status":"open"},{"id":"q-lookup-method","title":"¿Cómo se consulta la solicitud?","subflowId":"lookup-request","known":["Entrada: idSolicitud.","Salida prevista: estado y detalle; puede no encontrarse."],"constraints":["Conservar los resultados encontrados, no encontrados y técnicos como caminos distintos.","La plataforma sólo simula resultados; no se conecta a herramientas reales."],"unknowns":["API, base de datos, operador humano u otro mecanismo.","Criterios, permisos y fuente de verdad."],"status":"open"},{"id":"q-retry-exhausted","title":"¿Qué ocurre al agotar intentos?","known":["El contador aplica a fallos consecutivos y se reinicia tras validar identidad.","El flujo no puede repetir indefinidamente."],"constraints":["Al alcanzar el límite, detener la repetición y conservar el contexto de solicitud."],"unknowns":["Número final de intentos.","Cerrar, escalar a una persona u otra salida."],"status":"open"}],"subflows":[{"id":"validate-customer","name":"Validar identidad del cliente","purpose":"Determinar si el cliente asociado al mensaje es válido antes de acceder a la solicitud.","inputs":["clienteId","idSolicitudEnCurso"],"outputs":["resultadoIdentidad","clienteIdNormalizado"],"known":["El mensaje puede traer clienteId.","El éxito permite continuar a consultar solicitud."],"steps":["Recibir clienteId del mensaje actual.","Compararlo con una fuente de identidad aún por definir.","Emitir uno de los resultados del contrato."],"outcomes":["validada","no_encontrada","error_tecnico"],"constraints":["No revelar estado ni detalle de solicitud si la identidad no se valida.","no_encontrada regresa al contador y a la espera de otro mensaje.","error_tecnico sale a un punto de definición, no se trata como éxito."],"unknowns":["Fuente y reglas de coincidencia.","Qué evidencias adicionales, si alguna, se exigirán."],"simulationResult":{"resultadoIdentidad":"validada","clienteIdNormalizado":"CLI-88"},"graph":{"nodes":[{"id":"start","kind":"input","title":"Recibir identificación","x":40,"y":200,"example":{"clienteId":"CLI-88","idSolicitudEnCurso":"REQ-104"}},{"id":"identity-example","kind":"switch","title":"Simular validación de identidad","x":322,"y":200,"purpose":"CLI-88 simula una identidad válida. CLI-503 simula un fallo de la fuente. Los demás identificadores no figuran en el ejemplo.","field":"clienteId","options":["CLI-88","CLI-503"]},{"id":"identity-valid","kind":"output","title":"Identidad validada","x":635,"y":36,"purpose":"Devuelve el identificador de cliente para consultar la solicitud.","simulatedOutput":{"resultadoIdentidad":"validada","clienteIdNormalizado":"CLI-88"}},{"id":"identity-error","kind":"output","title":"Error técnico","x":635,"y":206,"purpose":"Devuelve un fallo técnico sin dar por válida la identidad.","simulatedOutput":{"resultadoIdentidad":"error_tecnico","clienteIdNormalizado":null}},{"id":"identity-missing","kind":"output","title":"Identidad no encontrada","x":635,"y":376,"purpose":"El identificador no figura en la validación simulada.","simulatedOutput":{"resultadoIdentidad":"no_encontrada","clienteIdNormalizado":null}}],"edges":[{"from":"start","to":"identity-example","when":"next"},{"from":"identity-example","to":"identity-valid","when":"case:CLI-88"},{"from":"identity-example","to":"identity-error","when":"case:CLI-503"},{"from":"identity-example","to":"identity-missing","when":"default"}],"notes":[]}},{"id":"lookup-request","name":"Consultar solicitud","purpose":"Obtener estado y detalle a partir de idSolicitud después de validar identidad.","inputs":["idSolicitudEnCurso","clienteIdNormalizado"],"outputs":["resultadoConsulta","estado","detalle"],"known":["La solicitud se consulta sólo después de validar identidad.","Los resultados se clasifican como encontrada, no encontrada o error técnico."],"steps":["Recibir idSolicitudEnCurso.","Consultar la fuente que se defina.","Normalizar estado y detalle cuando exista."],"outcomes":["encontrada","no_encontrada","error_tecnico"],"constraints":["No elegir ahora API, base de datos ni atención humana.","Mantener salidas distintas para no encontrada y error técnico.","Los valores mostrados en la simulación son datos de ejemplo."],"unknowns":["Mecanismo, fuente de verdad, permisos y criterios de búsqueda."],"simulationResult":{"resultadoConsulta":"encontrada","estado":"En revisión","detalle":"La documentación está completa."},"graph":{"nodes":[{"id":"start","kind":"input","title":"Recibir datos de consulta","x":40,"y":200,"example":{"idSolicitudEnCurso":"REQ-104","clienteIdNormalizado":"CLI-88"}},{"id":"lookup-example","kind":"switch","title":"Simular consulta","x":322,"y":200,"purpose":"REQ-104 simula una solicitud existente. REQ-503 simula un fallo de la fuente. Los demás identificadores no aparecen en este ejemplo.","field":"idSolicitudEnCurso","options":["REQ-104","REQ-503"]},{"id":"lookup-found","kind":"output","title":"Solicitud encontrada","x":635,"y":36,"purpose":"Devuelve el estado y el detalle de ejemplo.","simulatedOutput":{"resultadoConsulta":"encontrada","estado":"En revisión","detalle":"La documentación está completa."}},{"id":"lookup-failed","kind":"output","title":"Error técnico","x":635,"y":206,"purpose":"Indica un fallo de consulta sin devolver estado ni detalle.","simulatedOutput":{"resultadoConsulta":"error_tecnico","estado":null,"detalle":null}},{"id":"lookup-missing","kind":"output","title":"Solicitud no encontrada","x":635,"y":376,"purpose":"Indica que el identificador no figura en la consulta simulada.","simulatedOutput":{"resultadoConsulta":"no_encontrada","estado":null,"detalle":null}}],"edges":[{"from":"start","to":"lookup-example","when":"next"},{"from":"lookup-example","to":"lookup-found","when":"case:REQ-104"},{"from":"lookup-example","to":"lookup-failed","when":"case:REQ-503"},{"from":"lookup-example","to":"lookup-missing","when":"default"}],"notes":[]}}]}</script>
+<div class="shell">
+<aside class="sidebar"><div class="brand"><span class="brand-mark">✳</span><div>flujo<span style="color:#a49cff">.</span><small>PROYECTO AUTÓNOMO</small></div></div>
+<div class="project-mini"><label>PROYECTO ACTUAL</label><b id="sideName">Sistema de solicitudes</b><span id="sideDescription"></span></div>
+<div class="side-group"><div class="section-title">BLOQUES COMUNES</div>
+<button class="block-btn" data-add="input"><span class="block-icon">↘</span><span>Entrada<small>Recibe los datos</small></span></button>
+<button class="block-btn" data-add="condition"><span class="block-icon">◇</span><span>Condición<small>Evalúa sí o no</small></span></button>
+<button class="block-btn" data-add="switch"><span class="block-icon">⇄</span><span>Switch<small>Elige una ruta</small></span></button>
+<button class="block-btn" data-add="operation"><span class="block-icon">✳</span><span>Transformación<small>Define un cambio de datos</small></span></button>
+<button class="block-btn" data-add="subflow"><span class="block-icon">▤</span><span>Subflujo<small>Agrupa un proceso</small></span></button>
+<button class="block-btn" data-add="wait"><span class="block-icon">◌</span><span>Esperar respuesta<small>Pausa y reanuda con otro mensaje</small></span></button>
+<button class="block-btn" data-add="output"><span class="block-icon">◎</span><span>Resultado<small>Define la salida esperada</small></span></button></div>
+<div class="side-group"><div class="section-title">BLOQUES DE ESTE PROYECTO</div><div id="projectPalette"></div><button class="block-btn wildcard" id="openWildcard"><span class="block-icon">✧</span><span>Bloque comodín<small>Crear uno a partir de esta plantilla</small></span></button></div>
+<div class="sidebar-footer">Los bloques describen comportamiento y contratos. Las ejecuciones usan datos simulados; aquí no se conectan servicios reales.</div></aside>
+<main class="main"><header class="topbar"><div class="crumb">Mis proyectos&nbsp; / &nbsp;<b id="breadcrumb"></b></div><div class="actions"><button class="btn" id="restoreArchivedButton" hidden>↶ Recuperar bloques retirados</button><button class="btn" id="casesButton">◷ Casos</button><button class="btn" id="changeHistoryButton">Historial de cambios</button><button class="btn" id="questionsButton">◌ Puntos por resolver</button><button class="btn" id="importBlockButton">＋ Definición IA</button><button class="btn soft" id="exportJsonButton">⇩ Especificación JSON</button><button class="btn primary" id="exportHtmlButton">⇩ Exportar proyecto HTML</button></div></header>
+<section class="hero"><div><div class="eyebrow">EDITOR DE ESPECIFICACIÓN · SIMULACIÓN</div><h1 id="projectTitle"></h1><p id="projectPurpose"></p></div><span class="badge">Artefacto autocontenido</span></section>
+<div class="workspace-controls">
+ <div class="workspace-group"><label for="projectPicker">Proyecto</label><select id="projectPicker"></select><button class="btn" id="newProject">＋ Nuevo proyecto</button></div>
+ <div class="workspace-group"><label for="flowPicker">Flujo</label><select id="flowPicker"></select><button class="btn" id="newFlow">＋ Nuevo flujo</button></div>
+</div>
+<div class="live-preview" id="livePreview" hidden>
+ <button class="btn" id="applyProjectFile" hidden>Aplicar cambios del archivo</button>
+ <button class="btn" id="retryProjectSave" hidden>Reintentar guardado</button>
+ <span id="livePreviewStatus" role="status"></span>
+</div>
+ <section class="work" id="workArea"><div class="canvas-head"><div class="graph-nav"><button class="btn" id="backToParent" hidden>← Volver al flujo</button><b id="canvasTitle">FLUJO PRINCIPAL</b><button class="btn" id="activeContract" hidden>Contrato</button></div><div class="canvas-tools"><span id="flowStatus" class="flow-status"></span><button id="addNote" title="Agregar zona de comentario">＋ Nota</button><button id="organizeFlow" class="btn">↗ Organizar flujo</button><span><span id="nodeCount"></span> bloques</span><div class="zoom-controls"><button id="zoomOut" title="Alejar" aria-label="Alejar">−</button><span id="zoomLevel">100%</span><button id="zoomIn" title="Acercar" aria-label="Acercar">＋</button><button id="fit" title="Ajustar vista" aria-label="Ajustar vista">⌗</button><button id="fullscreen" title="Pantalla completa" aria-label="Pantalla completa">⛶</button></div></div></div><div class="viewport" id="viewport"><div class="canvas" id="canvas"><div class="note-layer" id="noteLayer"></div><svg class="edge-layer" id="edgeLayer"></svg><div id="nodes"></div><div class="canvas-empty">Selecciona un bloque para revisar su propósito y contrato.</div></div></div></section>
+<div class="run-panel" id="runPanel">
+ <h3 id="runTitle">Simulación del flujo</h3>
+ <div class="field"><label for="runInput">Entrada inicial (JSON)</label><textarea id="runInput" rows="3" spellcheck="false"></textarea></div>
+ <button class="btn primary" id="runDefault">▶ Iniciar simulación</button>
+ <div class="route" id="routeText" aria-live="polite">Ejecuta el lienzo actual para ver su recorrido.</div>
+ <div id="followupPanel" hidden>
+  <p id="pendingRunNote" class="hint" role="status"></p>
+  <div class="field"><label for="followupInput">Siguiente mensaje (JSON)</label><textarea id="followupInput" rows="3" spellcheck="false"></textarea><span id="followupContract" class="hint"></span></div>
+  <button class="btn primary" id="resumeRun">Enviar siguiente mensaje</button>
+ </div>
+ <p id="runInputError" class="fail" role="alert" hidden></p>
+ <pre id="resultText">Aquí aparecerá el resultado simulado.</pre>
+</div>
+</main>
+<aside class="inspector"><div class="inspector-head"><b>ESPECIFICACIÓN DEL BLOQUE</b><button id="clearSelection" aria-label="Deseleccionar">×</button></div><div id="inspectorContent"><p class="hint">Selecciona un bloque del lienzo para editar su descripción, entradas, salidas y comportamiento simulado.</p></div><div class="divider"></div><div class="section-title" style="color:#85879a">CONEXIONES</div><div id="connectionEditor"><p class="hint">Selecciona un bloque para editar sus conexiones.</p></div><div class="divider"></div><button id="addConnection" class="btn" style="width:100%">＋ Añadir conexión</button><p class="hint" style="margin-top:10px">Cada conexión indica la ruta que seguirá la simulación.</p></aside>
+</div>
+<div class="modal-backdrop" id="blockModal" hidden><div class="modal"><div class="modal-header"><div><h2 id="blockModalTitle">Crear bloque del proyecto</h2><p>Define un contrato visual. La IA puede generar o editar esta misma estructura.</p></div><button class="modal-close" data-close="blockModal">×</button></div><div class="field"><label>Nombre del bloque</label><input id="blockName" placeholder="Ej. Validar identidad"></div><div class="field"><label>Propósito</label><textarea id="blockPurpose" placeholder="Qué debe hacer y qué resultado debe devolver."></textarea></div><div class="modal-grid"><div class="field"><label>Entradas · una por línea</label><textarea id="blockInputs" placeholder="clienteId"></textarea></div><div class="field"><label>Salidas · una por línea</label><textarea id="blockOutputs" placeholder="identidadValida"></textarea></div></div><div class="field"><label>Reglas del contrato · una por línea</label><textarea id="blockRules" placeholder="Si los datos coinciden, marcar identidad como válida."></textarea></div><div class="field"><label>Salida de ejemplo (JSON simulado)</label><textarea id="blockSimulation" spellcheck="false">{"resultado":"Ejemplo"}</textarea><span class="hint">Es un resultado para evaluar el recorrido, no una implementación de la operación.</span></div><div class="modal-actions"><button class="btn" data-close="blockModal">Cancelar</button><button class="btn primary" id="saveBlock">Guardar definición</button></div></div></div>
+<div class="modal-backdrop" id="aiModal" hidden><div class="modal"><div class="modal-header"><div><h2>Importar definición asistida por IA</h2><p>La IA debe devolver una definición declarativa con este formato.</p></div><button class="modal-close" data-close="aiModal">×</button></div><div class="export-note">El prototipo conserva y valida bloques estructurados. No incluye conexión directa a un modelo ni ejecuta código generado.</div><div class="field"><label>Definición del bloque (JSON)</label><textarea id="aiDefinition" rows="10" spellcheck="false"></textarea></div><div class="modal-actions"><button class="btn" data-close="aiModal">Cancelar</button><button class="btn primary" id="importAiDefinition">Agregar al proyecto</button></div></div></div>
+<div class="modal-backdrop" id="casesModal" hidden><div class="modal"><div class="modal-header"><div><h2>Casos de verificación</h2><p>Escenarios con entrada, resultado esperado y resultado simulado.</p></div><button class="modal-close" data-close="casesModal">×</button></div><div id="caseList" class="case-list"></div><div class="section-title" id="coverageTitle" style="margin-top:16px">Cobertura del flujo principal</div><div id="pathCoverage" class="case-list"></div><div class="modal-actions"><button class="btn" data-close="casesModal">Cerrar</button><button class="btn primary" id="runCases">▶ Ejecutar casos</button></div></div></div>
+<div class="modal-backdrop" id="subflowModal" hidden><div class="modal"><div class="modal-header"><div><h2 id="subflowModalTitle">Detalle del subflujo</h2><p>Especifica comportamiento conocido, límites y decisiones pendientes; no implementa integraciones.</p></div><button class="modal-close" data-close="subflowModal">×</button></div><div class="field"><label>Nombre del subflujo</label><input id="subflowName"></div><div class="field"><label>Propósito</label><textarea id="subflowPurpose"></textarea></div><div class="modal-grid"><div class="field"><label>Entradas del bloque · una por línea</label><textarea id="subflowInputs"></textarea></div><div class="field"><label>Salidas del bloque · una por línea</label><textarea id="subflowOutputs"></textarea></div></div><div class="field"><label>Pasos ya conocidos · uno por línea</label><textarea id="subflowSteps"></textarea></div><div class="field"><label>Resultados posibles · uno por línea</label><textarea id="subflowOutcomes"></textarea></div><div class="field"><label>Limitantes definidas · una por línea</label><textarea id="subflowConstraints"></textarea></div><div class="field"><label>Incertidumbres acotadas · una por línea</label><textarea id="subflowUnknowns"></textarea></div><div class="field" id="legacySubflowFixture"><label>Resultado simulado por defecto (JSON)</label><textarea id="subflowSimulation" spellcheck="false"></textarea><span class="hint">Las pruebas pueden sobreescribir este resultado en cada caso.</span></div><div class="modal-actions"><button class="btn" data-close="subflowModal">Cancelar</button><button class="btn primary" id="saveSubflow">Guardar subflujo</button></div></div></div>
+<div class="modal-backdrop" id="questionsModal" hidden><div class="modal"><div class="modal-header"><div><h2>Puntos por resolver</h2><p>Cada incertidumbre conserva lo conocido y las reglas que limitan sus posibles soluciones.</p></div><button class="modal-close" data-close="questionsModal">×</button></div><div id="questionsList" class="case-list"></div><div class="modal-actions"><button class="btn" id="addQuestion">＋ Agregar incertidumbre</button><button class="btn primary" data-close="questionsModal">Listo</button></div></div></div>
+<div class="modal-backdrop" id="workspaceModal" hidden>
+ <form class="modal" id="workspaceForm">
+  <div class="modal-header"><h2 id="workspaceModalTitle">Nuevo proyecto</h2><button type="button" class="modal-close" data-close="workspaceModal" aria-label="Cerrar">×</button></div>
+  <div id="projectFields">
+   <div class="field"><label for="newProjectName">Nombre del proyecto</label><input id="newProjectName" maxlength="100"></div>
+   <div class="field"><label for="newProjectDescription">Propósito del proyecto (opcional)</label><textarea id="newProjectDescription" maxlength="1000"></textarea></div>
+  </div>
+  <div class="field"><label for="newFlowName">Nombre del flujo</label><input id="newFlowName" maxlength="100" required></div>
+  <p class="fail workspace-error" id="workspaceError" role="alert" hidden></p>
+  <div class="modal-actions"><button type="button" class="btn" data-close="workspaceModal">Cancelar</button><button class="btn primary" id="saveWorkspace">Crear proyecto</button></div>
+ </form>
+</div>
+<div class="modal-backdrop" id="changeHistoryModal" hidden>
+ <div class="modal">
+  <div class="modal-header"><h2>Historial de cambios</h2><button class="modal-close" data-close="changeHistoryModal" aria-label="Cerrar">×</button></div>
+  <div id="changeHistoryList" class="case-list"></div>
+  <p id="changeHistoryFeedback" class="hint" role="status"></p>
+  <div class="modal-actions"><button class="btn" data-close="changeHistoryModal">Cerrar</button></div>
+ </div>
+</div>
+<div id="toast" class="toast" hidden></div>
+<script>
+(()=>{
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const previewConfig=JSON.parse(document.getElementById('projectPreview')?.textContent||'null');
+const projectMarkup=document.documentElement.outerHTML.replace(/^<script id="projectPreview" type="application\/json">[^\n]*<\/script>/m,'<!-- PROJECT PREVIEW CONFIG -->');
+const defaults=JSON.parse(document.getElementById('projectData').textContent);
+const $=selector=>document.querySelector(selector);
+const defaultKey='flujo-project:'+defaults.id+(previewConfig?':vista:'+previewConfig.id:defaults.storageRevision?':'+defaults.storageRevision:'');
+const workspacePrefix=defaultKey+':project:';
+const workspaceProjects=new Map();
+let project,projectChoice='',flowChoice='';
+let selected=null,drag=null,toastTimer,zoom=1;
+let previewUpdate=null;
+const canvasStack=[];
+const canvasRuns=new WeakMap();
+const currentSubflow=()=>canvasStack.at(-1)?.subflow;
+const rootGraph=()=>project.flows?.find(flow=>flow.id===flowChoice)||project;
+const rootName=()=>flowChoice?rootGraph().name:project.flowName||'Flujo principal';
+const activeGraph=()=>currentSubflow()?.graph||rootGraph();
+const byId=(id,graph=activeGraph())=>graph.nodes.find(node=>node.id===id);
+const definition=id=>project.blockDefinitions.find(block=>block.id===id);
+const subflowById=id=>(project.subflows||[]).find(flow=>flow.id===id);
+const projectGraphs=()=>[project,...(project.flows||[]),...(project.subflows||[]).map(flow=>flow.graph).filter(Boolean)];
+const readStorage=key=>{try{return localStorage.getItem(key)}catch{return null}};
+const projectKey=choice=>choice?workspacePrefix+choice:defaultKey;
+function readProject(choice){
+ const embedded=!choice;
+ try{
+  const saved=JSON.parse(readStorage(projectKey(choice)));
+  if(saved?.id===(embedded?defaults.id:choice)&&(!embedded||saved.version===defaults.version)&&
+     ['nodes','edges','blockDefinitions','subflows','cases'].every(field=>Array.isArray(saved[field])))return saved;
+ }catch{}
+ return embedded?workspaceProjects.get('')||defaults:workspaceProjects.get(choice);
+}
+function renderWorkspace(){
+ try{
+  for(let index=0;index<localStorage.length;index++){
+   const storageKey=localStorage.key(index);
+   if(!storageKey?.startsWith(workspacePrefix))continue;
+   const choice=storageKey.slice(workspacePrefix.length);
+   if(!/^project-[a-z0-9-]+$/.test(choice))continue;
+   const saved=readProject(choice);
+   if(saved)workspaceProjects.set(choice,saved);
+  }
+ }catch{}
+ const option=(id,name)=>`<option value="${esc(id)}">${esc(name)}</option>`;
+ $('#projectPicker').innerHTML=option('',readProject('').name)+
+  [...workspaceProjects].filter(([id])=>id).map(([id,item])=>option(id,item.name)).join('');
+ $('#projectPicker').value=projectChoice;
+ $('#flowPicker').innerHTML=option('',project.flowName||'Flujo principal')+
+  (project.flows||[]).map(flow=>option(flow.id,flow.name)).join('');
+ $('#flowPicker').value=flowChoice;
+}
+function openRootFlow(choice){
+ flowChoice=project.flows?.some(flow=>flow.id===choice)?choice:'';
+ canvasStack.length=0;
+ selected=rootGraph().nodes[0]?.id||null;
+ setZoom(1,false);
+ $('#viewport').scrollTo({left:0,top:0});
+ resetCanvasRun();
+ renderWorkspace();
+ render();
+ renderNotes();
+ try{sessionStorage.setItem(projectKey(projectChoice)+':active-flow',flowChoice)}catch{}
+}
+function openProject(choice){
+ const next=readProject(choice);
+ if(!next)return false;
+ projectChoice=choice;
+ project=next;
+ updateDemo();
+ let lastFlow='';
+ try{lastFlow=sessionStorage.getItem(projectKey(choice)+':active-flow')||''}catch{}
+ openRootFlow(lastFlow);
+ if(previewUpdate){
+  if(projectChoice)previewStatus();
+  else if(previewUpdate.pending)applyPendingPreview();
+  else if(previewUpdate.revision&&!previewUpdate.saving){
+   previewStatus('Vista en vivo · Archivo al día');
+   queuePreviewSave();
+  }
+ }
+ try{localStorage.setItem(defaultKey+':active-project',choice)}catch{}
+ return true;
+}
+function openWorkspaceForm(createProject){
+ $('#projectFields').hidden=!createProject;
+ $('#newProjectName').required=createProject;
+ $('#workspaceModalTitle').textContent=createProject?'Nuevo proyecto':'Nuevo flujo';
+ $('#saveWorkspace').textContent=createProject?'Crear proyecto':'Crear flujo';
+ $('#newProjectName').value='';
+ $('#newProjectDescription').value='';
+ $('#newFlowName').value=createProject?'Flujo principal':'';
+ $('#workspaceError').hidden=true;
+ modal('workspaceModal');
+ $(createProject?'#newProjectName':'#newFlowName').focus?.();
+}
+$('#newProject').onclick=()=>openWorkspaceForm(true);
+$('#newFlow').onclick=()=>openWorkspaceForm(false);
+$('#projectPicker').onchange=event=>{
+ if(!openProject(event.target.value))renderWorkspace();
+};
+$('#flowPicker').onchange=event=>openRootFlow(event.target.value);
+$('#workspaceForm').onsubmit=event=>{
+ event.preventDefault();
+ const createProject=!$('#projectFields').hidden;
+ const name=$('#newProjectName').value.trim();
+ const flowName=$('#newFlowName').value.trim();
+ if(!flowName||(createProject&&!name)){
+  const error=$('#workspaceError');
+  error.textContent='Escribe el nombre del '+(!name&&createProject?'proyecto.':'flujo.');
+  error.hidden=false;
+  return;
+ }
+ const suffix=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+ const graph={nodes:[],edges:[],notes:[],cases:[]};
+ if(createProject){
+  const id='project-'+suffix;
+  workspaceProjects.set(id,{id,version:1,name,description:$('#newProjectDescription').value.trim(),
+   flowName,...graph,flows:[],blockDefinitions:[],subflows:[],internalStateSchema:[],openQuestions:[]});
+  openProject(id);
+ }else{
+  const flow={id:'flow-'+suffix,name:flowName,...graph};
+  (project.flows??=[]).push(flow);
+  openRootFlow(flow.id);
+ }
+ modal('workspaceModal',false);
+};
+function upgradeDemoSubflow(id,requestField,legacyCases){
+ if(projectChoice||project===defaults||defaults.id!=='solicitudes-demo'||defaults.storageRevision)return;
+ const saved=subflowById(id);
+ const sample=defaults.subflows.find(subflow=>subflow.id===id);
+ const canonical=value=>JSON.stringify(value,(_,item)=>isRecord(item)?
+  Object.fromEntries(Object.entries(item).sort(([a],[b])=>a.localeCompare(b))):item);
+ if(!saved||!sample?.graph||canonical(saved.simulationResult)!==canonical(sample.simulationResult))return;
+ const sampleInstalled=canonical(saved.graph)===canonical(sample.graph);
+ if(!sampleInstalled){
+  if(saved.graph&&canonical(saved.graph)!==canonical(starterGraph(saved,{},project)))return;
+  saved.graph=structuredClone(sample.graph);
+ }
+ for(const [caseId,[exitId,oldValue]] of Object.entries(legacyCases)){
+  const newCase=defaults.cases.find(item=>item.id===caseId);
+  const index=project.cases.findIndex(item=>item.id===caseId);
+  if(!newCase||index===-1)continue;
+  const output=sample.graph.nodes.find(node=>node.id===exitId).simulatedOutput;
+  const oldCase={...newCase,input:{...newCase.input,[requestField]:oldValue},subflowResults:{[saved.id]:output}};
+  if(canonical(project.cases[index])===canonical(oldCase))project.cases[index]=structuredClone(newCase);
+ }
+}
+function addDemoRetryCases(){
+ if(projectChoice||project===defaults||defaults.id!=='solicitudes-demo'||defaults.storageRevision)return;
+ for(const id of ['retry-recovers','retry-limit']){
+  const sample=defaults.cases.find(testCase=>testCase.id===id);
+  if(sample&&!project.cases.some(testCase=>testCase.id===id))project.cases.push(structuredClone(sample));
+ }
+}
+function updateDemo(){
+ upgradeDemoSubflow('lookup-request','idSolicitud',{c8:['lookup-missing','REQ-999'],c9:['lookup-failed','REQ-104']});
+ upgradeDemoSubflow('validate-customer','clienteId',{c6:['identity-missing','CLI-99'],c7:['identity-error','CLI-88']});
+ addDemoRetryCases();
+}
+function renderCanvasHeading(){
+ const subflow=currentSubflow();
+ $('#canvasTitle').textContent=[rootName(),...canvasStack.map(frame=>frame.subflow.name)].join(' / ');
+ $('#backToParent').hidden=!subflow;
+ $('#activeContract').hidden=!subflow;
+ $('#runTitle').textContent=subflow?'Simulación de '+subflow.name:'Simulación del flujo';
+ const session=getCanvasRun();
+ $('#runDefault').textContent=session&&!session.step.done?'▶ Iniciar otra simulación':subflow?'▶ Ejecutar subflujo':'▶ Iniciar simulación';
+}
+function resetCanvasRun(){
+ const graph=activeGraph(),session=getCanvasRun();
+ const example=graph.nodes.find(node=>node.kind==='input')?.example||{};
+ $('#runInput').value=JSON.stringify(session?.input??example,null,2);
+ if(session){showCanvasRun(session,false);return;}
+ $('#followupPanel').hidden=true;
+ $('#runInputError').hidden=true;
+ $('#routeText').textContent='Ejecuta el lienzo actual para ver su recorrido.';
+ $('#resultText').textContent='Aquí aparecerá el resultado simulado.';
+}
+function openSubflowCanvas(node){
+ const subflow=subflowById(node?.subflowId);
+ if(!subflow){notify('Este bloque todavía no tiene un contrato de subflujo.');return;}
+ if(canvasStack.some(frame=>frame.subflow===subflow)){notify('Este subflujo ya está abierto en la ruta actual.');return;}
+ if(!subflow.graph)subflow.graph=starterGraph(subflow,definition(node.blockId)?.simulation,
+  {nodes:rootGraph().nodes,subflows:project.subflows});
+ const viewport=$('#viewport');
+ canvasStack.push({subflow,parentSelected:node.id,zoom,left:viewport.scrollLeft,top:viewport.scrollTop});
+ selected=subflow.graph.nodes.find(node=>node.kind==='input')?.id||subflow.graph.nodes[0]?.id||null;
+ resetCanvasRun();setZoom(1,false);render();renderNotes();
+ viewport.scrollTo({left:0,top:0});
+}
+function backToParent(){
+ const frame=canvasStack.pop();
+ if(!frame)return;
+ selected=frame.parentSelected;
+ resetCanvasRun();setZoom(frame.zoom,false);render();renderNotes();
+ $('#viewport').scrollTo({left:frame.left||0,top:frame.top||0});
+}
+$('#backToParent').onclick=backToParent;
+$('#activeContract').onclick=()=>editSubflow(currentSubflow()?.id);
+function persist(){
+ workspaceProjects.set(projectChoice,project);
+ try{localStorage.setItem(projectKey(projectChoice),JSON.stringify(project))}catch{}
+ $('#sideName').textContent=$('#projectTitle').textContent=project.name;
+ document.title=project.name+' · Flujo';
+ $('#breadcrumb').textContent=project.name;
+ $('#sideDescription').textContent=$('#projectPurpose').textContent=project.description||'';
+ queuePreviewSave();
+}
+function notify(message){const t=$('#toast');t.textContent=message;t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.hidden=true,2200)}
+const icons={input:'↘',condition:'◇',switch:'⇄',operation:'✳',subflow:'▤',wait:'◌',output:'◎',custom:'✧'};
+const labels={input:'Entrada',condition:'Condición',switch:'Switch',operation:'Transformación',subflow:'Subflujo',wait:'Esperar respuesta',output:'Resultado',custom:'Bloque del proyecto'};
+function summary(n){if(n.kind==='input')return JSON.stringify(n.example||{},null,0);if(n.kind==='condition')return `${n.field||'campo'} ${n.operator==='present'?'está presente':n.operator==='eq'?'es igual a':n.operator==='gte'?'>=':'contiene'} ${n.value||''}`;if(n.kind==='switch'&&n.purpose)return n.purpose;if(n.kind==='switch')return `Evalúa ${n.field||'campo'} y selecciona una salida`;if(n.kind==='wait')return 'Pausa hasta recibir un nuevo mensaje';if(n.kind==='operation'&&n.action==='incrementCounter')return `Suma un intento en ${n.field||'contador'}`;if(n.kind==='operation'&&n.action==='resetCounter')return `Reinicia ${n.field||'contador'}`;if(n.kind==='custom'){const d=definition(n.blockId);return d?.purpose||'Bloque sin definición'}if(n.kind==='output')return n.message||n.purpose||'Muestra el resultado esperado';return n.purpose||'Describe el comportamiento esperado'}
+function auditGraph(graph=activeGraph()){return collectGraph(graph)}
+function branchLabel(when) {
+ if(when==='yes')return 'Sí';
+ if(when==='no')return 'No';
+ if(when==='default')return 'Por defecto';
+ if(!when||when==='next')return '';
+ const name=when.replace(/^case:/,'').replace(/_/g,' ');
+ return name.charAt(0).toUpperCase()+name.slice(1);
+}
+function renderNode(node,audit,edgeIndices) {
+ const incoming=activeGraph().edges.filter(edge=>edge.to===node.id)
+  .sort((a,b)=>(byId(a.from)?.y||0)-(byId(b.from)?.y||0)||(byId(b.from)?.x||0)-(byId(a.from)?.x||0));
+ const outgoing=activeGraph().edges.filter(edge=>edge.from===node.id)
+  .sort((a,b)=>(byId(a.to)?.y||0)-(byId(b.to)?.y||0));
+ const returning=incoming.filter(edge=>(byId(edge.from)?.x||0)>=(Number(node.x)||0));
+ const forward=incoming.filter(edge=>!returning.includes(edge));
+ const belongs=audit.reachable.has(node.id);
+ function port(side,edges,title,position='',tone='') {
+  const ids=edges.length?` data-edges="${edges.map(edge=>edgeIndices.get(edge)).join(' ')}"`:'';
+  return `<span class="node-port ${side} ${edges.length?'connected':'unconnected'}"${ids}${position}${tone} title="${esc(title)}"></span>`;
+ }
+ const inputSlots=forward.length?forward.map(edge=>[edge]):node.kind==='input'?[]:[[]];
+ const inputPorts=inputSlots.map((edges,index)=>port('in',edges,
+  edges.length?'Desde '+(byId(edges[0].from)?.title||'bloque'):'Sin conexión',
+  ` style="top:${(index+1)/(inputSlots.length+1)*100}%"`
+ )).join('');
+ const returnPorts=returning.map((edge,index)=>port('in back',[edge],
+  'Retorno desde '+(byId(edge.from)?.title||'bloque'),` style="left:${(index+1)/(returning.length+1)*100}%"`
+ )).join('');
+ const choices=node.kind==='condition'?['yes','no']:[];
+ const slots=[
+  ...choices.map(when=>({when,edges:outgoing.filter(edge=>edge.when===when)})),
+  ...outgoing.filter(edge=>!choices.includes(edge.when)).map(edge=>({when:edge.when,edges:[edge]}))
+ ];
+ if(!slots.length&&node.kind!=='output')slots.push({when:'next',edges:[]});
+ const hasLabels=slots.some(slot=>branchLabel(slot.when));
+ const outputPorts=slots.map(({when,edges},index)=>{
+  const label=branchLabel(when);
+  const destination=edges.map(edge=>byId(edge.to)?.title||'bloque').join(', ');
+  const title=[label,destination?'Hacia '+destination:'Sin conexión'].filter(Boolean).join(' · ');
+  const tone=label?` data-tone="${when==='yes'?'yes':when==='no'?'no':index%4}"`:'';
+  if(!hasLabels)return port('out',edges,title,` style="top:${(index+1)/(slots.length+1)*100}%"`);
+  return `<div class="branch-row"${tone}>${label?`<span class="node-port-label">${esc(label)}</span>`:''}${port('out',edges,title,'',tone)}</div>`;
+ }).join('');
+ return `<article class="node ${esc(node.kind)} ${belongs?'':'detached'} ${selected===node.id?'selected':''}${hasLabels?' has-branch-labels':''}" data-id="${esc(node.id)}" style="left:${Number(node.x)||0}px;top:${Number(node.y)||0}px">
+  ${inputPorts}${returnPorts}
+  <header class="node-head"><span class="node-icon">${esc(icons[node.kind]||'✧')}</span><div><div class="node-type">${esc(labels[node.kind]||node.kind)}</div><div class="node-title">${esc(node.title)}</div></div></header>
+  <div class="node-body">${esc(summary(node))}</div>
+  <footer class="node-footer"><span>${belongs?'● En el flujo':'⚠ Fuera del flujo'}</span>
+   ${node.subflowId?`<button class="subflow-canvas-action" data-open-subflow title="${incoming.length} entradas · ${outgoing.length} salidas">↗ Abrir lienzo</button>`:`<span>${incoming.length} entradas · ${outgoing.length} salidas</span>`}
+  </footer>
+  ${hasLabels?`<div class="branch-rail">${outputPorts}</div>`:outputPorts}
+ </article>`;
+}
+function render(save=true,refreshInspector=true){
+ renderCanvasHeading();
+ const audit=auditGraph(),edgeIndices=new Map(activeGraph().edges.map((edge,index)=>[edge,index]));
+ $('#nodeCount').textContent=activeGraph().nodes.length;
+ $('.canvas-empty').hidden=activeGraph().nodes.length>0;
+ $('#projectPalette').innerHTML=project.blockDefinitions.map(d=>`<button class="block-btn project-block" data-add-custom="${esc(d.id)}"><span class="block-icon">${esc(d.icon||'✧')}</span><span>${esc(d.name)}<small>Bloque de este proyecto</small></span></button>`).join('')||'<p class="hint">Aún no hay bloques propios.</p>';
+ $('#nodes').innerHTML=activeGraph().nodes.map(node=>renderNode(node,audit,edgeIndices)).join('');
+ const conflicts=renderEdges();if(refreshInspector)renderInspector();const restore=$('#restoreArchivedButton'),archived=(activeGraph().archivedNodes||[]).reduce((sum,batch)=>sum+batch.nodes.length,0);restore.hidden=archived===0;restore.textContent=`↶ Recuperar bloques retirados (${archived})`;if(save)persist();return conflicts;
+}
+// BEGIN EMBEDDED ROUTING
+function routeSegments(points) {
+ return points.slice(1).map((point,index)=>[points[index],point]).filter(([a,b])=>a[0]!==b[0]||a[1]!==b[1]);
+}
+function lineMeetsRect([a,b],rect) {
+ return Math.max(a[0],b[0])>=rect.left && Math.min(a[0],b[0])<=rect.right &&
+  Math.max(a[1],b[1])>=rect.top && Math.min(a[1],b[1])<=rect.bottom;
+}
+function simplifyRoute(points) {
+ const result=[];
+ for(const point of points) {
+  const last=result.at(-1),before=result.at(-2);
+  if(last && last[0]===point[0] && last[1]===point[1])continue;
+  if(before && [0,1].some(axis=>before[axis]===last[axis] && last[axis]===point[axis]))result.pop();
+  result.push(point);
+ }
+ return result;
+}
+function routingGrid(boxes,connections) {
+ const padding=7;
+ const axes=[['left','right'],['top','bottom']].map(([start,end],axis)=>{
+  const values=boxes.flatMap(box=>[box[start]-padding,box[end]+padding]);
+  for(const connection of connections)for(const point of connection.terminals)values.push(point[axis]);
+  const sorted=[...new Set(values)].sort((a,b)=>a-b);
+  const lanes=sorted.flatMap((value,index)=>{
+   const next=sorted[index+1];
+   return next-value>25?[value,Math.round((value+next)*5)/10]:[value];
+  });
+  return [sorted[0]-24,...lanes,sorted.at(-1)+24];
+ });
+ const [xs,ys]=axes, width=xs.length, size=width*ys.length;
+ // Bound work for imported diagrams and for routing while the user drags a card.
+ if(size*boxes.length>3_000_000 || size*connections.length>700_000)return null;
+ const point=id=>[xs[id%width],ys[Math.floor(id/width)]];
+ const id=([x,y])=>ys.indexOf(y)*width+xs.indexOf(x);
+ const links=new Uint8Array(size), occupied=new Uint16Array(size);
+ for(let row=0;row<ys.length;row++)for(let col=0;col<width;col++) {
+  const vertex=row*width+col,here=point(vertex);
+  if(col+1<width && !boxes.some(box=>lineMeetsRect([here,point(vertex+1)],box))) {
+   links[vertex]|=1;links[vertex+1]|=2;
+  }
+  if(row+1<ys.length && !boxes.some(box=>lineMeetsRect([here,point(vertex+width)],box))) {
+   links[vertex]|=4;links[vertex+width]|=8;
+  }
+ }
+ // Reserve the short segments at all ports before finding the rest of each route.
+ for(const {ports,terminals} of connections)for(const [index,terminal] of terminals.entries()) {
+  const port=ports[index],fixedAxis=port[0]===terminal[0]?0:1,axis=1-fixedAxis;
+  const coordinates=axes[axis],step=axis===0?1:width,vertex=id(terminal);
+  const indexOnAxis=coordinates.indexOf(terminal[axis]);
+  const direction=port[axis]>terminal[axis]?1:-1;
+  for(let next=indexOnAxis+direction;next>=0&&next<coordinates.length;next+=direction) {
+   if((coordinates[next]-port[axis])*direction>0)break;
+   occupied[vertex+(next-indexOnAxis)*step]++;
+  }
+ }
+ return {links,occupied,id,point,width,size};
+}
+function searchRoute(grid,start,end,lastAxis) {
+ const {links,occupied,id,point,width,size}=grid;
+ const startId=id(start),endId=id(end),initial=startId*2;
+ const previous=new Int32Array(size*2).fill(-1),score=new Float64Array(size*2).fill(Infinity);
+ const heap=[];
+ function push(item) {
+  let index=heap.length;
+  heap.push(item);
+  while(index>0) {
+   const parent=(index-1)>>1;
+   if(heap[parent].priority<=item.priority)break;
+   heap[index]=heap[parent];index=parent;
+  }
+  heap[index]=item;
+ }
+ function pop() {
+  const first=heap[0],last=heap.pop();
+  if(!heap.length)return first;
+  let index=0;
+  while(index*2+1<heap.length) {
+   let child=index*2+1;
+   if(child+1<heap.length && heap[child+1].priority<heap[child].priority)child++;
+   if(heap[child].priority>=last.priority)break;
+   heap[index]=heap[child];index=child;
+  }
+  heap[index]=last;
+  return first;
+ }
+ score[initial]=0;
+ push({state:initial,cost:0,priority:0});
+ const directions=[1,-1,width,-width];
+ while(heap.length) {
+  const {state,cost}=pop();
+  if(cost!==score[state])continue;
+  const vertex=state>>1;
+  if(vertex===endId) {
+   const vertices=[];
+   for(let cursor=state;cursor!==-1;cursor=previous[cursor])vertices.push(cursor>>1);
+   return vertices.reverse();
+  }
+  const here=point(vertex);
+  for(const [direction,step] of directions.entries()) {
+   if(!(links[vertex]&(1<<direction)))continue;
+   const next=vertex+step,target=point(next),axis=direction>>1,nextState=next*2+axis;
+   const bend=(state%2!==axis?18:0)+(next===endId&&axis!==lastAxis?18:0);
+   const nextCost=cost+Math.abs(target[axis]-here[axis])+bend+(next!==endId?occupied[next]*8000:0);
+   if(nextCost>=score[nextState])continue;
+   score[nextState]=nextCost;previous[nextState]=state;
+   push({state:nextState,cost:nextCost,priority:nextCost+Math.abs(target[0]-end[0])+Math.abs(target[1]-end[1])});
+  }
+ }
+ return null;
+}
+function measureRoutes(routes,boxes) {
+ let crossings=0,obstructed=0,length=0;
+ const conflicts=new Set();
+ const lines=routes.map(route=>routeSegments(route.points));
+ for(const [index,segments] of lines.entries()) {
+  const route=routes[index];
+  for(const [a,b] of segments)length+=Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1]);
+  if(segments.some((segment,i)=>boxes.some(box=>{
+   if((i===0&&box.id===route.from)||(i===segments.length-1&&box.id===route.to))return false;
+   return lineMeetsRect(segment,box);
+  }))){obstructed++;conflicts.add(route.index);}
+  for(const [otherIndex,other] of lines.slice(0,index).entries())if(segments.some(segment=>other.some(([a,b])=>
+   lineMeetsRect(segment,{left:Math.min(a[0],b[0]),right:Math.max(a[0],b[0]),top:Math.min(a[1],b[1]),bottom:Math.max(a[1],b[1])})
+  ))){crossings++;conflicts.add(route.index);conflicts.add(routes[otherIndex].index);}
+ }
+ return {crossings,obstructed,length,conflicts};
+}
+function routeConnections(boxes,connections) {
+ if(!connections.length)return {routes:[],crossings:0,obstructed:0,conflicts:new Set()};
+ const grid=routingGrid(boxes,connections);
+ function fallback([start,end]) {
+  const lane=(start[0]+end[0])/2;
+  return [start,[lane,start[1]],[lane,end[1]],end];
+ }
+ function connect(connection,interior) {
+  const [from,to]=connection.ports;
+  return {...connection,points:simplifyRoute([from,...interior,to])};
+ }
+ if(!grid){
+  const routes=connections.map(connection=>connect(connection,fallback(connection.terminals)));
+  return {routes,...measureRoutes(routes,boxes)};
+ }
+ const reserved=grid.occupied.slice();
+ const sorted=[...connections].sort((a,b)=>Number(a.returning)-Number(b.returning));
+ function distance({terminals:[from,to]}) {
+  return Math.abs(from[0]-to[0])+Math.abs(from[1]-to[1]);
+ }
+ const longestFirst=[...connections].sort((a,b)=>distance(b)-distance(a));
+ let best;
+ for(const order of [sorted,[...sorted].reverse(),longestFirst,[...longestFirst].reverse()]) {
+  grid.occupied.set(reserved);
+  const routes=order.map(connection=>{
+   const [start,end]=connection.terminals;
+   const vertices=searchRoute(grid,start,end,connection.returning?1:0);
+   if(vertices)for(const vertex of vertices)grid.occupied[vertex]++;
+   const interior=vertices?vertices.map(grid.point):fallback(connection.terminals);
+   return connect(connection,interior);
+  });
+  const score=measureRoutes(routes,boxes);
+  const cost=score.obstructed*1e9+score.crossings*1e6+score.length;
+  if(!best||cost<best.cost)best={routes,...score,cost};
+  if(!score.obstructed&&!score.crossings)break;
+ }
+ return best;
+}
+// END EMBEDDED ROUTING
+function renderEdges() {
+ const svg=$('#edgeLayer'),canvas=$('#canvas'),elements=[...document.querySelectorAll('#nodes .node')];
+ if(!elements.length){svg.innerHTML='';updateFlowStatus(0,0);return 0;}
+ const frame=canvas.getBoundingClientRect();
+ const position=(value,origin)=>Math.round((value-origin)/zoom*10)/10;
+ const boxes=elements.map(element=>{
+  const rect=element.getBoundingClientRect();
+  return {id:element.dataset.id,left:position(rect.left,frame.left),right:position(rect.right,frame.left),
+   top:position(rect.top,frame.top),bottom:position(rect.bottom,frame.top)};
+ });
+ const inputs=new Map(),outputs=new Map();
+ for(const element of elements)for(const port of element.querySelectorAll('[data-edges]')) {
+  const rect=port.getBoundingClientRect();
+  const x=position(rect.left+rect.width/2,frame.left),y=position(rect.top+rect.height/2,frame.top);
+  const returning=port.classList.contains('back'),out=port.classList.contains('out');
+  const entry={point:[x,y],terminal:returning?[x,y+13]:[x+(out?13:-13),y],returning,tone:port.dataset.tone};
+  for(const index of port.dataset.edges.split(' '))(out?outputs:inputs).set(Number(index),entry);
+ }
+ const connections=activeGraph().edges.flatMap((edge,index)=>{
+  const source=outputs.get(index),target=inputs.get(index);
+  if(!source||!target)return [];
+  return [{...edge,index,ports:[source.point,target.point],terminals:[source.terminal,target.terminal],returning:target.returning,tone:source.tone}];
+ });
+ const {routes,crossings,obstructed,conflicts}=routeConnections(boxes,connections);
+ const extents=routes.flatMap(route=>route.points);
+ canvas.style.width=Math.max(1260,...boxes.map(box=>box.right+36),...extents.map(point=>point[0]+24))+'px';
+ canvas.style.height=Math.max(620,...boxes.map(box=>box.bottom+36),...extents.map(point=>point[1]+24))+'px';
+ svg.innerHTML=routes.map(({points,tone,index})=>{
+  const d=points.map(([x,y],i)=>`${i?'L':'M'}${x},${y}`).join(' ');
+  return `<path class="edge${conflicts.has(index)?' edge-conflict':''}" data-connection="${index}" d="${d}"${tone?` data-tone="${esc(tone)}"`:''}/>`;
+ }).join('');
+ updateFlowStatus(crossings,obstructed);
+ return crossings+obstructed*(connections.length**2+1);
+}
+function updateFlowStatus(crossings,obstructed) {
+ const audit=auditGraph(),status=$('#flowStatus');
+ const parts=[audit.roots.length!==1?'Se requiere una sola entrada':audit.detached.length?
+  `${audit.detached.length} bloque${audit.detached.length===1?'':'s'} fuera del flujo`:'Todos los bloques conectados'];
+ if(audit.invalidEdges.length)parts.push(`${audit.invalidEdges.length} conexión${audit.invalidEdges.length===1?'':'es'} apunta${audit.invalidEdges.length===1?'':'n'} a bloques inexistentes`);
+ if(crossings)parts.push(`${crossings} par${crossings===1?'':'es'} de conexiones que se tocan o superponen`);
+ if(obstructed)parts.push(`${obstructed} conexión${obstructed===1?' atraviesa':'es atraviesan'} bloques`);
+ status.textContent=parts.join(' · ');
+ status.className='flow-status'+(audit.roots.length!==1||audit.invalidEdges.length?' error':audit.detached.length||crossings||obstructed?' warning':'');
+}
+function renderInspector(){const n=byId(selected);if(!n){$('#inspectorContent').innerHTML='<p class="hint">Selecciona un bloque del lienzo para editar su especificación.</p>';$('#connectionEditor').innerHTML='<p class="hint">Selecciona un bloque para editar sus conexiones.</p>';return}
+  let common=`<div class="field"><label>Nombre</label><input data-field="title" value="${esc(n.title)}"></div><div class="field"><label>Propósito</label><textarea data-field="purpose">${esc(n.purpose||'')}</textarea></div>`;
+  if(n.subflowId){const sf=(project.subflows||[]).find(x=>x.id===n.subflowId);common+=`<div class="export-note"><b>Subflujo: ${esc(sf?.name||n.subflowId)}</b><br>Entradas: ${esc((sf?.inputs||[]).join(', ')||'—')}<br>Salidas: ${esc((sf?.outputs||[]).join(', ')||'—')}<br>Resultados: ${esc((sf?.outcomes||[]).join(', ')||'—')}<br>Limitantes: ${esc((sf?.constraints||[]).join(' · ')||'pendiente')}</div><button class="btn" id="openSubflowCanvas">Abrir lienzo del subflujo</button> <button class="btn" id="editSubflow">Editar contrato</button>`}
+ if(!auditGraph().reachable.has(n.id))common=`<div class="export-note"><b>Fuera del flujo</b><br>Este bloque no se ejecuta porque no hay un recorrido desde la entrada principal hasta él.</div>`+common;
+ if(n.kind==='input')common+=`<div class="export-note"><b>Contrato mínimo de entrada</b><br>Obligatorios: ${esc(messageFields(n.requiredFields).join(', ')||'ninguno')}<br>Opcionales: ${esc(messageFields(n.optionalFields).join(', ')||'ninguno')}<br>Campos adicionales: ${n.allowAdditional===false?'rechazados':'permitidos'}. El contador de intentos es estado interno, no se pide en el JSON.</div><div class="field"><label>Campos obligatorios · uno por línea</label><textarea data-field="requiredFields">${esc(messageFields(n.requiredFields).join('\n'))}</textarea></div><div class="field"><label>Campos opcionales · uno por línea</label><textarea data-field="optionalFields">${esc(messageFields(n.optionalFields).join('\n'))}</textarea></div><div class="field"><label>Tipos admitidos (JSON)</label><textarea data-field="inputSchema" spellcheck="false">${esc(JSON.stringify(n.inputSchema||{},null,2))}</textarea><span class="hint">Define tipo y descripción; la simulación valida tipos, mínimos y campos extra.</span></div><div class="field"><label>Campos adicionales</label><select data-field="allowAdditional"><option value="true" ${n.allowAdditional!==false?'selected':''}>Permitir y conservar</option><option value="false" ${n.allowAdditional===false?'selected':''}>Rechazar</option></select></div><div class="field"><label>Entrada de ejemplo (JSON)</label><textarea data-field="example" spellcheck="false">${esc(JSON.stringify(n.example||{},null,2))}</textarea><span class="hint">Datos simulados que recibe este flujo.</span></div>`;
+ if(n.kind==='wait')common+=`<div class="export-note"><b>Contrato del mensaje posterior</b><br>Este JSON pertenece al nuevo mensaje recibido al reanudar, no al estado interno de la conversación.<br>Obligatorios: ${esc(messageFields(n.requiredFields).join(', ')||'ninguno')}<br>Opcionales: ${esc(messageFields(n.optionalFields).join(', ')||'ninguno')}<br>Campos adicionales: ${n.allowAdditional===false?'rechazados':'permitidos'}</div><div class="field"><label>Campos obligatorios · uno por línea</label><textarea data-field="requiredFields">${esc(messageFields(n.requiredFields).join('\n'))}</textarea></div><div class="field"><label>Campos opcionales · uno por línea</label><textarea data-field="optionalFields">${esc(messageFields(n.optionalFields).join('\n'))}</textarea></div><div class="field"><label>Tipos admitidos (JSON)</label><textarea data-field="inputSchema" spellcheck="false">${esc(JSON.stringify(n.inputSchema||{},null,2))}</textarea><span class="hint">El simulador valida tipos, campos mínimos y datos adicionales de este mensaje.</span></div><div class="field"><label>Campos adicionales</label><select data-field="allowAdditional"><option value="true" ${n.allowAdditional!==false?'selected':''}>Permitir y conservar</option><option value="false" ${n.allowAdditional===false?'selected':''}>Rechazar</option></select></div><div class="field"><label>Ejemplo del mensaje posterior (JSON)</label><textarea data-field="example" spellcheck="false">${esc(JSON.stringify(n.example||{texto:"Mi número de cliente es CLI-88",clienteId:"CLI-88"},null,2))}</textarea></div>`;
+ if(n.kind==='condition')common+=`<div class="field"><label>Campo</label><input data-field="field" value="${esc(n.field||'')}"></div><div class="field"><label>Regla</label><select data-field="operator"><option value="present" ${n.operator==='present'?'selected':''}>Tiene un valor</option><option value="eq" ${n.operator==='eq'?'selected':''}>Es igual a</option><option value="contains" ${n.operator==='contains'?'selected':''}>Contiene</option><option value="gte" ${n.operator==='gte'?'selected':''}>Es mayor o igual que</option></select></div><div class="field"><label>Valor</label><input data-field="value" value="${esc(n.value||'')}"></div>`;
+ if(n.kind==='switch')common+=`<div class="field"><label>Campo a evaluar</label><input data-field="field" value="${esc(n.field||'')}"></div><div class="field"><label>Salidas · una por línea</label><textarea data-field="options">${esc((n.options||['opcion-a','opcion-b','default']).join('\n'))}</textarea></div>`;
+ if(n.kind==='custom'){const d=definition(n.blockId);common+=`<div class="export-note"><b>Contrato del bloque</b><br>${esc(d?.purpose||'Falta definir su propósito')}<br><br>Entradas: ${esc((d?.inputs||[]).join(', ')||'—')}<br>Salidas: ${esc((d?.outputs||[]).join(', ')||'—')}<br><br>Reglas:<br>${esc((d?.rules||[]).join('\n')||'Pendiente de definir')}</div><div class="field"><label>Resultado simulado (JSON)</label><textarea data-field="simulation" spellcheck="false">${esc(JSON.stringify(d?.simulation||{},null,2))}</textarea><span class="hint">Permite recorrer el escenario. El contrato guía la implementación futura.</span></div><button class="btn" id="editCustomDefinition">Editar definición del bloque</button>`}
+ if(n.kind==='output')common+=`<div class="field"><label>Salida esperada</label><textarea data-field="message">${esc(n.message||'')}</textarea></div>`;
+ if((n.kind==='output'&&currentSubflow())||n.kind==='operation')common+=`<div class="field"><label for="simulatedData">Datos simulados (JSON)</label><textarea id="simulatedData" spellcheck="false">${esc(JSON.stringify(n.simulatedOutput||{},null,2))}</textarea><button class="btn" id="saveSimulatedData">Guardar datos simulados</button></div>`;
+ if(n.kind==='operation')common+=`<div class="field"><label>Acción simulada</label><select data-field="action"><option value="" ${!n.action?'selected':''}>Descriptiva</option><option value="incrementCounter" ${n.action==='incrementCounter'?'selected':''}>Incrementar contador</option><option value="resetCounter" ${n.action==='resetCounter'?'selected':''}>Reiniciar contador</option></select></div>${n.action?`<div class="field"><label>Campo interno</label><input data-field="field" value="${esc(n.field||'intentosSinIdentificacion')}"></div>`:''}<div class="field"><label>Comportamiento simulado</label><textarea data-field="simulationText">${esc(n.simulationText||'Define aquí el resultado o propósito esperado.')}</textarea></div>`;if(n.kind==='subflow')common+=`<div class="field"><label>Comportamiento simulado</label><textarea data-field="simulationText">${esc(n.simulationText||'Define aquí el resultado o propósito esperado.')}</textarea></div>`;if(n.kind==='wait')common+=`<div class="export-note"><b>Continuación</b><br>La ejecución queda pendiente hasta recibir un nuevo mensaje. La respuesta se valida al volver al bloque de condición.</div>`;
+ $('#inspectorContent').innerHTML=common+`<div class="divider"></div><button class="btn primary" id="saveNodeFields">Guardar bloque</button> <button class="btn" id="deleteNode">Eliminar del flujo</button>`;
+ $('#connectionEditor').innerHTML=activeGraph().edges.filter(e=>e.from===n.id).map((e,i)=>`<div class="connection-row"><select data-edge="${activeGraph().edges.indexOf(e)}" data-part="to">${activeGraph().nodes.filter(x=>x.id!==n.id).map(x=>`<option value="${esc(x.id)}" ${x.id===e.to?'selected':''}>${esc(x.title)}</option>`).join('')}</select><select data-edge="${activeGraph().edges.indexOf(e)}" data-part="when">${['next','yes','no','default',...(n.kind==='switch'?(n.options||[]).filter(x=>x!=='default').map(x=>'case:'+x):[])].map(v=>`<option value="${esc(v)}" ${v===e.when?'selected':''}>${esc(v)}</option>`).join('')}</select><button data-remove-edge="${activeGraph().edges.indexOf(e)}" aria-label="Eliminar conexión">×</button></div>`).join('')||'<p class="hint">Sin salidas conectadas.</p>';
+ const fields=[...$('#inspectorContent').querySelectorAll('[data-field]')];
+ fields.forEach(element=>element.addEventListener('change',()=>
+  saveInspectorFields(n,[element],['action','options'].includes(element.dataset.field))));
+ $('#saveNodeFields').onclick=()=>{
+  if(saveInspectorFields(n,fields,true))notify('Bloque guardado.');
+ };
+ $('#deleteNode').onclick=()=>{activeGraph().nodes=activeGraph().nodes.filter(x=>x.id!==n.id);activeGraph().edges=activeGraph().edges.filter(e=>e.from!==n.id&&e.to!==n.id);selected=activeGraph().nodes[0]?.id||null;render()};
+ $('#editCustomDefinition')?.addEventListener('click',()=>editDefinition(n.blockId));
+  $('#editSubflow')?.addEventListener('click',()=>editSubflow(n.subflowId));
+  $('#openSubflowCanvas')?.addEventListener('click',()=>openSubflowCanvas(n));
+  $('#saveSimulatedData')?.addEventListener('click',()=>saveSimulatedData(n));
+ $('#connectionEditor').querySelectorAll('select').forEach(el=>el.addEventListener('change',()=>{
+  const edge=activeGraph().edges[Number(el.dataset.edge)];
+  if(!edge)return;
+  if(el.dataset.part==='when'&&activeGraph().edges.some(other=>other!==edge&&other.from===edge.from&&other.when===el.value)){
+   el.value=edge.when;
+   notify('Ya existe una conexión para esa ruta.');
+   return;
+  }
+  edge[el.dataset.part]=el.value;
+  render();
+ }));
+ $('#connectionEditor').querySelectorAll('[data-remove-edge]').forEach(el=>el.onclick=()=>{activeGraph().edges.splice(Number(el.dataset.removeEdge),1);render()});
+}
+function addNode(kind,blockId){const id='n-'+Math.random().toString(36).slice(2,8);const i=activeGraph().nodes.length;const d=definition(blockId);let n={id,kind,title:d?.name||({input:'Nueva entrada',condition:'Nueva condición',switch:'Nuevo switch',operation:'Nueva transformación',subflow:'Nuevo subflujo',wait:'Esperar respuesta',output:'Nuevo resultado'}[kind]||'Bloque'),x:100+(i%4)*245,y:90+Math.floor(i/4)*150};if(kind==='input')Object.assign(n,{example:{dato:'ejemplo'},requiredFields:[],optionalFields:[],inputSchema:{},allowAdditional:true});if(kind==='condition')Object.assign(n,{field:'dato',operator:'present',value:''});if(kind==='switch')Object.assign(n,{field:'estado',options:['nuevo','en-proceso','default']});if(kind==='custom')Object.assign(n,{blockId,purpose:d?.purpose||''});if(kind==='output')n.message='Resultado esperado';if(kind==='operation'||kind==='subflow')n.simulationText='Describe qué debe ocurrir.';if(kind==='subflow'){const subflowId='subflow-'+Math.random().toString(36).slice(2,8);n.subflowId=subflowId;project.subflows.push({id:subflowId,name:n.title,purpose:n.simulationText,inputs:[],outputs:[],steps:[],outcomes:[],constraints:[],unknowns:[],simulationResult:{}})}if(kind==='wait')n.purpose='Pausa hasta recibir un mensaje nuevo.';activeGraph().nodes.push(n);selected=id;render();notify('Bloque agregado al flujo.')}
+document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addNode(b.dataset.add));
+$('#projectPalette').onclick=e=>{const b=e.target.closest('[data-add-custom]');if(b)addNode('custom',b.dataset.addCustom)};
+$('#nodes').addEventListener('click',event=>{
+ const element=event.target.closest('[data-id]');
+ if(!element)return;
+ selected=element.dataset.id;
+ if(event.target.closest('[data-open-subflow]'))openSubflowCanvas(byId(selected));
+ else render();
+});
+$('#nodes').addEventListener('pointerdown',e=>{const el=e.target.closest('.node');if(!el||!e.target.closest('.node-head'))return;const n=byId(el.dataset.id);drag={id:n.id,x:e.clientX,y:e.clientY,left:n.x,top:n.y};el.setPointerCapture?.(e.pointerId)});
+let dragFrame=null;
+window.addEventListener('pointermove',event=>{
+ if(!drag)return;
+ const node=byId(drag.id);
+ if(!node)return;
+ const x=Math.max(0,drag.left+(event.clientX-drag.x)/zoom),y=Math.max(0,drag.top+(event.clientY-drag.y)/zoom);
+ if(node.x===x&&node.y===y)return;
+ node.x=x;node.y=y;drag.moved=true;
+ const element=[...document.querySelectorAll('#nodes .node')].find(item=>item.dataset.id===node.id);
+ if(element){element.style.left=x+'px';element.style.top=y+'px';}
+ if(dragFrame===null)dragFrame=requestAnimationFrame(()=>{dragFrame=null;renderEdges();});
+});
+function finishDrag() {
+ if(!drag)return;
+ const moved=drag.moved;
+ drag=null;
+ if(dragFrame!==null){cancelAnimationFrame(dragFrame);dragFrame=null;}
+ if(moved)render();
+}
+window.addEventListener('pointerup',finishDrag);
+window.addEventListener('pointercancel',finishDrag);
+function saveInspectorFields(node,fields,refreshInspector){
+ const updates={};
+ let simulation;
+ for(const field of fields){
+  const name=field.dataset.field;
+  let value=field.value;
+  if(['example','simulation','inputSchema'].includes(name)){
+   try{value=JSON.parse(value)}catch{value=null}
+   if(!isRecord(value)){
+    notify('El JSON debe ser un objeto válido.');
+    return false;
+   }
+   const schemaError=name==='inputSchema'?inputSchemaError(value):null;
+   if(schemaError){notify(schemaError);return false;}
+  }else if(['requiredFields','optionalFields','options'].includes(name)){
+   value=value.split('\n').map(entry=>entry.trim()).filter(Boolean);
+  }else if(name==='allowAdditional')value=value==='true';
+  if(name==='simulation')simulation=value;
+  else updates[name]=value;
+ }
+ Object.assign(node,updates);
+ const block=definition(node.blockId);
+ if(simulation&&block)block.simulation=simulation;
+ if(updates.example&&node.kind==='input'&&!getCanvasRun()){
+  $('#runInput').value=JSON.stringify(updates.example,null,2);
+ }
+ render(true,refreshInspector);
+ return true;
+}
+function saveSimulatedData(node){
+ let value;
+ try {value=JSON.parse($('#simulatedData').value);}
+ catch {notify('Los datos simulados deben ser un objeto JSON válido.');return;}
+ if(!isRecord(value)){notify('Los datos simulados deben ser un objeto JSON válido.');return;}
+ node.simulatedOutput=value;
+ render();
+ notify('Datos simulados guardados.');
+}
+function modal(id,show=true){$('#'+id).hidden=!show}
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>modal(b.dataset.close,false));document.querySelectorAll('.modal-backdrop').forEach(m=>m.onclick=e=>{if(e.target===m)m.hidden=true});
+let editingBlockId=null;
+function editDefinition(id){const d=definition(id);if(!d)return;editingBlockId=id;$('#blockModalTitle').textContent='Editar bloque del proyecto';$('#blockName').value=d.name;$('#blockPurpose').value=d.purpose;$('#blockInputs').value=(d.inputs||[]).join('\n');$('#blockOutputs').value=(d.outputs||[]).join('\n');$('#blockRules').value=(d.rules||[]).join('\n');$('#blockSimulation').value=JSON.stringify(d.simulation||{},null,2);modal('blockModal')}
+let editingSubflowId=null;
+function editSubflow(id){const sf=(project.subflows||[]).find(x=>x.id===id);if(!sf){notify('Este bloque todavía no tiene un detalle de subflujo.');return}editingSubflowId=id;$('#legacySubflowFixture').hidden=!!sf.graph;$('#subflowModalTitle').textContent='Detalle: '+sf.name;$('#subflowName').value=sf.name||'';$('#subflowPurpose').value=sf.purpose||'';$('#subflowInputs').value=(sf.inputs||[]).join('\n');$('#subflowOutputs').value=(sf.outputs||[]).join('\n');$('#subflowSteps').value=(sf.steps||[]).join('\n');$('#subflowOutcomes').value=(sf.outcomes||[]).join('\n');$('#subflowConstraints').value=(sf.constraints||[]).join('\n');$('#subflowUnknowns').value=(sf.unknowns||[]).join('\n');$('#subflowSimulation').value=JSON.stringify(sf.simulationResult||{},null,2);modal('subflowModal')}
+$('#saveSubflow').onclick=()=>{const sf=(project.subflows||[]).find(x=>x.id===editingSubflowId);if(!sf)return;let simulationResult;if(!sf.graph)try{simulationResult=JSON.parse($('#subflowSimulation').value);if(!simulationResult||typeof simulationResult!=='object'||Array.isArray(simulationResult))throw Error()}catch{notify('El resultado simulado debe ser un objeto JSON.');return}const lines=id=>$('#'+id).value.split('\n').map(x=>x.trim()).filter(Boolean);sf.name=$('#subflowName').value.trim()||sf.name;sf.purpose=$('#subflowPurpose').value;sf.inputs=lines('subflowInputs');sf.outputs=lines('subflowOutputs');sf.steps=lines('subflowSteps');sf.outcomes=lines('subflowOutcomes');sf.constraints=lines('subflowConstraints');sf.unknowns=lines('subflowUnknowns');if(!sf.graph)sf.simulationResult=simulationResult;
+for(const graph of projectGraphs())for(const node of graph.nodes){
+ if(node.subflowId===sf.id){node.title=sf.name;node.purpose=sf.purpose;}
+}modal('subflowModal',false);render();notify('Detalle del subflujo guardado en el proyecto.')};
+function renderQuestions(){if(!Array.isArray(project.openQuestions))project.openQuestions=[];$('#questionsList').innerHTML=project.openQuestions.map((q,i)=>{const related=(project.subflows||[]).find(sf=>sf.id===q.subflowId);return `<article class="case">${related?`<p class="hint">Subflujo relacionado: ${esc(related.name)}</p>`:''}<div class="field"><label>Decisión pendiente</label><input data-question="${esc(q.id)}" data-qfield="title" value="${esc(q.title||'')}" placeholder="¿Qué falta decidir?"></div><div class="field"><label>Qué ya se sabe · una idea por línea</label><textarea data-question="${esc(q.id)}" data-qfield="known">${esc((q.known||[]).join('\n'))}</textarea></div><div class="field"><label>Limitantes existentes · una por línea</label><textarea data-question="${esc(q.id)}" data-qfield="constraints">${esc((q.constraints||[]).join('\n'))}</textarea></div><div class="field"><label>Qué queda abierto · una pregunta por línea</label><textarea data-question="${esc(q.id)}" data-qfield="unknowns">${esc((q.unknowns||[]).join('\n'))}</textarea></div><div class="field"><label>Estado</label><select data-question="${esc(q.id)}" data-qfield="status"><option value="open" ${q.status==='open'?'selected':''}>Abierta</option><option value="in_progress" ${q.status==='in_progress'?'selected':''}>En revisión</option><option value="resolved" ${q.status==='resolved'?'selected':''}>Resuelta</option></select></div></article>`}).join('')||'<p class="hint">No hay decisiones pendientes.</p>';$('#questionsList').querySelectorAll('[data-question]').forEach(el=>el.addEventListener('change',()=>{const q=project.openQuestions.find(x=>x.id===el.dataset.question);if(!q)return;const f=el.dataset.qfield;if(['known','constraints','unknowns'].includes(f))q[f]=el.value.split('\n').map(x=>x.trim()).filter(Boolean);else q[f]=el.value;persist()}))}
+$('#questionsButton').onclick=()=>{renderQuestions();modal('questionsModal')};$('#addQuestion').onclick=()=>{if(!Array.isArray(project.openQuestions))project.openQuestions=[];project.openQuestions.push({id:'q-'+Math.random().toString(36).slice(2,8),title:'Nueva decisión pendiente',known:[],constraints:[],unknowns:[],status:'open'});persist();renderQuestions()};
+$('#openWildcard').onclick=()=>{editingBlockId=null;$('#blockModalTitle').textContent='Crear bloque desde el comodín';$('#blockName').value='';$('#blockPurpose').value='';$('#blockInputs').value='';$('#blockOutputs').value='';$('#blockRules').value='';$('#blockSimulation').value='{}';modal('blockModal')};
+$('#saveBlock').onclick=()=>{const name=$('#blockName').value.trim(),purpose=$('#blockPurpose').value.trim();let simulation;try{simulation=JSON.parse($('#blockSimulation').value);if(!simulation||typeof simulation!=='object'||Array.isArray(simulation))throw Error()}catch{notify('La salida simulada debe ser un objeto JSON.');return}if(!name||!purpose){notify('Indica el nombre y propósito del bloque.');return}const values={name,purpose,inputs:$('#blockInputs').value.split('\n').map(s=>s.trim()).filter(Boolean),outputs:$('#blockOutputs').value.split('\n').map(s=>s.trim()).filter(Boolean),rules:$('#blockRules').value.split('\n').map(s=>s.trim()).filter(Boolean),simulation,icon:'✧'};if(editingBlockId){Object.assign(definition(editingBlockId),values);for(const graph of projectGraphs())for(const node of graph.nodes){if(node.blockId===editingBlockId){node.title=name;node.purpose=purpose}}}else{const id='block-'+Math.random().toString(36).slice(2,9);project.blockDefinitions.push({id,...values})}modal('blockModal',false);render();notify('Definición guardada en este proyecto.')};
+$('#importBlockButton').onclick=()=>{const sample={id:'validar-identidad',name:'Validar identidad',icon:'✓',purpose:'Comprueba que los datos de identificación cumplan las reglas acordadas.',inputs:['clienteId','documento'],outputs:['identidadValida'],rules:['Si los datos coinciden, identidadValida=true.','Si no coinciden, solicitar revisión manual.'],simulation:{identidadValida:true}};$('#aiDefinition').value=JSON.stringify(sample,null,2);modal('aiModal')};
+$('#importAiDefinition').onclick=()=>{try{const d=JSON.parse($('#aiDefinition').value);if(!d||typeof d!=='object'||Array.isArray(d))throw Error('La definición debe ser un objeto JSON.');if(typeof d.name!=='string'||!d.name.trim()||typeof d.purpose!=='string'||!d.purpose.trim())throw Error('Indica un nombre y propósito para el bloque.');if(!Array.isArray(d.inputs)||!d.inputs.every(x=>typeof x==='string'&&x.trim())||new Set(d.inputs.map(x=>x.trim())).size!==d.inputs.length||!Array.isArray(d.outputs)||!d.outputs.every(x=>typeof x==='string'&&x.trim())||new Set(d.outputs.map(x=>x.trim())).size!==d.outputs.length)throw Error('Las entradas y salidas deben ser listas de nombres únicos y no vacíos.');d.inputs=d.inputs.map(x=>x.trim());d.outputs=d.outputs.map(x=>x.trim());if(!d.simulation||typeof d.simulation!=='object'||Array.isArray(d.simulation))throw Error('simulation debe ser un objeto JSON.');if(d.rules!==undefined&&(!Array.isArray(d.rules)||!d.rules.every(x=>typeof x==='string'&&x.trim())))throw Error('Las reglas deben ser una lista de textos no vacíos.');if(d.id!==undefined&&(typeof d.id!=='string'||!d.id.trim()))throw Error('El identificador debe ser texto no vacío.');if(!d.id)d.id='ai-'+Math.random().toString(36).slice(2,8);if(project.blockDefinitions.some(x=>x.id===d.id))throw Error('Ya existe un bloque con ese identificador.');project.blockDefinitions.push({icon:'✧',rules:[],...d});modal('aiModal',false);render();notify('Definición agregada a la biblioteca del proyecto.')}catch(err){notify(err.message||'JSON inválido.')}};
+$('#addConnection').onclick=()=>{
+ const node=byId(selected);
+ if(!node)return;
+ const graph=activeGraph(),target=graph.nodes.find(item=>item.id!==node.id);
+ if(!target){notify('Agrega otro bloque antes de conectarlo.');return}
+ const routes=node.kind==='condition'?['yes','no']:node.kind==='switch'?
+  ['default',...(node.options||[]).filter(route=>route!=='default').map(route=>'case:'+route)]:['next'];
+ const when=routes.find(route=>!graph.edges.some(edge=>edge.from===node.id&&edge.when===route));
+ if(!when){notify('Todas las salidas de este bloque ya tienen una conexión.');return}
+ graph.edges.push({from:node.id,to:target.id,when});
+ render();
+ notify('Conexión agregada; ajusta su ruta en el panel.');
+};
+function organizeFlow(){
+ const audit=auditGraph(),roots=audit.roots;
+ if(audit.invalidEdges.length){notify('Corrige las conexiones a bloques inexistentes antes de organizar.');return}
+ if(roots.length!==1){notify('Organiza un flujo con una sola entrada principal.');return}
+ const active=new Set(),finished=new Set(),order=[],returns=new Set(),outgoing=new Map();
+ for(const edge of activeGraph().edges) {
+  if(!outgoing.has(edge.from))outgoing.set(edge.from,[]);
+  outgoing.get(edge.from).push(edge);
+ }
+ function visit(id) {
+  if(finished.has(id))return;
+  active.add(id);
+  for(const edge of outgoing.get(id)||[]) {
+   if(active.has(edge.to))returns.add(edge);
+   else visit(edge.to);
+  }
+  active.delete(id);finished.add(id);order.push(id);
+ }
+ visit(roots[0].id);
+ const level=new Map([[roots[0].id,0]]);
+ for(const id of order.reverse())for(const edge of outgoing.get(id)||[]) {
+  if(!returns.has(edge))level.set(edge.to,Math.max(level.get(edge.to)||0,level.get(id)+1));
+ }
+ const layers=new Map();
+ for(const n of activeGraph().nodes){if(!level.has(n.id))continue;const column=level.get(n.id);if(!layers.has(column))layers.set(column,[]);layers.get(column).push(n)}
+ const heights=new Map([...document.querySelectorAll('#nodes .node')].map(element=>[element.dataset.id,element.offsetHeight]));
+ const originalY=new Map(activeGraph().nodes.map(node=>[node.id,Number(node.y)||0]));
+ for(const nodes of layers.values())nodes.sort((a,b)=>originalY.get(a.id)-originalY.get(b.id));
+ const rowPositions=new Map([...layers].map(([column,nodes])=>[column,nodes.map(node=>originalY.get(node.id))]));
+ function place(column,nodes) {
+  let bottom=36;
+  for(const [index,node] of nodes.entries()) {
+   node.x=55+column*340;
+   node.y=Math.max(bottom,rowPositions.get(column)[index]);
+   bottom=node.y+(heights.get(node.id)||112)+32;
+  }
+ }
+ for(const [column,nodes] of layers)place(column,nodes);
+ const removed=activeGraph().nodes.filter(n=>!level.has(n.id));
+ if(removed.length){const removedIds=new Set(removed.map(n=>n.id)),detachedEdges=activeGraph().edges.filter(e=>removedIds.has(e.from)||removedIds.has(e.to));if(!Array.isArray(activeGraph().archivedNodes))activeGraph().archivedNodes=[];activeGraph().archivedNodes.push({id:'archive-'+Date.now().toString(36),nodes:structuredClone(removed),edges:structuredClone(detachedEdges)});activeGraph().nodes=activeGraph().nodes.filter(n=>level.has(n.id));activeGraph().edges=activeGraph().edges.filter(e=>!removedIds.has(e.from)&&!removedIds.has(e.to));if(!level.has(selected))selected=roots[0].id}
+ let conflicts=render(false),attempts=0;
+ for(let pass=0;pass<2&&conflicts>0;pass++) {
+  let improved=false;
+  for(const [column,nodes] of layers)
+  for(let first=0;first<nodes.length-1&&conflicts&&attempts<16;first++)
+  for(let index=first+1;index<nodes.length&&conflicts&&attempts<16;index++) {
+   attempts++;
+   [nodes[first],nodes[index]]=[nodes[index],nodes[first]];
+   place(column,nodes);
+   const score=render(false);
+   if(score<conflicts){conflicts=score;improved=true;continue;}
+   [nodes[first],nodes[index]]=[nodes[index],nodes[first]];
+   place(column,nodes);
+  }
+  if(!improved)break;
+ }
+ render();$('#viewport').scrollTo({left:0,top:0,behavior:'smooth'});
+ notify(removed.length?`${removed.length} bloque${removed.length===1?'':'s'} retirado${removed.length===1?'':'s'} del lienzo y guardado${removed.length===1?'':'s'} para recuperar.`:conflicts?'Flujo organizado. Revisa las conexiones marcadas en el estado del lienzo.':'Flujo organizado sin cruces entre conexiones.')
+}
+
+$('#organizeFlow').onclick=organizeFlow;
+function restoreArchivedNodes(){const batches=activeGraph().archivedNodes||[];if(!batches.length){notify('No hay bloques retirados para recuperar.');return}const restored=batches.flatMap(batch=>batch.nodes||[]),existing=new Set(activeGraph().nodes.map(node=>node.id)),nodes=restored.filter(node=>!existing.has(node.id));if(!nodes.length){activeGraph().archivedNodes=[];render();notify('Los bloques retirados ya existen en este flujo.');return}const activeBottom=Math.max(0,...activeGraph().nodes.map(node=>(Number(node.y)||0)+150)),archivedTop=Math.min(...nodes.map(node=>Number(node.y)||0)),shift=activeBottom+80-archivedTop;for(const node of nodes)node.y=(Number(node.y)||0)+shift;activeGraph().nodes.push(...nodes);const edgeKeys=new Set(activeGraph().edges.map(edge=>`${edge.from}|${edge.to}|${edge.when}`));for(const edge of batches.flatMap(batch=>batch.edges||[])){if(!edgeKeys.has(`${edge.from}|${edge.to}|${edge.when}`)){activeGraph().edges.push(edge);edgeKeys.add(`${edge.from}|${edge.to}|${edge.when}`)}}activeGraph().archivedNodes=[];if(!selected)selected=nodes[0].id;const maxX=Math.max(1260,...activeGraph().nodes.map(node=>(Number(node.x)||0)+250)),maxY=Math.max(620,...activeGraph().nodes.map(node=>(Number(node.y)||0)+145));$('#canvas').style.width=maxX+'px';$('#canvas').style.height=maxY+'px';render();notify(`${nodes.length} bloque${nodes.length===1?'':'s'} y sus conexiones se recuperaron.`)}
+$('#restoreArchivedButton').onclick=restoreArchivedNodes;
+// BEGIN SHARED SIMULATION
+
+function isRecord(value){return !!value&&typeof value==='object'&&!Array.isArray(value)}
+
+function starterGraph(subflow,fallback,model) {
+ const rootExample=model.nodes.find(node=>node.kind==='input')?.example||{};
+ let available={...rootExample};
+ if(available.idSolicitud!==undefined)available.idSolicitudEnCurso=available.idSolicitud;
+ for(const other of model.subflows||[]){
+  if(other!==subflow&&isRecord(other.simulationResult))available={...available,...other.simulationResult};
+ }
+ const inputKeys=new Set((subflow.inputs||[]).map(field=>field.split('.')[0]));
+ const example=inputKeys.size?Object.fromEntries(Object.entries(available).filter(([key])=>inputKeys.has(key))):rootExample;
+ return {
+  nodes:[
+   {id:'start',kind:'input',title:'Recibir datos del flujo padre',x:60,y:140,example:subflow.example||example},
+   {id:'return',kind:'output',title:'Devolver resultado',x:385,y:140,
+    purpose:'Devuelve los datos de ejemplo al bloque que abrió este subflujo.',
+    simulatedOutput:structuredClone(subflow.simulationResult??fallback??{})}
+  ],
+  edges:[{from:'start',to:'return',when:'next'}],
+  notes:[]
+ };
+}
+
+const inputTypeChecks={
+ string:value=>typeof value==='string',
+ number:Number.isFinite,
+ integer:Number.isInteger,
+ boolean:value=>typeof value==='boolean',
+ object:isRecord,
+ array:Array.isArray
+};
+function inputType(definition){
+ return typeof definition==='string'?definition:definition?.type;
+}
+function inputSchemaError(schema){
+ if(!isRecord(schema))return 'El esquema de entrada debe ser un objeto JSON.';
+ for(const [key,definition] of Object.entries(schema)){
+  const type=inputType(definition);
+  if(typeof type!=='string'||!Object.hasOwn(inputTypeChecks,type))return `Esquema inválido para «${key}». Indica un tipo admitido.`;
+ }
+ return null;
+}
+function messageFields(fields){return Array.isArray(fields)?fields.filter(field=>typeof field==='string'):[]}
+function messageContractError(node){
+ for(const key of ['requiredFields','optionalFields']){
+  const fields=node[key];
+  if(fields!==undefined&&(!Array.isArray(fields)||fields.some(field=>typeof field!=='string'||!field.trim()))){
+   const label=key==='requiredFields'?'obligatorios':'opcionales';
+   return `El contrato debe indicar los campos ${label} como una lista de nombres.`;
+  }
+ }
+ if(node.allowAdditional!==undefined&&typeof node.allowAdditional!=='boolean'){
+  return 'El contrato debe indicar con true o false si permite campos adicionales.';
+ }
+ return inputSchemaError(node.inputSchema===undefined?{}:node.inputSchema);
+}
+function validateInput(node,data,internalState={}){
+ const errors=[],required=messageFields(node.requiredFields),optional=messageFields(node.optionalFields);
+ const schema=node.inputSchema===undefined?{}:node.inputSchema;
+ const contractError=messageContractError(node);
+ if(contractError)errors.push(contractError);
+ for(const key of required){
+  if(!Object.hasOwn(data,key)||data[key]==null||typeof data[key]==='string'&&!data[key].trim()){
+   errors.push(`Falta el campo obligatorio «${key}».`);
+  }
+ }
+ if(!contractError){
+  for(const [key,definition] of Object.entries(schema)){
+   const type=inputType(definition);
+   if(Object.hasOwn(data,key)&&!inputTypeChecks[type](data[key])){
+    errors.push(`El campo «${key}» debe ser de tipo ${type}.`);
+   }
+  }
+ }
+ if(node.allowAdditional===false){
+  const known=new Set([...required,...optional,...(isRecord(schema)?Object.keys(schema):[]),...Object.keys(internalState)]);
+  for(const key of Object.keys(data)){
+   if(!known.has(key))errors.push(`El campo «${key}» no está admitido por el contrato.`);
+  }
+ }
+ return {valida:errors.length===0,errores:errors,obligatorios:required,opcionales:optional,admiteCamposExtra:node.allowAdditional!==false};
+}
+function collectGraph(graph) {
+ const ids=new Set(graph.nodes.map(node=>node.id));
+ const roots=graph.nodes.filter(node=>node.kind==='input'),reachable=new Set(),queue=roots.map(node=>node.id);
+ for(let index=0;index<queue.length;index++){
+  const id=queue[index];
+  if(reachable.has(id))continue;
+  reachable.add(id);
+  for(const edge of graph.edges)if(edge.from===id&&ids.has(edge.to)&&!reachable.has(edge.to))queue.push(edge.to);
+ }
+ const detached=graph.nodes.filter(node=>!reachable.has(node.id));
+ const invalidEdges=graph.edges.filter(edge=>!ids.has(edge.from)||!ids.has(edge.to));
+ return {roots,reachable,detached,invalidEdges};
+}
+
+function duplicateEdge(edges){
+ const keys=new Set();
+ return edges.find(edge=>{
+  const key=JSON.stringify([edge.from,edge.when]);
+  if(keys.has(key))return true;
+  keys.add(key);
+  return false;
+ });
+}
+
+function numericValue(value){
+ const number=typeof value==='number'||typeof value==='string'&&value.trim()?Number(value):NaN;
+ return Number.isFinite(number)?number:NaN;
+}
+
+function getPath(obj,path){if(path==='$')return obj;return typeof path==='string'?path.split('.').reduce((value,key)=>value!=null&&Object.hasOwn(value,key)?value[key]:undefined,obj):undefined}
+
+function simulationContext(model,overrides={}){
+ return {model,remaining:100,accepted:[],overrides,subflows:[]};
+}
+function readSimulationStep(step,context){
+ return {...(step.done?step.value:step.value.result),subflows:context.subflows};
+}
+function advanceSimulation(execution,messages){
+ let step=execution.next();
+ for(const response of messages){
+  if(step.done)break;
+  step=execution.next(structuredClone(response));
+ }
+ return step;
+}
+
+function* runGraph(graph,input,context,stack=[],inheritedState){
+ const visited=[],visitedEdges=[];
+ const failure=error=>({input,output:{},visited,visitedEdges,error,completed:false,pending:false});
+ const audit=collectGraph(graph);
+ if(audit.roots.length!==1)return failure('El flujo debe tener exactamente una entrada principal.');
+ if(audit.invalidEdges.length)return failure(audit.invalidEdges.length===1?
+  'El flujo contiene una conexión a bloques inexistentes.':'El flujo contiene conexiones a bloques inexistentes.');
+ const duplicate=duplicateEdge(graph.edges);
+ if(duplicate)return failure(`El bloque «${duplicate.from}» tiene más de una conexión para la ruta «${duplicate.when}».`);
+ if(!isRecord(input))return failure('La entrada debe ser un objeto JSON.');
+ const root=audit.roots[0],initial=structuredClone(input);
+ const validation=validateInput(root,initial,inheritedState);validation.valid=validation.valida;
+ const requestDemo=context.model.requestDemo??(context.model.id==='solicitudes-demo'||
+  !context.model.id&&context.model.nodes.some(node=>node.id==='n-in'&&messageFields(node.requiredFields).includes('idSolicitud')));
+ const requestState=requestDemo?{
+  intentosSinIdentificacion:0,
+  idSolicitudEnCurso:stack.length?initial.idSolicitudEnCurso??initial.idSolicitud:initial.idSolicitud
+ }:{};
+ const internalState={...requestState,estadoConversacion:'activa',turnosUsuario:1,...inheritedState};
+ let current=root,sessionData={...initial},latestUserMessage=initial,error=null,completed=false;
+ const flowData=Object.create(null),seen=new Set();
+ const values=()=>({...sessionData,...flowData,...internalState});
+ function result(pending=false){
+  const state={...internalState};
+  if(pending)state.estadoConversacion='esperando_respuesta';
+  return {input:initial,output:{initialUserMessage:initial,latestUserMessage,internalState:state,flowData:{...flowData}},
+   visited,visitedEdges,error,completed,pending,validation};
+ }
+ function receive(response){
+  latestUserMessage=response;
+  sessionData={...sessionData,...response};
+  internalState.turnosUsuario++;
+  seen.clear();
+ }
+ function* applySubflow(node,data){
+  const block=node.kind==='custom'?context.model.blockDefinitions.find(item=>item.id===node.blockId):null;
+  if(node.kind==='custom'&&!block)return 'El bloque del proyecto no tiene definición.';
+  const flow=(context.model.subflows||[]).find(item=>item.id===node.subflowId);
+  if(node.kind==='subflow'&&!flow)return 'El bloque no tiene un subflujo asociado.';
+  const name=flow?.name||block?.name||node.title;
+  const required=[...new Set([...(block?.requiredInputs||block?.inputs||[]),...(flow?.inputs||[])])];
+  const missing=required.filter(field=>{
+   const value=getPath(data,field);
+   return value===undefined||value===null||typeof value==='string'&&!value.trim();
+  });
+  if(missing.length)return 'Contrato de '+name+': faltan entradas requeridas: '+missing.join(', ')+'.';
+  let output;
+  if(flow){
+   if(stack.includes(flow.id)||stack.length>=12)return 'El subflujo «'+name+'» vuelve a llamarse a sí mismo o supera el límite de anidación.';
+   const trace={id:flow.id,name,visited:[],visitedEdges:[],overridden:Object.hasOwn(context.overrides,flow.id)};
+   context.subflows.push(trace);
+   if(trace.overridden)output=structuredClone(context.overrides[flow.id]);
+   else{
+    let accepted=context.accepted.length;
+    const childGraph=flow.graph||starterGraph(flow,block?.simulation||node.simulatedOutput,context.model);
+    const execution=runGraph(childGraph,data,context,[...stack,flow.id],internalState);
+    let step=execution.next();
+    function recordChild(child){
+     trace.visited=child.visited;
+     trace.visitedEdges=child.visitedEdges;
+     while(accepted<context.accepted.length)receive(context.accepted[accepted++]);
+    }
+    while(!step.done){
+     recordChild(step.value.result);
+     const response=yield {waitNode:step.value.waitNode,result:result(true)};
+     step=execution.next(response);
+    }
+    const child=step.value;
+    recordChild(child);
+    if(child.error)return 'Subflujo «'+name+'»: '+child.error;
+    if(!child.completed)return 'El subflujo «'+name+'» no llegó a una salida.';
+    output=child.output.flowData;
+   }
+   trace.output=output;
+  }else output=structuredClone(block?.simulation||{});
+  if(!isRecord(output))return 'Contrato de '+name+': el resultado simulado debe ser un objeto.';
+  const declared=[...new Set([...(block?.outputs||[]),...(flow?.outputs||[])])];
+  const missingOutputs=declared.filter(field=>getPath(output,field)===undefined);
+  if(missingOutputs.length)return 'Contrato de '+name+': faltan salidas declaradas: '+missingOutputs.join(', ')+'.';
+  Object.assign(flowData,output);
+  return null;
+ }
+ if(!validation.valida){
+  visited.push(root.title);
+  error='Entrada no válida: '+validation.errores.join(' ');
+  return result();
+ }
+ while(current&&context.remaining>0){
+  context.remaining--;
+  const signature=JSON.stringify([current.id,internalState,flowData]);
+  if(seen.has(signature)){error='Se detectó un ciclo sin progreso; revisar la condición de salida.';break;}
+  seen.add(signature);visited.push(current.title);
+  let branch='next';
+  const data=values();
+  if(current.kind==='condition'){
+   const value=getPath(data,current.field);
+   const yes=current.operator==='present'?value!==undefined&&value!==null&&String(value).trim()!=='':
+    current.operator==='contains'?String(value??'').includes(current.value):
+    current.operator==='gte'?numericValue(value)>=numericValue(current.value):String(value)===String(current.value);
+   branch=yes?'yes':'no';
+  }else if(current.kind==='switch'){
+   const value=String(getPath(data,current.field)??'');
+   branch=(current.options||[]).includes(value)?'case:'+value:'default';
+  }else if(current.kind==='subflow'||current.kind==='custom'){
+   error=yield* applySubflow(current,data);
+   if(error)break;
+  }else if(current.kind==='operation'||current.kind==='output'){
+   const field=current.field||(requestDemo?'intentosSinIdentificacion':'contador');
+   if(current.kind==='operation'&&current.action==='incrementCounter')internalState[field]=(Number(internalState[field])||0)+1;
+   else if(current.kind==='operation'&&current.action==='resetCounter')internalState[field]=0;
+   else if(current.simulatedOutput!==undefined){
+    if(!isRecord(current.simulatedOutput)){error='Los datos simulados deben ser un objeto JSON.';break;}
+    Object.assign(flowData,structuredClone(current.simulatedOutput));
+   }
+   if(current.kind==='output'){
+    if(current.message)flowData.respuesta=current.message;
+    if(current.outputStatus)internalState.estadoConversacion=current.outputStatus;
+    if(!graph.edges.some(edge=>edge.from===current.id)){
+     if(!current.outputStatus&&!requestDemo)internalState.estadoConversacion='completada';
+     completed=true;
+     break;
+    }
+   }
+  }else if(current.kind==='wait'){
+   const response=yield {waitNode:current,result:result(true)};
+   if(!isRecord(response)){error='La respuesta del usuario debe ser un objeto JSON.';break;}
+   const replyValidation=validateInput(current,response);
+   if(!replyValidation.valida){error='Respuesta no válida: '+replyValidation.errores.join(' ');break;}
+   context.accepted.push(response);
+   receive(response);
+  }
+  const edge=graph.edges.find(edge=>edge.from===current.id&&edge.when===branch)
+   ||graph.edges.find(edge=>edge.from===current.id&&edge.when==='default');
+  if(!edge){error='El flujo no tiene una salida conectada para la ruta «'+branch+'».';break;}
+  visitedEdges.push(edge.from+'→'+edge.to+':'+edge.when);
+  current=graph.nodes.find(node=>node.id===edge.to);
+ }
+ if(context.remaining<=0&&!completed&&!error)error='La simulación alcanzó el límite de 100 pasos.';
+ return result();
+}
+function* runCanvasGraph(graph,subflow,input,context){
+ if(!subflow)return yield* runGraph(graph,input,context);
+ const missing=(subflow.inputs||[]).filter(field=>{
+  const value=getPath(input,field);return value===undefined||value===null||typeof value==='string'&&!value.trim();
+ });
+ if(missing.length)return {visited:[],output:{},error:'Faltan entradas del contrato: '+missing.join(', ')+'. Edítalas en el bloque de entrada.'};
+ const result=yield* runGraph(graph,input,context,[subflow.id]);
+ if(result.completed){
+  const absent=(subflow.outputs||[]).filter(field=>getPath(result.output.flowData,field)===undefined);
+  if(absent.length){result.completed=false;result.error='Faltan salidas declaradas: '+absent.join(', ')+'.';}
+ }
+ return result;
+}
+
+function simulateGraph(graph,subflow,input,model,messages=[],overrides={}){
+ const context=simulationContext(model,overrides);
+ const execution=runCanvasGraph(graph,subflow,input,context);
+ return readSimulationStep(advanceSimulation(execution,messages),context);
+}
+
+// END SHARED SIMULATION
+
+function simulate(input,followupMessages=[],subflowResults={}){
+ const model=flowChoice?{...project,requestDemo:false}:project;
+ const messages=Array.isArray(followupMessages)?followupMessages:[];
+ return simulateGraph(rootGraph(),null,input,model,messages,subflowResults||{});
+}
+function renderSubflowTraces(runs=[]){
+ return runs.map(run=>`<details class="subflow-trace"><summary>${esc(run.name)}</summary>
+  <p>${run.overridden?'Resultado sustituido por el caso.':esc(run.visited.join(' → '))}</p>
+  ${run.output===undefined?'':`<pre>${esc(JSON.stringify(run.output,null,2))}</pre>`}</details>`).join('');
+}
+function showRun(result,scroll=true){
+ const detached=auditGraph().detached.length;
+ $('#routeText').innerHTML=`<b>Recorrido:</b> ${result.visited.map(esc).join(' → ')||'sin bloques'}
+  ${result.pending?'<br><span class="flow-status warning">Ejecución pendiente: esperando un nuevo mensaje.</span>':''}
+  ${result.error?`<br><span class="fail">${esc(result.error)}</span>`:''}
+  ${detached?`<br><span class="hint">Bloques fuera del recorrido: ${detached}.</span>`:''}
+  ${renderSubflowTraces(result.subflows)}`;
+ $('#resultText').textContent=JSON.stringify(result.output,null,2);
+ if(scroll)$('#runPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function showCanvasRun(session,scroll=true){
+ const waitNode=session.step.done?null:session.step.value.waitNode;
+ $('#followupPanel').hidden=!waitNode;
+ $('#runInputError').hidden=true;
+ if(waitNode){
+  $('#pendingRunNote').textContent=session.restored?'Ejecución pendiente recuperada.':
+   session.storageValue?'Pausa guardada en este navegador. Puedes cerrar la pestaña y volver a abrir el proyecto.':
+   'El navegador no pudo guardar esta pausa. Mantén la pestaña abierta para continuar.';
+  const inputs=[...(waitNode.requiredFields||[]).map(field=>field+' (obligatorio)'),
+   ...(waitNode.optionalFields||[]).map(field=>field+' (opcional)')];
+  $('#followupContract').textContent=inputs.join(' · ');
+  $('#followupInput').value=JSON.stringify(waitNode.example||{},null,2);
+ }
+ renderCanvasHeading();
+ showRun(readSimulationStep(session.step,session.context),scroll);
+}
+function showSimulationInputError(message){
+ const error=$('#runInputError');
+ error.textContent=message;
+ error.hidden=false;
+}
+function readSimulationInput(selector,label){
+ let input;
+ try{input=JSON.parse($(selector).value);}catch{}
+ if(!isRecord(input)){
+  showSimulationInputError(label+' debe ser un objeto JSON válido.');
+  return null;
+ }
+ return input;
+}
+function pendingRunKey(subflowId){
+ const scope=subflowId==null?'main':'subflow:'+encodeURIComponent(subflowId);
+ const flowScope=flowChoice?'flow:'+encodeURIComponent(flowChoice)+':':'';
+ return projectKey(projectChoice)+':pending-run-v1:'+flowScope+scope;
+}
+function createCanvasRun(model,subflowId,input,messages=[]){
+ const subflow=subflowId==null?null:model.subflows.find(item=>item.id===subflowId);
+ if(subflowId!=null&&!subflow?.graph)throw new Error('El lienzo guardado no existe.');
+ const context=simulationContext(model);
+ const execution=runCanvasGraph(subflow?.graph||model,subflow,input,context);
+ const runId=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+ return {runId,input,context,execution,step:advanceSimulation(execution,messages)};
+}
+function matchPendingRun(storageValue){
+ let saved;
+ try{saved=localStorage.getItem(pendingRunKey(currentSubflow()?.id));}catch{return true;}
+ if(saved===(storageValue??null))return true;
+ const latest=restorePendingRun(currentSubflow()?.id,false);
+ canvasRuns.set(activeGraph(),latest);
+ resetCanvasRun();
+ renderCanvasHeading();
+ showSimulationInputError(latest?'La pausa cambió en otra pestaña. Se cargó la más reciente.':
+  'La pausa guardada ya no está disponible.');
+ return false;
+}
+function savePendingRun(session,previousValue){
+ if(!matchPendingRun(previousValue))return false;
+ const storageKey=pendingRunKey(currentSubflow()?.id);
+ session.restored=false;
+ session.storageValue=null;
+ try{
+  if(session.step.done)localStorage.removeItem(storageKey);
+  else{
+   const data=JSON.stringify({runId:session.runId,
+    input:session.input,messages:session.context.accepted,model:session.context.model});
+   localStorage.setItem(storageKey,data);
+   session.storageValue=data;
+  }
+ }catch{
+  // An earlier pause could otherwise restore an out-of-date counter.
+  try{if(localStorage.getItem(storageKey)===(previousValue??null))localStorage.removeItem(storageKey);}catch{}
+ }
+ try{sessionStorage.removeItem(storageKey);}catch{}
+ return true;
+}
+function restorePendingRun(subflowId,allowLegacy=true){
+ const storageKey=pendingRunKey(subflowId);
+ let data,legacy=false;
+ try{data=localStorage.getItem(storageKey);}catch{}
+ if(!data&&allowLegacy){
+  try{data=sessionStorage.getItem(storageKey);legacy=!!data;}catch{}
+ }
+ if(!data)return null;
+ try{
+  const {runId,input,messages,model}=JSON.parse(data);
+  if(!isRecord(input)||!Array.isArray(messages)||messages.length>100||
+   !messages.every(isRecord)||!Array.isArray(model?.nodes)||!Array.isArray(model.edges)||
+   !Array.isArray(model.blockDefinitions)||!Array.isArray(model.subflows))throw new Error('Pausa inválida.');
+  const session=createCanvasRun(model,subflowId,input,messages);
+  if(session.step.done||session.context.accepted.length!==messages.length)throw new Error('La pausa ya no coincide.');
+  if(typeof runId==='string')session.runId=runId;
+  if(legacy){
+   try{
+    if(localStorage.getItem(storageKey))return restorePendingRun(subflowId,false);
+    localStorage.setItem(storageKey,data);
+   }catch{return {...session,restored:true};}
+  }
+  try{sessionStorage.removeItem(storageKey);}catch{}
+  return {...session,storageValue:data,restored:true};
+ }catch{
+  try{
+   const storage=legacy?sessionStorage:localStorage;
+   if(storage.getItem(storageKey)===data)storage.removeItem(storageKey);
+  }catch{}
+  notify('No se pudo recuperar la ejecución pendiente.');
+  return null;
+ }
+}
+function getCanvasRun(){
+ const graph=activeGraph();
+ if(!canvasRuns.has(graph))canvasRuns.set(graph,restorePendingRun(currentSubflow()?.id));
+ return canvasRuns.get(graph);
+}
+function currentSimulationModel(){
+ const graph=rootGraph();
+ return structuredClone({nodes:graph.nodes,edges:graph.edges,
+  requestDemo:project.id==='solicitudes-demo'&&!flowChoice,
+  blockDefinitions:project.blockDefinitions,subflows:project.subflows});
+}
+$('#runDefault').onclick=()=>{
+ const previousValue=getCanvasRun()?.storageValue;
+ if(!matchPendingRun(previousValue))return;
+ const input=readSimulationInput('#runInput','La entrada inicial');
+ if(!input)return;
+ // A suspended run keeps the graph and contracts it started with.
+ const session=createCanvasRun(currentSimulationModel(),currentSubflow()?.id,input);
+ if(!savePendingRun(session,previousValue))return;
+ canvasRuns.set(activeGraph(),session);
+ showCanvasRun(session);
+};
+$('#resumeRun').onclick=()=>{
+ const session=getCanvasRun();
+ if(!session||session.step.done)return;
+ const previousValue=session.storageValue;
+ if(!matchPendingRun(previousValue))return;
+ const input=readSimulationInput('#followupInput','El siguiente mensaje');
+ if(!input)return;
+ const validation=validateInput(session.step.value.waitNode,input);
+ if(!validation.valida){
+  showSimulationInputError('Mensaje no aceptado. '+validation.errores.join(' '));
+  return;
+ }
+ session.step=session.execution.next(input);
+ if(!savePendingRun(session,previousValue))return;
+ showCanvasRun(session);
+};
+
+function previewStatus(message,canApply=false,canRetry=false){
+ if(projectChoice){
+  message='Proyecto de esta vista · Exporta su HTML para conservarlo fuera de esta sesión.';
+  canApply=false;
+  canRetry=false;
+ }
+ const status=$('#livePreviewStatus');
+ if(status.textContent!==message)status.textContent=message;
+ $('#applyProjectFile').hidden=!canApply;
+ $('#retryProjectSave').hidden=!canRetry;
+}
+function previewContent(model){
+ return JSON.stringify({...model,storageRevision:undefined,changeHistory:undefined});
+}
+function acceptPreviewRevision(snapshot){
+ previewUpdate.revision=snapshot.revision;
+ previewUpdate.sequence=snapshot.sequence;
+ if(previewUpdate.pending?.sequence<=snapshot.sequence)previewUpdate.pending=null;
+}
+function queuePreviewSave(){
+ if(!previewUpdate?.revision||!previewConfig.save||projectChoice||previewUpdate.pending||previewUpdate.saving||
+    previewContent(project)===previewUpdate.baseline)return;
+ clearTimeout(previewUpdate.saveTimer);
+ previewUpdate.saveTimer=setTimeout(savePreviewEdits,200);
+}
+async function savePreviewEdits(){
+ if(projectChoice||previewUpdate.pending||previewUpdate.saving)return;
+ const content=previewContent(project);
+ if(content===previewUpdate.baseline)return;
+ previewUpdate.saving=true;
+ previewStatus('Vista en vivo · Guardando en el HTML…');
+ let saved=false;
+ try{
+  const response=await fetch(previewConfig.save,{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({revision:previewUpdate.revision,project:{...project,changeHistory:undefined}})
+  });
+  const snapshot=await response.json();
+  if(response.status===409){
+   receivePreviewSnapshot(snapshot);
+  }else if(response.ok){
+   previewUpdate.baseline=content;
+   acceptPreviewRevision(snapshot);
+   if(!projectChoice){
+    project.storageRevision=snapshot.project.storageRevision;
+    project.changeHistory=snapshot.project.changeHistory;
+    persist();
+    if(!$('#changeHistoryModal').hidden)renderChangeHistory();
+   }
+   previewStatus('Vista en vivo · Guardado en el HTML');
+   saved=true;
+  }else{
+   previewStatus('No se pudo guardar el HTML. '+snapshot.error,false,true);
+  }
+ }catch{
+  previewStatus('Se interrumpió el guardado. Tus cambios siguen en el visor.',false,true);
+ }finally{
+  previewUpdate.saving=false;
+  if(previewUpdate.pending)applyPendingPreview();
+  else if(saved)queuePreviewSave();
+ }
+}
+function applyPreviewProject(snapshot){
+ const previousFlow=flowChoice,previousSubflow=currentSubflow()?.id;
+ const frames=canvasStack.slice();
+ const previousRun=getCanvasRun(),initialDraft=$('#runInput').value,followupDraft=$('#followupInput').value;
+ const previousInput=previousRun?.input??activeGraph().nodes.find(node=>node.kind==='input')?.example??{};
+ const hadDraft=initialDraft!==JSON.stringify(previousInput,null,2);
+ previewUpdate.baseline=previewContent(snapshot.project);
+ acceptPreviewRevision(snapshot);
+ project=snapshot.project;
+ if(!project.flows?.some(flow=>flow.id===flowChoice))flowChoice='';
+ canvasStack.length=0;
+ for(const frame of frames){
+  const subflow=subflowById(frame.subflow.id);
+  if(!subflow?.graph||byId(frame.parentSelected)?.subflowId!==subflow.id)break;
+  canvasStack.push({...frame,subflow});
+ }
+ if(!byId(selected))selected=activeGraph().nodes[0]?.id||null;
+ if(previousRun&&flowChoice===previousFlow&&currentSubflow()?.id===previousSubflow){
+  if(previousRun.step.done){
+   const refreshed=createCanvasRun(currentSimulationModel(),previousSubflow,previousRun.input,previousRun.context.accepted);
+   if(savePendingRun(refreshed,previousRun.storageValue))canvasRuns.set(activeGraph(),refreshed);
+  }else canvasRuns.set(activeGraph(),previousRun);
+ }
+ resetCanvasRun();
+ if(hadDraft)$('#runInput').value=initialDraft;
+ if(previousRun&&!previousRun.step.done&&!$('#followupPanel').hidden)$('#followupInput').value=followupDraft;
+ render();
+ renderWorkspace();
+ renderNotes();
+ if(!$('#changeHistoryModal').hidden)renderChangeHistory();
+ previewStatus('Vista en vivo · Actualizado desde el archivo');
+}
+function applyPendingPreview(){
+ clearTimeout(previewUpdate.timer);
+ const snapshot=previewUpdate.pending;
+ if(!snapshot||previewUpdate.saving)return;
+ if(projectChoice){
+  previewStatus();
+  return;
+ }
+ const current=previewContent(project),incoming=previewContent(snapshot.project);
+ if(current===incoming||incoming===previewUpdate.baseline){
+  previewUpdate.baseline=incoming;
+  acceptPreviewRevision(snapshot);
+  project.changeHistory=snapshot.project.changeHistory;
+  persist();
+  if(!$('#changeHistoryModal').hidden)renderChangeHistory();
+  previewStatus('Vista en vivo · Archivo al día');
+  queuePreviewSave();
+ }else if(current!==previewUpdate.baseline){
+  previewStatus('El archivo cambió y tienes ediciones en el visor. Puedes exportarlas antes de aplicar la actualización.',true);
+ }else if(drag||document.activeElement?.matches?.('#inspectorContent input, #inspectorContent textarea, #inspectorContent select, #connectionEditor select')||
+          document.querySelectorAll('.modal-backdrop:not([hidden]):not(#changeHistoryModal)').length){
+  previewUpdate.timer=setTimeout(applyPendingPreview,250);
+ }else{
+  applyPreviewProject(snapshot);
+ }
+}
+function receivePreviewSnapshot(snapshot){
+ if(snapshot.sequence<previewUpdate.sequence||snapshot.sequence<previewUpdate.pending?.sequence)return;
+ previewUpdate.pending=snapshot;
+ applyPendingPreview();
+}
+function startProjectPreview(){
+ $('#livePreview').hidden=false;
+ previewStatus('Conectando la vista en vivo…');
+ previewUpdate={baseline:previewContent(defaults),revision:null,sequence:-1,pending:null,saving:false};
+ const events=new EventSource(previewConfig.events);
+ events.addEventListener('proyecto',event=>receivePreviewSnapshot(JSON.parse(event.data)));
+ events.addEventListener('aviso',event=>previewStatus(JSON.parse(event.data),!$('#applyProjectFile').hidden,!$('#retryProjectSave').hidden));
+ events.addEventListener('error',()=>previewStatus('Reconectando la vista en vivo…',!$('#applyProjectFile').hidden,!$('#retryProjectSave').hidden));
+}
+$('#applyProjectFile').onclick=()=>{
+ if(!projectChoice&&!previewUpdate.saving&&previewUpdate.pending)applyPreviewProject(previewUpdate.pending);
+};
+$('#retryProjectSave').onclick=()=>savePreviewEdits();
+
+function renderChangeHistory(){
+ const list=$('#changeHistoryList');
+ const expanded=new Set([...list.querySelectorAll('details[open]')].map(item=>item.dataset.revision));
+ const history=Array.isArray(project.changeHistory)?project.changeHistory:[];
+ const dateFormat=new Intl.DateTimeFormat('es',{dateStyle:'medium',timeStyle:'medium'});
+ const value=data=>data===undefined?'Sin valor':typeof data==='string'?data:JSON.stringify(data,null,2);
+ list.innerHTML=history.slice().reverse().filter(entry=>entry?.author&&Array.isArray(entry.changes)).map(entry=>{
+  const time=new Date(entry.at);
+  const timeLabel=Number.isNaN(time.getTime())?'Fecha desconocida':dateFormat.format(time);
+  const author=entry.author.name+(entry.author.type==='ai'?' · IA':'');
+  const action=entry.reverts?'redo':'revert';
+  const actionLabel=entry.reverts?'Rehacer cambio':'Revertir cambio';
+  const changes=entry.changes.map((change,index)=>{
+   if(!Array.isArray(change?.path))return '';
+   const path=change.path.join(' › ');
+   let control='';
+   if(previewConfig?.[action]&&!projectChoice){
+    control=change.target?.segments?.length
+     ?`<button class="btn" data-history-action="${action}" data-history-entry="${esc(entry.id)}" data-history-index="${index}" aria-label="${actionLabel} en ${esc(path)}">${actionLabel}</button>`
+     :'<span class="hint">Registro anterior a la función de reversión.</span>';
+   }
+   return `<div class="change-item"><b>${esc(path)}</b><div class="change-values"><div>Antes<pre>${esc(value(change.before))}</pre></div><div>Después<pre>${esc(value(change.after))}</pre></div></div>${control}</div>`;
+  }).join('');
+  const count=entry.changes.length;
+  const reference=entry.redoes||entry.reverts;
+  const original=reference&&history.find(item=>item?.id===reference.entryId);
+  const originalPath=original?.changes?.[reference.changeIndex]?.path;
+  const label=entry.redoes?' · Cambio rehecho':entry.reverts?' · Reversión':'';
+  const relation=entry.redoes?'Rehace el cambio revertido por':'Revierte el cambio de';
+  const link=Array.isArray(originalPath)?`<p class="hint">${relation} ${esc(original.author?.name)} en ${esc(originalPath.join(' › '))}.</p>`:'';
+  return `<article class="case change-revision"><details data-revision="${esc(entry.id)}" ${expanded.has(entry.id)?'open':''}><summary><b>${esc(author)}</b><time datetime="${esc(entry.at)}">${esc(timeLabel)}</time>${label} · ${count} ${count===1?'cambio':'cambios'}</summary>${link}${changes}</details></article>`;
+ }).join('')||'<p class="hint">Todavía no hay cambios registrados en este HTML.</p>';
+}
+$('#changeHistoryButton').onclick=()=>{
+ $('#changeHistoryFeedback').textContent='';
+ renderChangeHistory();
+ modal('changeHistoryModal');
+};
+$('#changeHistoryList').onclick=async event=>{
+ const action=event.target.closest('[data-history-action]');
+ if(!action||projectChoice)return;
+ const redo=action.dataset.historyAction==='redo';
+ const endpoint=redo?previewConfig?.redo:previewConfig?.revert;
+ if(!endpoint)return;
+ const feedback=$('#changeHistoryFeedback');
+ if(!previewUpdate.revision||previewUpdate.saving||previewUpdate.pending||previewContent(project)!==previewUpdate.baseline){
+  feedback.textContent='Resuelve los cambios pendientes antes de actualizar el historial.';
+  return;
+ }
+ previewUpdate.saving=true;
+ action.disabled=true;
+ feedback.textContent=redo?'Guardando el cambio rehecho…':'Guardando la reversión…';
+ try{
+  const response=await fetch(endpoint,{
+   method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({revision:previewUpdate.revision,entryId:action.dataset.historyEntry,changeIndex:Number(action.dataset.historyIndex)})
+  });
+  const snapshot=await response.json();
+  if(response.ok||response.status===409)receivePreviewSnapshot(snapshot);
+  feedback.textContent=response.ok?(redo?'Cambio rehecho y guardado en el HTML.':'Reversión guardada en el HTML.'):response.status===409
+   ?'El HTML cambió. Revisa el historial actualizado antes de volver a intentarlo.':snapshot.error;
+ }catch{
+  feedback.textContent='El visor perdió la conexión antes de confirmar el guardado.';
+ }finally{
+  action.disabled=false;
+  previewUpdate.saving=false;
+  if(previewUpdate.pending)applyPendingPreview();
+ }
+};
+
+function jsonEqual(left,right){
+ if(Object.is(left,right))return true;
+ if(!left||!right||typeof left!=='object'||typeof right!=='object')return false;
+ if(Array.isArray(left)!==Array.isArray(right))return false;
+ if(Array.isArray(left)&&left.length!==right.length)return false;
+ const keys=Object.keys(left);
+ return keys.length===Object.keys(right).length
+  &&keys.every(key=>Object.hasOwn(right,key)&&jsonEqual(left[key],right[key]));
+}
+function expectedCase(testCase){
+ const result=simulate(testCase.input,testCase.followupMessages||[],testCase.subflowResults||{});
+ const actual=getPath(result,testCase.path);
+ const pendingMatches=testCase.pending===undefined||testCase.pending===result.pending;
+ const errorMatches=testCase.expectError?!!result.error:!result.error;
+ return {...testCase,actual,pending:result.pending,expectedPending:testCase.pending,
+  passed:errorMatches&&pendingMatches&&jsonEqual(actual,testCase.expected),
+  acceptedFollowups:Math.max(0,(result.output.internalState?.turnosUsuario??1)-1),
+  visited:result.visited,visitedEdges:result.visitedEdges,subflows:result.subflows,error:result.error};
+}
+function renderCases(){
+ const results=(rootGraph().cases||[]).map(expectedCase);
+ const rows=results.map(result=>{
+  const wait=result.expectedPending===undefined?'':' · Pendiente esperado: '+(result.expectedPending?'sí':'no')+', obtenido: '+(result.pending?'sí':'no');
+  const detail=result.error?' · '+result.error:'';
+  const badge=result.passed?'<span class="ok">Coincide</span>':'<span class="fail">No coincide</span>';
+  const replyCount=result.followupMessages?.length;
+  const replies=replyCount?' · Mensajes posteriores previstos: '+esc(JSON.stringify(result.followupMessages))+
+   '<br>Mensajes posteriores aceptados: '+result.acceptedFollowups+' de '+replyCount:'';
+  return '<article class="case" data-case-id="'+esc(result.id)+'"><b>'+esc(result.name)+' '+badge+'</b>'+
+   '<span>Entrada inicial: '+esc(JSON.stringify(result.input))+replies+
+   '<br>Esperado: '+esc(JSON.stringify(result.expected))+' · Obtenido: '+esc(JSON.stringify(result.actual))+esc(wait+detail)+
+   '<br>Recorrido: '+esc(result.visited.join(' → ')||'sin bloques')+'</span>'+renderSubflowTraces(result.subflows)+'</article>';
+ });
+ $('#caseList').innerHTML=rows.join('')||'<p class="hint">Este flujo aún no tiene casos de ejemplo.</p>';
+ const scope=currentSubflow(),graph=scope?.graph||rootGraph();
+ $('#coverageTitle').textContent='Cobertura de '+(scope?.name||rootName());
+ const counts=new Map();
+ for(const result of results){
+  const visits=scope?result.subflows.filter(trace=>trace.id===scope.id).flatMap(trace=>trace.visitedEdges):result.visitedEdges;
+  for(const visited of new Set(visits))counts.set(visited,(counts.get(visited)||0)+1);
+ }
+ $('#pathCoverage').innerHTML=graph.edges.map(edge=>{
+  const key=edge.from+'→'+edge.to+':'+edge.when,count=counts.get(key)||0;
+  const from=esc(byId(edge.from,graph)?.title||edge.from),to=esc(byId(edge.to,graph)?.title||edge.to);
+  const badge=count?'<span class="ok">Cubierto por '+count+' caso'+(count===1?'':'s')+'</span>':'<span class="fail">Sin caso de ejemplo</span>';
+  return '<article class="case"><b>'+from+' → '+to+' '+badge+'</b><span>Ruta: '+esc(edge.when)+'</span></article>';
+ }).join('')||'<p class="hint">No hay conexiones para verificar.</p>';
+}
+$('#casesButton').onclick=()=>{renderCases();modal('casesModal')};$('#runCases').onclick=()=>{renderCases();const results=(rootGraph().cases||[]).map(expectedCase);notify(`${results.filter(r=>r.passed).length} de ${results.length} casos coinciden.`)};
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+$('#exportJsonButton').onclick=()=>download(project.id+'.json',JSON.stringify(project,null,2),'application/json');
+function setZoom(value,refresh=true) {
+ zoom=Math.max(.5,Math.min(1.6,value));
+ $('#canvas').style.transform='scale('+zoom+')';
+ $('#zoomLevel').textContent=Math.round(zoom*100)+'%';
+ if(refresh){renderEdges();persist();}
+}
+if(typeof ResizeObserver==='function'){
+ const viewportResize=new ResizeObserver(renderEdges);
+ viewportResize.observe($('#viewport'));
+}
+$('#zoomOut').onclick=()=>setZoom(zoom-.1);$('#zoomIn').onclick=()=>setZoom(zoom+.1);$('#fit').onclick=()=>{setZoom(1);$('#viewport').scrollTo({left:0,top:0,behavior:'smooth'})};
+$('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('#workArea').requestFullscreen()}catch{notify('La pantalla completa no está disponible en este navegador.')}};
+document.addEventListener('fullscreenchange',()=>{const active=!!document.fullscreenElement;$('#fullscreen').title=active?'Salir de pantalla completa':'Pantalla completa';$('#fullscreen').setAttribute('aria-label',$('#fullscreen').title)});
+function renderNotes(){$('#noteLayer').innerHTML=(activeGraph().notes||[]).map((note,index)=>`<section class="project-note" style="left:${Number(note.x)||30}px;top:${Number(note.y)||25}px;width:220px;height:140px"><b>Nota ${index+1}</b><textarea data-note="${esc(note.id)}" aria-label="Comentario de la nota">${esc(note.text||'')}</textarea></section>`).join('')}
+$('#addNote').onclick=()=>{if(!activeGraph().notes)activeGraph().notes=[];const note={id:'note-'+Math.random().toString(36).slice(2,8),x:30+activeGraph().notes.length*24,y:24+activeGraph().notes.length*24,text:''};activeGraph().notes.push(note);persist();renderNotes();notify('Nota agregada; escribe el comentario en el lienzo.')};
+$('#noteLayer').addEventListener('input',event=>{const id=event.target.dataset.note,note=(activeGraph().notes||[]).find(item=>item.id===id);if(note){note.text=event.target.value;persist()}});
+$('#exportHtmlButton').onclick=()=>{const snapshot={...project,storageRevision:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)};const dataTag='<script id="projectData" type="application/json">'+JSON.stringify(snapshot).replace(/</g,'\\u003c')+'<'+'/script>';const html=projectMarkup.replace(/<script id="projectData" type="application\/json">[\s\S]*?<\/script>/,()=>dataTag);download(project.id+'.html','<!doctype html>\n'+html,'text/html;charset=utf-8');notify('Proyecto HTML exportado con sus flujos, bloques, casos y notas.')};
+$('#clearSelection').onclick=()=>{selected=null;renderInspector()};
+ if(!openProject(previewConfig?'':readStorage(defaultKey+':active-project')||''))openProject('');
+ if(previewConfig)startProjectPreview();
+})();
+</script></body></html>
+
